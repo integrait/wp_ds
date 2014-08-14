@@ -70,6 +70,11 @@ global $woocommerce; ?>
 
             <?php do_action( 'woocommerce_register_form_start' ); ?>
 
+            <p class="form-row form-row-wide">
+                <label for="reg_institution"><?php _e( 'Name of Institution', 'yit' ); ?> <span class="required">*</span></label>
+                <input type="text" class="input-text" name="institution" id="reg_institution" value="<?php if (isset($_POST['institution'])) echo esc_attr($_POST['institution']); ?>" />
+            </p>
+
             <?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
 
                 <p class="form-row form-row-first">
@@ -88,7 +93,18 @@ global $woocommerce; ?>
                 <label for="reg_email"><?php _e( 'Email', 'yit' ); ?> <span class="required">*</span></label>
                 <input type="email" class="input-text" name="email" id="reg_email" value="<?php if (isset($_POST['email'])) echo esc_attr($_POST['email']); ?>" />
             </p>
-
+            <p class="form-row form-row-wide">
+                <label for="reg_usertype"><?php _e( 'Register as:', 'yit' ); ?> <span class="required">*</span></label>
+                <select name="usertype" id="reg_usertype">
+                    <option value="pharmacy" >Pharmacy</option>
+                    <option value="clinic">Clinic</option>
+                    <option value="hospital">Hospital</option>
+                </select> 
+            </p>
+            <p class="form-row form-row-wide">
+                <label for="reg_phonenumber"><?php _e( 'Phone Number', 'yit' ); ?> <span class="required">*</span></label>
+                <input type="text" class="input-text " name="reg_phonenumber" id="billing_phone" placeholder="" value="<?php if (isset($_POST['phonenumber'])) echo esc_attr($_POST['phonenumber']); ?>"> 
+            </p>
             <div class="clear"></div>
 
             <?php if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) : ?>
