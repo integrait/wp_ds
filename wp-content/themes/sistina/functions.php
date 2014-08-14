@@ -18,3 +18,5 @@ require_once('core/load.php');
 //---------------------------------------------
 // Everybody changes above will lose his hands
 //---------------------------------------------
+
+require_once('drugstoc/functions.php');

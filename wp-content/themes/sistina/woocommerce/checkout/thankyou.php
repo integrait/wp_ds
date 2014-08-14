@@ -33,7 +33,7 @@ global $woocommerce;
         </p>
 
     <?php else : ?>
-
+        <!-- :::Send Email and SMS Notification here::: -->
         <p><?php _e('Thank you. Your order has been received.', 'yit'); ?></p>
 
         <table class="shop_table thankyou">
