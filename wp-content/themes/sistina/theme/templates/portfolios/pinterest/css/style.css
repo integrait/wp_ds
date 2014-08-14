@@ -1,0 +1,79 @@
+.portfolio-pinterest h2 {
+    font-size: 18px;
+    color: #fff;
+    padding: 0 10px;
+    margin-top: 15%;
+    text-align: center;
+}
+
+.portfolio-pinterest .description {
+    text-align: center;
+}
+
+.portfolio-pinterest span.categories {
+    padding-left: 0;
+    background: none;
+}
+
+.portfolio-pinterest .yit_item span.categories img {
+    display: none;
+}
+
+.portfolio-pinterest span.detail {
+    background: url('../images/detail.png') no-repeat center;
+    display: block;
+    width: 43px;
+    height: 43px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+@media (min-width: 1200px){
+    .portfolio-pinterest .yit_item{margin-bottom: 30px;}
+
+    .portfolio-pinterest span.categories {
+        display: inline-block;
+        line-height: 30px;
+        margin-top: 0;
+    }
+
+    .portfolio-pinterest .yit_item span.categories img {
+        max-width: none;
+        margin-right: 5px;
+        display: inline-block;
+
+        -moz-transform: none;
+        -webkit-transform: none;
+        -o-transform: none;
+        -ms-transform: none;
+        transform: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .portfolio-pinterest h2 {
+        font-size: 14px;
+        margin-top: 5%;
+    }
+
+    .portfolio-pinterest span.categories {
+        font-size: 12px;
+        padding-left: 0;
+        background: none;
+    }
+
+    .portfolio-pinterest span.detail {
+        width: 22px;
+        height: 22px;
+        background-size: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolio-pinterest .span3 {
+        width: auto;
+        margin-right: 20px;
+    }
+}

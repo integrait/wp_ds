@@ -1,0 +1,557 @@
+--------------- VER 1.6.0 - Released Aug 8, 2014 ---------------
+Fixed: _sendEmail function known bugs
+Fixed: New google maps urls
+Fixed: Bug on 'show_products' pagination
+Fixed: Font size min limit on theme option
+Fixed: Incorrect closing tag on nl_NL translation file cause redirect to external link
+Fixed: Notice in empty categories
+Fixed: Incorrect image size for og:image tag, that prevent facebook to show the image when the post is shared
+Fixed: Missed og:description tag
+Fixed: Inconsistencies between cart-total.php theme version and original wc file
+Fixed: Username is required during checkout and multistep active
+Fixed: Incorrect excerpt on single blog if the layout is set to small image
+Fixed: Position conflict on admin menu with Contact Form when the CF7 is active. Added filter yit_contact_form_menu_position for other plugin conflicts
+Fixed: Featured product image missed on lightbox gallery
+Fixed: Font class generate notice during load options font
+Fixed: Yith Ajax Navigation loose toggle button after filter
+Fixed: Product slider Margin Left during slide
+Fixed: Rich Snippet date format and Breadcrumb
+Fixed: Tabs Title translation
+Fixed: variable.php deprecated woocommerce function
+Fixed: Incorrect margin on multistep checkout page
+Fixed: Hidden Wp Admin Bar on frontend when the option is active
+Fixed: Incorrect floating for product category shortcode on hover state
+Fixed: Double spinner for number input element on firefox
+Fixed: Image menu-shadow not found on console. No longer exists on wordpress
+Fixed: Woocommerce Settings Shipping to billing
+Fixed: Template look wrong after user change shipping option in cart
+Fixed: Wpml, in Text Image and Text icon widget body text was not translated
+Fixed: Wpml Added Label after "add to cart" was not translated
+Fixed: Wpml Cta fields are now translated
+Added: Support for WooCommerce 2.1.12
+Added: Recaptcha to Contact Forms
+Added: Redirect to checkout after add to cart option on Shop General
+Added: Option to show or hide wp admin bar for customers
+Added: Plugin Visibility Option compatibility
+Added: Welcome User name take from user info or billing information
+Updated: Revolution slider to version 4.5.95
+
+UPDATED:
+ChangeLog.txt
+style.css
+wpml-config.xml
+core/assets/css/panel.css
+core/assets/js/yit/jquery.yit_checkout.js
+core/lib/vendors/recaptcha/recaptchalib.php
+core/templates/admin/panel/menu.php
+core/widgets/icon_text.php
+core/yit/Submenu/Tabs/Maintenance/Maintenance_Container.php
+core/yit/Submenu/Tabs/Maintenance/Maintenance_Newsletter.php
+core/yit/Submenu/Tabs/Splash/Custom_Splash_Container.php
+core/yit/Submenu/Tabs/Theme_option/Pages_Typography.php
+core/yit/Submenu/Tabs/Theme_option/Portfolios_Typography.php
+core/yit/Submenu/Tabs/Theme_option/Testimonials_Typography.php
+core/yit/Submenu/Tabs/Theme_option/Typography_Navigation.php
+core/yit/Contact_Form.php
+core/yit/CPT_Unlimited.php
+core/yit/Font.php
+core/functions-template.php
+js/jquery.custom.js
+languages/nl_NL.mo
+languages/nl_NL.po
+theme/assets/css/shortcodes.css
+theme/assets/js/unminified/woocommerce.js
+theme/assets/js/woocommerce.js
+theme/panel/theme-options/general-settings.php
+theme/plugins/revslider.zip
+theme/templates/blog/small-image/markup.php
+theme/templates/header/map.php
+theme/templates/header/page-meta.php
+theme/templates/header/welcome.php
+theme/templates/shortcodes/show_products.php
+theme/widgets/cta.php
+theme/widgets/text_image.php
+theme/yit/Submenu/Tabs/Theme_option
+theme/yit/Submenu/Tabs/Theme_option/Shop_General_settings.php
+theme/yit/Contact_Form.php
+theme/functions-template.php
+theme/functions-theme.php
+theme/hooks.php
+theme/shortcodes-woocommerce.php
+theme/woocommerce.php
+woocommerce/cart/cart-empty.php
+woocommerce/cart/cart-shipping.php
+woocommerce/cart/cart-totals.php
+woocommerce/cart/cart.php
+woocommerce/cart/mini-cart.php
+woocommerce/checkout/cart-errors.php
+woocommerce/checkout/form-billing.php
+woocommerce/checkout/form-checkout-multistep.php
+woocommerce/checkout/form-checkout.php
+woocommerce/checkout/form-login.php
+woocommerce/checkout/form-pay.php
+woocommerce/checkout/form-payment.php
+woocommerce/checkout/form-shipping.php
+woocommerce/checkout/review-order.php
+woocommerce/checkout/thankyou.php
+woocommerce/global/sidebar.php
+woocommerce/global/wrapper-end.php
+woocommerce/global/wrapper-start.php
+woocommerce/images/bullets/added.png
+woocommerce/myaccount/form-login.php
+woocommerce/single-product/add-to-cart/simple.php
+woocommerce/single-product/add-to-cart/variable.php
+woocommerce/single-product/tabs/tabs.php
+woocommerce/single-product/product-image.php
+woocommerce/single-product/product-thumbnails.php
+woocommerce/single-product/review.php
+woocommerce/content-single-product.php
+woocommerce/style.css
+
+--------------- VER 1.5.0 - Released Apr, 17 - 2014 ---------------
+Added: Support to WP 3.9
+Added: Support to WooCommerce 2.1.7
+Fixed: Style on grouped productss
+Fixed: File not found error because missing review icon
+Fixed: Strings not translatable
+
+UPDATED:
+sistina-child/style.css
+theme/woocommerce.php
+theme/assets/sample-data/sistina.gz
+theme/plugins/revslider.zip
+core/lib/yit/Type/Types/Textareaeditor.php
+woocommerce/style.css
+woocommerce/single-product/add-to-cart/grouped.php
+woocommerce/cart/cart-shipping.php
+woocommerce/cart/cart-totals.php
+woocommerce/checkout/form-pay.php
+woocommerce/checkout/form-place-order.php
+woocommerce/myaccount/form-login.php
+woocommerce/myaccount/my-account.php
+style.css
+
+--------------- VER 1.4.1 - Released Mar, 20 - 2014 ---------------
+Added: Support to WooCommerce 2.1.5
+Updated: Revolution Slider 4.3
+Fixed: Term Conditions in Woocommerce 2.1.3
+Fixed: Required checkbox in contact page
+Fixed: Wrong vertical direction of carousel on Magnifier
+Fixed: Grouped Products in 2.1.x
+Fixed: Bug in thumbnails gallery under main product image
+Fixed: Product Slider Order by Price
+Fixed: Image catalog options disappeared from 2.1.x versions of woocommerce plugin
+
+UPDATED
+theme/plugins/revslider.zip
+theme/templates/header/welcome.php
+theme/templates/shortcodes/products_slider.php
+theme/woocommerce.php
+theme/yit/Contact_Form.php
+theme/assets/js/unminified/yit/jquery.layout.js
+theme/assets/js/yit/jquery.layout.js
+theme/templates/header/search.php
+woocommerce/checkout/form-checkout-multistep.php
+woocommerce/single-product/add-to-cart/grouped.php
+woocommerce/single-product/product-image-magnifier.php
+woocommerce/single-product/product-image.php
+woocommerce/single-product/product-thumbnails.php
+woocommerce/style.css
+woocommerce/single-product/product-attributes.php
+woocommerce/checkout/form-place-order.php
+woocommerce_2.0.x/single-product/product-image-magnifier.php
+woocommerce_2.0.x/cart/mini-cart.php
+core/yit/Shortcodes.php
+core/yit/Contact_Form.php
+
+------------------ VER 1.4.0 ---------------
+Added: Support to WooCommerce 2.1.x
+Fixed: Megamenu external custom images
+Fixed: Thumbnail Slider
+Fixed: Custom Post Type sorting
+Fixed: 404 error in admin lightbox for shortcodes
+
+UPDATED
+core/assets/js/yit/jquery.yit_checkout.js
+core/assets/js/unminified/yit/jquery.yit_checkout.js
+core/functions-core.php
+core/yit/Panel.php
+core/assets/css/panel.css
+core/templates/admin/panel/notifier.php
+core/yit/Notifier.php
+core/yit/TinyMCE.php
+core/yit/CPT_Unlimited.php
+core/functions-core.php
+core/lib/yit/Walker/Walker_Nav_Menu.php
+languages/*
+sistina-child/*
+theme/woocommerce.php
+theme/widgets/YIT_Widget_Cart.php
+theme/widgets/Yit_Widget_Cart.php
+theme/assets/css/widgets.css
+theme/assets/sample-data/sistina.gz
+theme/assets/sample-data/sistina_woo_2.0.x.gz
+theme/templates/header/welcome.php
+theme/templates/shortcodes/products_categories.php
+theme/templates/shortcodes/products_categories_slider.php
+theme/templates/shortcodes/products_slider.php
+theme/templates/shortcodes/show_products.php
+theme/widgets/YIT_Widget_Best_Sellers.php
+theme/assets/js/yit/jquery.layout.js
+theme/templates/portfolios/columns/markup.php
+theme/templates/portfolios/full-description/loop.php
+theme/templates/portfolios/pinterest/markup.php
+core/templates/admin/tinymce/lightbox.php
+theme/templates/sliders/thumbnails/slider.php
+theme/yit/Submenu/Tabs/Theme_option/Shop_Products_page.php
+woocommerce/*
+woocommerce_2.0.x/*
+index.php
+style.css
+
+------------------ VER 1.3.0 ---------------
+Added: Compatibility to WordPress 3.8
+Added: support to FB Connect free plugin and integrated with the theme
+Added: Youtube & Vimeo social icon
+Added: View Cart Button in Mini Cart
+Updated: Revolution Slider Vers. 4.1.1
+Updated: Languages files
+Fixed: Performance improved
+Fixed: Search filters when using multiple post types
+Fixed: Slider and header fixed image are used correctly on pages
+Fixed: Mobile Menu on Android/Iphone
+Fixed: Shortcodes product_categories and product_categories_slider order options
+Fixed: Woocommerce Error on failed login
+Remove: Yahoo Video Shortcodes
+
+UPDATED
+cache/google_fonts.json
+core/assets/css/shortcodes.css
+core/metaboxes.php
+core/templates/shortcodes/yahoo.php
+core/yit/Shortcodes.php
+core/assets/css/tinymce.css
+css/responsive.css
+core/assets/css/metaboxes.css
+core/assets/css/panel.css
+core/lib/yit/Type/Types/Selecticon.php
+core/yit/CPT_Unlimited.php
+core/yit/Faq.php
+core/yit/Services.php
+core/yit/Testimonial.php
+core/functions-core.php
+core/yit/Css.php
+core/yit/Image.php
+images/icons/socials/socials.png
+images/icons/socials-fade/socials-fade.png
+images/icons/socials-fade-small/socials-fade-small.png
+images/icons/socials-small/socials-small.png
+languages/*
+sistina-child/style.css
+theme/assets/css/shortcodes.css
+theme/shortcodes-woocommerce.php
+theme/shortcodes.php
+theme/templates/shortcodes/products_categories.php
+theme/templates/shortcodes/products_categories_slider.php
+theme/templates/sliders/thumbnails/slider.php
+theme/assets/images/fblogin_bg.png
+theme/assets/images/fblogin_icon.png
+theme/assets/images/fblogin_icon2.png
+theme/plugins.php
+theme/yit/Splash.php
+theme/yit/Faq.php
+theme/yit/Logo.php
+theme/templates/header/slider.php
+theme/widgets/text_image.php
+theme/yit/Popup.php
+theme/functions-theme.php
+theme/hooks.php
+theme/plugins/revslider.zip
+woocommerce/single-product/price.php
+woocommerce/style.css
+woocommerce/myaccount
+woocommerce/myaccount/form-login.php
+woocommerce/myaccount/my-account.php
+woocommerce/single-product/socials.php
+style.css
+
+
+------------------ VER 1.2.1 ---------------
+Added: Filter yit_is_retina_active
+Added: Filter yit_upsell_title_text
+Added: Partial italian translation by aaduasio
+Fixed: Removed woocommerce language domain in some files
+Fixed: Firefox error with the top cart product thumbnail
+Fixed: Cart icon on products with hover was moving wrongly on Chrome
+Fixed: Language files supported also in the child theme
+Fixed: double widget arrow
+Fixed: Possible error with French and other translations
+Fixed: Slider support for shop categories pages
+Fixed: Copyright text break words correctly
+Fixed: Login dropdown box hidden on mobiles
+
+UPDATED
+
+core/functions-core.php
+core/lib/yit/Type/Types/Bgpreview.php
+core/lib/yit/Type/Types/Typography.php
+core/load.php
+core/templates/admin/metaboxes/types/images.php
+core/yit/Image.php
+languages/it_IT.mo
+languages/it_IT.po
+sistina-child/style.css
+style.css
+theme/assets/js/unminified/woocommerce.js
+theme/assets/js/woocommerce.js
+theme/templates/header/slider.php
+theme/templates/header/welcome.php
+woocommerce/admin/custom-onsale.php
+woocommerce/cart/cart-empty.php
+woocommerce/cart/mini-cart.php
+woocommerce/cart/shipping-methods.php
+woocommerce/checkout/form-payment.php
+woocommerce/content-single-product.php
+woocommerce/shop/breadcrumb.php
+woocommerce/single-product/add-to-cart/grouped.php
+woocommerce/single-product/add-to-cart/quantity.php
+woocommerce/single-product/add-to-cart/simple.php
+woocommerce/single-product/add-to-cart/variable.php
+woocommerce/single-product/product-attributes.php
+woocommerce/single-product/review.php
+woocommerce/single-product/up-sells.php
+woocommerce/style.css
+
+------------------ VER 1.2.0 ---------------
+Added: Ability to add link in the thumbnails
+Added: FlexSlider ControlNav Option
+Added: Filter yit_welcome_username
+Added: Dutch translation by Arvid de Jong
+Added: German translation by zon3y
+Added: Partial spanish translation by percywllc
+Added: Email share on single product page now support subject and content automatically
+Added: Linkedin social icon
+Added: credit_card shortcode in the Shortcode Manager
+Added: Classes for-logged-in and for-logged-out supported in the main menu to hide items for logged in/out users
+Added: %sku% variable in contact forms
+Added: Filter yit_main_nav_depth
+Added: 'yit_share_email' filter in single-product socials
+Added: Filters on heading options
+Added: Option to change the single product page price typography
+Added: 'yit_cart_widget_label' filter in YIT_Widget_Cart
+Fixed: Style and position of Cross-Sells products in the cart page
+Fixed: Container width on resize on firefox
+Fixed: Missing alt attribute in the images
+Fixed: Vertical align wishlist and compare button with Firefox
+Fixed: Image bug in [image] lightbox shortcode
+Fixed: Bug Show Products "Best Sellers"
+Fixed: getimagesize() warning error
+Fixed: Toggle shortcode style when inside tabs shortcode
+Fixed: "Enquiry" to "Inquiry"
+Fixed: Sort by price in Show Products shortcode
+Fixed: Product title in the cart dropdown
+Fixed: Custom CSS fonts working with SSL
+Fixed: General buttons colors options
+Fixed: Payment method title in the checkout hidden when the payment is not needed
+Fixed: Cart sidebar hidden if there's not the shipping calculator and the coupons form
+Fixed: "Get Notify" translation
+Fixed: alt and title attributes for the images when generated by the theme
+Fixed: green button "added" on the shop page
+Fixed: On/Off options was not working in the Shortcode Manager
+Fixed: External "Add to Cart" button text is no longer handled by the theme option
+Fixed: Megamenu in the skin 2
+Fixed: Text position in the search button
+Fixed: CPT Unlimited show items in descending order
+Fixed: Languages files loading from the child theme
+Fixed: Product image hover switcher
+Fixed: WooCommerce responsive style
+Fixed: Single product price removed correctly if the option is OFF
+Fixed: WPML String Translation support. Added some strings to the XML file
+Fixed: Widgets list icon position
+Fixed: Featured Products widget
+Fixed: Wrong product columns when there's a features tab in the same page
+Fixed: Comments/Reviews title icon wrong when the title is on two lines
+Fixed: Blog titles and archives titles when using pinterest style
+Fixed: Checkout classic shows a "<- Payment method" button
+Fixed: Product title maximum width
+Removed: Header sidebar
+Removed: Header cart icon option
+
+UPDATED
+
+languages/de_DE.mo
+languages/de_DE.po
+languages/default.po
+languages/es_ES.mo
+languages/es_ES.po
+languages/uk_UA.mo
+languages/uk_UA.po
+languages/yit.pot
+style.css
+theme/shortcodes.php
+theme/templates/shortcodes/image.php
+ChangeLog.txt
+theme/yit/Submenu/Tabs/Theme_option/Shop_Typography.php
+css/responsive.css
+theme/woocommerce.php
+woocommerce/style.css
+core/templates/admin/tinymce/lightbox.php
+theme/plugins.php
+theme/templates/sliders/flexslider/slider.php
+theme/templates/sliders/thumbnails/config.php
+theme/templates/sliders/flexslider/config.php
+theme/templates/sliders/flexslider/css/slider.css
+theme/templates/shortcodes/show_products.php
+woocommerce/checkout/form-place-order.php
+index.php
+theme/templates/header/page-meta.php
+theme/templates/loop/loop.php
+theme/templates/header/welcome.php
+core/yit/Features_Tab.php
+images/pencil-circle.png
+theme/templates/comments/css/style.css
+theme/widgets/yit_featured_products.php
+theme/assets/css/widgets.css
+core/templates/admin/metaboxes/types/customtabs.php
+core/yit/Image.php
+woocommerce/single-product/socials.php
+core/yit/Submenu/Tabs/Theme_option/Typography_General.php
+theme/panel/theme-options/typography-general.php
+wpml-config.xml
+woocommerce/content-single-product.php
+theme/assets/css/shortcodes.css
+cache/google_fonts.json
+theme/yit/Submenu/Tabs/Theme_option/Shop_General_settings.php
+languages/nl_NL.mo
+languages/nl_NL.po
+woocommerce/archive-product.php
+theme/assets/js/unminified/woocommerce.js
+theme/assets/js/woocommerce.js
+core/load.php
+core/yit/CPT_Unlimited.php
+images/icons/socials/socials.png
+images/icons/socials-small/socials-small.png
+theme/functions-theme.php
+theme/shortcodes-woocommerce.php
+core/Yit.php
+theme/templates/maintenance/maintenance.php
+woocommerce/cart/cart.php
+woocommerce/checkout/form-payment.php
+theme/panel/theme-options/colors-general.php
+theme/assets/js/yit/jquery.layout.js
+custom.css
+theme/templates/header/main-navigation.php
+theme/templates/shortcodes
+theme/templates/header
+theme/assets/css
+cache
+theme/yit/Contact_Form.php
+
+------------------ VER 1.1.0 ---------------
+Added: Open Graph enable button
+Added: Category link and Read More button
+Added: Partial Ukrainian translations
+Added: Google map URL checked with REG EXP
+Updated: Revolution to 3.0.8 Version (compatibility with 3.6 of WP)
+Updated: Language files
+Fixed: Blog pinterest style on categories and tags page
+Fixed: Header cart content after WooCommerce 2.0.13 upgrade
+Fixed: Notifier cache
+Fixed: OGP title now use the correct title also if you use SEO options
+Fixed: images_slider attribute direction works also if setted to "vertical"
+Fixed: testimonials with sidebar
+Fixed: thumbnails slider
+Fixed: some options in Blog Settings
+Fixed: Last tweets widget, error on multiple lines
+Fixed: Footer newsletter form method
+Fixed: images generated correctly when on SSL
+Fixed: Wrong jQuery selector on catalogue
+Fixed: Shipping box width in the cart
+Fixed: General buttons colors options
+Fixed: Tabs shortcode/single product options
+Fixed: Removed wrong title in Theme Options > Shop > Colors
+Fixed: Top search button text removed
+Fixed: Menu overflow hidden on Desktop
+Fixed: Thumbnails slider minimum width
+
+UPDATED
+core/lib/yit/Backup/Backup.php
+css/responsive.css
+core/yit/Image.php
+core/yit/Notifier.php
+core/widgets/last_tweets.php
+core/assets/css/tinymce.css
+core/assets/js/panel.js
+core/assets/js/post-type-unlimited.js
+core/assets/js/types.js
+core/assets/js/unminified/panel.js
+core/assets/js/unminified/post-type-unlimited.js
+core/assets/js/unminified/types.js
+core/functions-core.php
+core/functions-template.php
+core/lib/vendors/tgm-plugin-activation/class-tgm-plugin-activation.php
+core/lib/yit/Type/Types/Selecticon.php
+core/lib/yit/Walker/Walker_Nav_Menu.php
+core/lib/yit/Walker/Walker_Nav_Menu_Edit.php
+core/lib/yit/Walker/Walker_Top_Menu.php
+core/templates/admin/metaboxes/types/categories.php
+core/templates/admin/post-type-unlimited/settings-contactform-field.php
+core/templates/admin/post-type-unlimited/settings-contactform.php
+core/templates/admin/post-type-unlimited/settings-featurestab.php
+core/templates/admin/tinymce/lightbox.php
+core/widgets/last_post.php
+core/widgets/more_projects.php
+core/yit/Accordion.php
+core/yit/Portfolio.php
+core/lib/yit/Type/Types/Title.php
+core/yit/Submenu/Tabs/Theme_option/General_Integration.php
+core/assets/css/shortcodes.css
+core/templates/shortcodes/images_slider.php
+core/templates/shortcodes/section-portfolio.php
+js/responsive.js
+languages/default.po
+languages/uk_UA.mo
+languages/uk_UA.po
+languages/yit.pot
+theme/assets/sample-data/sistina.gz
+theme/plugins/revslider.zip
+theme/panel/theme-options/colors-general.php
+theme/templates/header/map.php
+theme/templates/sliders/thumbnails/config.php
+theme/panel/theme-options/shortcodes-tabs.php
+theme/yit/Submenu/Tabs/Theme_option/Shop_Colors.php
+theme/assets/js/woocommerce.js
+theme/woocommerce.php
+theme/templates/footer/footer-big.php
+theme/widgets/YIT_Widget_Cart.php
+theme/widgets/last_tweets.php
+theme/assets/js/jquery.colorbox-min.js
+theme/assets/js/jquery.commonlibraries.js
+theme/templates/admin/post-type-unlimited/settings-contactform-field.php
+theme/yit/Accordion.php
+theme/templates/shortcodes/testimonials.php
+theme/templates/shortcodes/sitemap.php
+theme/assets/css/shortcodes.css
+theme/templates/sliders/thumbnails/slider.php
+theme/panel/theme-options/blog-settings.php
+theme/templates/blog/big/css/style.css
+theme/templates/blog/pinterest/css/style.css
+theme/templates/blog/small-image/css/style.css
+theme/templates/blog/small-image/markup.php
+theme/hooks.php
+theme/metaboxes.php
+theme/functions-template.php
+theme/templates/portfolios/columns/markup.php
+theme/templates/portfolios/full-description/loop.php
+theme/assets/css/widgets.css
+theme/templates/sliders/revolution-slider/config.php
+theme/templates/sliders/revolution-slider/slider.php
+woocommerce/checkout/form-checkout-multistep.php
+woocommerce/checkout/form-login.php
+woocommerce/single-product/socials.php
+woocommerce/style.css
+index.php
+style.css
+
+------------------ VER 1.0.0 ---------------
+Initial Release
