@@ -16,7 +16,7 @@ wc_print_notices(); ?>
 <p class="myaccount_user">
 	<?php
 	printf(
-		__( 'Hello, <strong>%s</strong>. From your account dashboard you can view your recent orders, manage your shipping and billing addresses and <a href="%s">change your password</a>.', 'yit' ),
+		__( 'Hello, <strong>%s</strong>. </br></br>From your account dashboard you can view your recent orders, manage your shipping and billing addresses and <a href="%s">change your password</a>.</br>', 'yit' ),
 		$current_user->display_name,
         esc_url( wc_customer_edit_account_url() )
 	);
