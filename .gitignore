@@ -3,3 +3,4 @@
 !package.json
 !gruntfile.js
 !.gitignore
+!sql_dump
