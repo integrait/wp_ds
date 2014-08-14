@@ -21,10 +21,10 @@ div.product form.cart .button:hover, #content div.product form.cart .button:hove
 .widget.widget_price_filter .ui-slider .ui-slider-range, .widget.widget_price_filter .ui-slider .ui-slider-handle { background-color: #CD8906; }
 .widget.widget_layered_nav .sizes li.chosen .size-filter { color: #c38204; border-color: #dec084; }
 .faq-title .minus, #sidebar-shop-sidebar .widget .minus { background-color: #C58408; }
-.faq-title .plus, #sidebar-shop-sidebar .widget .plus { background-color: #2C2B2B; }
+.faq-title .plus, #sidebar-shop-sidebar .widget .plus { background-color: #1851c4; }
 .widget.widget_layered_nav li a, .widget_product_categories .product-categories li a, .widget.widget_layered_nav .sizes li .size-filter { color: #4F4D4D; }
 .widget.widget_layered_nav li a:hover, .widget_product_categories .product-categories li a:hover, .woocommerce .widget_layered_nav ul li.chosen a:after, .woocommerce .widget_layered_nav ul li.chosen a:before, .woocommerce .widget_layered_nav ul li.chosen a, .widget_product_categories .product-categories li.current-cat a, .widget.widget_layered_nav .sizes li .size-filter:hover, .widget.widget_layered_nav .sizes li.chosen .size-filter { color: #AA7309;  border-color: #AA7309; }
-.woocommerce ul.products li.product span.added { background-image: url('http://localhost:8112/wp-content/themes/sistina/woocommerce/images/bullets/added.png'); }
+.woocommerce ul.products li.product span.added { background-image: url('http://localhost:8888/wordpress/wp-content/themes/sistina/woocommerce/images/bullets/added.png'); }
 .woo_cart .yit_cart_widget.widget_shopping_cart .cart_wrapper ul.cart_list li a, .woo_cart .yit_cart_widget.widget_shopping_cart .cart_wrapper .cart_list li.empty, .woo_cart .yit_cart_widget.widget_shopping_cart .cart_wrapper h2 { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #625548; font-style: normal; font-weight: 400; }
 .woo_cart .yit_cart_widget.widget_shopping_cart .cart_wrapper ul.cart_list li a:hover { color: #b1690c; }
 .woo_cart .yit_cart_widget.widget_shopping_cart ul.product_list_widget li .quantity, .woo_cart .yit_cart_widget.widget_shopping_cart ul.product_list_widget li .amount { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #9f6110; font-style: normal; font-weight: 400; }
@@ -105,7 +105,7 @@ div.yit_quick_contact, .woocommerce ul.cart_list li, .woocommerce-page ul.cart_l
 .teaser .image p, .teaser .image p a, .yit_quick_contact .contact-form li.submit-button input.sendmail, .sidebar .cta .newsletter-submit .submit-field, #footer .cta .newsletter-submit .submit-field, .home-widget .newsletter-call3 .newsletter-submit .submit-field, #searchsubmit, .sidebar .widget_search #searchform .button, #footernewsletter #footernewslettersubmit, .newsletter-section .contact-form .submit-button input.sendmail,
                 .section-services-bandw .service-wrapper .service .read-more a, .not-btn.more-link, .not-btn.read-more, #portfolio .read-more, #portfolio .more-link, #respond #commentsubmit, .sidebar .cta .contact-form li.submit-button input.sendmail,
                 .general-pagination a.selected, .general-pagination span.current, .contact-form li.submit-button input.sendmail,
-                .woocommerce nav.woocommerce-pagination ul li span.current, .error-404-search input#searchsubmit, #headersearchform #headersearchsubmit, .error404.not-found input#searchsubmit { background-color: #e89222; }
+                .woocommerce nav.woocommerce-pagination ul li span.current, .error-404-search input#searchsubmit, #headersearchform #headersearchsubmit, .error404.not-found input#searchsubmit { background-color: blue; }
 .teaser .image p:hover, .teaser .image p a:hover, .yit_quick_contact .contact-form li.submit-button input.sendmail:hover, .sidebar .cta .newsletter-submit .submit-field:hover, #footer .cta .newsletter-submit .submit-field:hover, .home-widget .newsletter-call3 .newsletter-submit .submit-field:hover, #searchsubmit:hover,#headersearchform #headersearchsubmit:hover, .error-404-search input#searchsubmit:hover, #footernewsletter #footernewslettersubmit:hover, .sidebar .widget_search #searchform .button:hover, #footernewsletter #footernewslettersubmit:hover, .newsletter-section .contact-form .submit-button input.sendmail:hover,
                 .section-services-bandw .service-wrapper .service .read-more a:hover, .not-btn.more-link:hover, .not-btn.read-more:hover, #portfolio .read-more:hover, #portfolio .more-link:hover, #respond #commentsubmit:hover, .error404.not-found input#searchsubmit:hover, .sidebar .cta .contact-form li.submit-button input.sendmail:hover, .contact-form li.submit-button input.sendmail:hover { background-color: #e37a1c; }
 .teaser .image p, .teaser .image p a, .yit_quick_contact .contact-form li.submit-button input.sendmail, .sidebar .cta .newsletter-submit .submit-field, #footer .cta .newsletter-submit .submit-field, .home-widget .newsletter-call3 .newsletter-submit .submit-field, #searchsubmit, .sidebar .widget_search #searchform .button, #footernewsletter #footernewslettersubmit, .newsletter-section .contact-form .submit-button input.sendmail,
@@ -125,14 +125,14 @@ div.yit_quick_contact, .woocommerce ul.cart_list li, .woocommerce-page ul.cart_l
 .header_skin1 #nav > ul > li, .header_skin1 #header-right-content .welcome_username, .header_skin1 #header-right-content .wpml, .header_skin1 #header-right-content .woo_cart { border-top-color: #ffffff; }
 .header_skin1 #nav > ul > li:hover, .header_skin1 #nav > ul > li.current-menu-item, .header_skin1 #nav > ul > li.current-menu-ancestor, .header_skin1 #nav > ul > li.current_page_ancestor, .header_skin1 #nav > ul > li.current_page_item, .header_skin1 #header-right-content .welcome_username:hover, .header_skin1 #header-right-content .wpml:hover, .header_skin1 #header-right-content .woo_cart:hover { border-top-color: #e6e6e6; }
 #nav .megamenu ul.sub-menu li.menu-item-custom-content p { color: #656464; }
-#nav .megamenu ul.sub-menu li.menu-item-custom-content span.highlight { color: #b1690c; }
+#nav .megamenu ul.sub-menu li.menu-item-custom-content span.highlight { color: #1851c4; }
 .error-404-text p, .error-404-text p a { font-size: 16px; font-family: 'Open Sans', sans-serif; color: #808080; font-style: normal; font-weight: 400; }
 .error-404-text p a { color: #c19537; }
 .error-404-text p a:hover { color: #d58f2c; }
 .error404 .error-404-text h2 { font-size: 60px; font-family: 'Nunito', sans-serif; color: #d66a0e; font-style: normal; font-weight: 700; }
-#popupWrap .popup  h3 { font-size: 24px; font-family: 'Open Sans', sans-serif; color: #a3a3a1; }
+#popupWrap .popup  h3 { font-size: 24px; font-family: 'Open Sans', sans-serif; color: #a3a3a1; font-style: normal; font-weight: 400; }
 div.popup, div.popup_message, div.popup_message p, div.popup_message span { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #747373; font-style: normal; font-weight: 400; }
-#portfolios { background: #ffffff url('http://localhost:8112/wp-content/themes/sistina/images/backgrounds/032.jpg'); font-size: 18px; font-family: 'Abel', sans-serif; color: #000000; font-style: italic; font-weight: 700; }
+#portfolios { background: #ffffff url('http://localhost:8888/wordpress/wp-content/themes/sistina/images/backgrounds/032.jpg'); font-size: 18px; font-family: 'Abel', sans-serif; color: #000000; font-style: italic; font-weight: 700; }
 div.box.success-box { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #599847; font-style: normal; font-weight: 400; }
 div.box.arrow-box { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #599847; font-style: normal; font-weight: 400; }
 div.box.alert-box { font-size: 12px; font-family: 'Open Sans', sans-serif; color: #CA6B1C; font-style: normal; font-weight: 400; }
