@@ -19,13 +19,16 @@ wc_print_notices(); ?>
 		__( 'Hello, <strong>%s</strong>. </br></br>From your account dashboard you can view your recent orders, manage your shipping and billing addresses and <a href="%s">change your password</a>.</br>', 'yit' ),
 		$current_user->display_name,
         esc_url( wc_customer_edit_account_url() )
-	);
+	); 
 	?>
 </p>
 
-<?php do_action( 'woocommerce_before_my_account' ); ?>
+<?php do_action( 'woocommerce_before_my_account' ); 
+	$code = $current_user->user_status;
+	if($code >= 0):
+?>
 
-<?php
+<?php 
     yith_wc_get_template( 'myaccount/my-downloads.php' );
 ?>
 
@@ -44,3 +47,4 @@ wc_print_notices(); ?>
 
 
 <?php do_action( 'woocommerce_after_my_account' ); ?>
+<?php endif?>
