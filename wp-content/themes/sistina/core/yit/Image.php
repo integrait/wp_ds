@@ -721,21 +721,22 @@ class YIT_Image {
 
         $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
 
-        if( !$image )
-        { return false; }
+        if( !$image !== false ){ 
+            return false; 
+        }else{
+            $getimagesize = array(
+                imagesx( $image ), //width
+                imagesy( $image ), //height
+                '',                //mimetype
+            );
 
-        $getimagesize = array(
-            imagesx( $image ), //width
-            imagesy( $image ), //height
-            '',                //mimetype
-        );
+            //HTML attrs
+            $getimagesize[] = 'width="' . $getimagesize[0] . '" height="' . $getimagesize[1] . '"';
 
-        //HTML attrs
-        $getimagesize[] = 'width="' . $getimagesize[0] . '" height="' . $getimagesize[1] . '"';
+            imagedestroy( $image );
 
-        imagedestroy( $image );
-
-        return $getimagesize;
+            return $getimagesize;
+        }
     }
 
 }
