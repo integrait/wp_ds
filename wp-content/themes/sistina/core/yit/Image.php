@@ -719,7 +719,7 @@ class YIT_Image {
 
         fclose ( $handle );
 
-        $image = imagecreatefromstring( $contents );
+        $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
 
         if( !$image )
         { return false; }
