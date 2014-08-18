@@ -25,13 +25,13 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
   // ** MySQL settings - You can get this info from your web host ** //
   /** The name of the database for WordPress */
-  define('DB_NAME', 'drugstoc');
+  define('DB_NAME', 'drugstoc_drugst');
 
   /** MySQL database username */
-  define('DB_USER', 'root');
+  define('DB_USER', 'drugstoc_integra');
 
   /** MySQL database password */
-  define('DB_PASSWORD', 'Qwzxas1');
+  define('DB_PASSWORD', 'INTEGRA.1');
 
   /** MySQL hostname */
   define('DB_HOST', 'localhost');
@@ -68,7 +68,7 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
    * You can have multiple installations in one database if you give each a unique
    * prefix. Only numbers, letters, and underscores please!
    */
-  $table_prefix  = 'ds_';
+  $table_prefix  = 'wp_';
 
 }
 
