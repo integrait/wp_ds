@@ -716,12 +716,10 @@ class YIT_Image {
         } else {
             return false;
         }
-
         fclose ( $handle );
-
         $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
 
-        if( !$image !== false ){ 
+        if( $image === false ){ 
             return false; 
         }else{
             $getimagesize = array(
