@@ -717,7 +717,7 @@ class YIT_Image {
             return false;
         }
         fclose ( $handle );
-        $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
+        $image = isset($contents)? @imagecreatefromstring( $contents ) : NULL;
         // $image = isset($contents)? imagecreatefromstring( file_get_contents($image_url) ) : NULL;
         if( $image === false ){ 
             return false; 
