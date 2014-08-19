@@ -63,6 +63,7 @@ function adding_extra_reg_fields($user_id) {
 	update_user_meta($user_id, 'phonenumber', esc_attr($_POST['phonenumber'])); 
 	update_user_meta($user_id, 'usertype', esc_attr($_POST['usertype']));  
 	update_user_meta($user_id, 'has_to_be_activated', sha1( $user_id . time()), true); 
+	$id = array( 'ID' => $user_id, 'display_name' => esc_attr($_POST['institution']) );
 }
 
 // function set_html_content_type(){ return 'text/html'; }

@@ -41,7 +41,7 @@ add_filter( 'show_admin_bar', 'wc_disable_admin_bar', 10, 1 );
  * @param  string $password
  * @return int|WP_Error on failure, Int (user ID) on success
  */
-function wc_create_new_customer( $email, $username = '', $password = '' ) {
+function wc_create_new_customer( $email, $username = '', $password = '', $institution = '', $role = '' ) {
 
 	// Check the e-mail address
 	if ( empty( $email ) || ! is_email( $email ) ) {
@@ -75,7 +75,7 @@ function wc_create_new_customer( $email, $username = '', $password = '' ) {
 			$username = $o_username . $append;
 			$append ++;
 		}
-	}
+	} 
 
 	// Handle password creation
 	if ( 'yes' === get_option( 'woocommerce_registration_generate_password' ) && empty( $password ) ) {
@@ -99,11 +99,16 @@ function wc_create_new_customer( $email, $username = '', $password = '' ) {
 	if ( $validation_errors->get_error_code() )
 		return $validation_errors;
 
+	$institution = isset($institution)? $institution : $username;
+	// $institution = isset($institution)? str_replace(" ", "-", $institution) : $username;
+	$role = isset($role)? $role:'';
+
 	$new_customer_data = apply_filters( 'woocommerce_new_customer_data', array(
 		'user_login' => $username,
 		'user_pass'  => $password,
 		'user_email' => $email,
-		'role'       => 'customer'
+		'display_name'=>$institution,
+		'role'       => $role
 	) );
 
 	$customer_id = wp_insert_user( $new_customer_data );

@@ -879,6 +879,8 @@ class WC_Form_Handler {
 			$username   = ! empty( $_username ) ? wc_clean( $_username ) : '';
 			$email      = ! empty( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
 			$password   = $_password;
+			$institution= ! empty( $_POST['institution'] ) ? wc_clean( $_POST['institution'] ) : '';
+			$role 		= ! empty( $_POST['usertype'] ) ? sanitize_email( $_POST['usertype'] ) : '';
 
 			// Anti-spam trap
 			if ( ! empty( $_POST['email_2'] ) ) {
@@ -886,7 +888,7 @@ class WC_Form_Handler {
 				return;
 			}
 
-			$new_customer = wc_create_new_customer( $email, $username, $password );
+			$new_customer = wc_create_new_customer( $email, $username, $password, $institution, $role );
 
 			if ( is_wp_error( $new_customer ) ) {
 				wc_add_notice( $new_customer->get_error_message(), 'error' );
