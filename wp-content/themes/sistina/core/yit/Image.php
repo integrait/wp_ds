@@ -706,19 +706,19 @@ class YIT_Image {
      * @return bool
      */
     public function getimagesize_remote( $image_url ) {
-        // $handle = fopen( $image_url, 'rb' );
+        $handle = @fopen( $image_url, 'rb' );
         $contents = '';
 
-        // if( $handle ) {
-        //     while( ! feof( $handle ) ) {
-        //         $contents .= fread( $handle, 8192 );
-        //     }
-        // } else {
-        //     return false;
-        // }
-        // fclose ( $handle );
-        // $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
-        $image = isset($contents)? imagecreatefromstring( file_get_contents($image_url) ) : NULL;
+        if( $handle ) {
+            while( ! feof( $handle ) ) {
+                $contents .= fread( $handle, 8192 );
+            }
+        } else {
+            return false;
+        }
+        fclose ( $handle );
+        $image = isset($contents)? imagecreatefromstring( $contents ) : NULL;
+        // $image = isset($contents)? imagecreatefromstring( file_get_contents($image_url) ) : NULL;
         if( $image === false ){ 
             return false; 
         }else{

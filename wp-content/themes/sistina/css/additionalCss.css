@@ -1,7 +1,13 @@
 .twitter-timeline {
-	width: 200px !important;
+	width: 480px !important;
+	padding: 10px;
+	margin-left: 10px;
 }
 
 #lct-widget-product_cat {
 	width: 100%;
+}
+
+#cboxOverlay {
+	background: url(/wp-content/themes/sistina/images/colorbox/overlay.png) repeat 0 0 !important;
 }

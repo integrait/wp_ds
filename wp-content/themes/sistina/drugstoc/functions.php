@@ -146,6 +146,14 @@ function add_custom_drugstoc_style() {
 	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' );
 }
 
+/**
+ * Proper way to enqueue scripts and styles
+ */
+function add_custom_drugstoc_scripts() {
+	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' );
+}
+
+add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_scripts' );
 add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_style' );
 
 
