@@ -139,6 +139,16 @@ function wpse8170_activate_user() {
     }
 }
 
+/**
+ * Proper way to enqueue scripts and styles
+ */
+function add_custom_drugstoc_style() {
+	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' );
+}
+
+add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_style' );
+
+
 //Adding Registration fields to the form   
 add_action( 'woocommerce_register_form_start', 'wooc_extra_register_fields' ); 
 
