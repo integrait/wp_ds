@@ -93,11 +93,8 @@ $height = isset( $image[2] ) ? $image[2] : 0;
         <?php endif; ?>
 
         <?php if ( yit_get_option('shop-view-show-title') ): ?>
-            <h3<?php echo $title_class ?>><?php the_title(); ?><?php if ( $woocommerce_loop['view'] == 'list' && yit_get_option( 'shop-view-show-rating' ) ) echo $product->get_rating_html(); ?></h3>
-            
-        <?php endif ?>
-
-        <div class="composition" style="display:none; font-size:10px; float: none; margin:5px; padding: 5px"><?php echo the_content();?></div>
+            <h3<?php echo $title_class ?>><?php the_title(); ?><?php if ( $woocommerce_loop['view'] == 'list' && yit_get_option( 'shop-view-show-rating' ) ) echo $product->get_rating_html(); ?></h3> 
+        <?php endif ?> 
         
         <?php
         /**
@@ -114,9 +111,19 @@ $height = isset( $image[2] ) ? $image[2] : 0;
     
         <div class="product-meta">
             <div class="product-meta-wrapper">
-            
-            	<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
-        	
+                <!-- <div class="composition well" style="font-size:10px; float: none; margin:5px; padding: 5px"><?php //echo the_content();?></div> -->
+            	<div class="well" style=" display: block;  
+  display: -webkit-box;
+  max-width: 400px;
+  height: 10px*1.4*3;
+  margin: 0 auto;
+  font-size: 10px;
+  line-height: 1.4;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; padding:5px"><?php echo the_content();?></div>
+                <?php do_action( 'woocommerce_after_shop_loop_item' ); ?> 
             </div>
         </div>
     

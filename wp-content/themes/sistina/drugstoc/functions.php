@@ -146,18 +146,16 @@ function wpse8170_activate_user() {
  */
 function add_custom_drugstoc_style() {
 	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.ui.css' );
-	// wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.tooltip.css' );
+	//wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.tooltip.css' );
 	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' ); 
 }
 
 /**
  * Proper way to enqueue scripts and styles
  */
-function add_custom_drugstoc_scripts() { 
-	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/jquery-ui.min.js' );
-	// wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/jquery.tooltip.js' );
-	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' ); 
-
+function add_custom_drugstoc_scripts() {  
+	wp_register_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' , array('jquery-core', 'jquery-ui-core', 'jquery-ui-tooltip')); 
+	wp_enqueue_script( 'additional-js' ); 
 }
 
 add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_scripts' );
