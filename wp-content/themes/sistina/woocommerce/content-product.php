@@ -72,7 +72,7 @@ if ( ! is_shop_enabled() || ! yit_get_option( 'shop-view-show-price' ) )  remove
 $image = yit_image( "size=shop_catalog&output=array" );
 $height = isset( $image[2] ) ? $image[2] : 0;
 ?>
-<li <?php post_class( $woocommerce_loop['li_class'] ); ?><?php if ( $woocommerce_loop['view'] == 'list' ) : ?> style="min-height: <?php echo $height; ?>px;"<?php endif; ?>>
+<li id="product" <?php post_class( $woocommerce_loop['li_class'] ); ?><?php if ( $woocommerce_loop['view'] == 'list' ) : ?> style="min-height: <?php echo $height; ?>px;"<?php endif; ?>>
 
     <div class="product-wrapper">
 
@@ -94,8 +94,11 @@ $height = isset( $image[2] ) ? $image[2] : 0;
 
         <?php if ( yit_get_option('shop-view-show-title') ): ?>
             <h3<?php echo $title_class ?>><?php the_title(); ?><?php if ( $woocommerce_loop['view'] == 'list' && yit_get_option( 'shop-view-show-rating' ) ) echo $product->get_rating_html(); ?></h3>
+            
         <?php endif ?>
 
+        <div class="composition" style="display:none; font-size:10px; float: none; margin:5px; padding: 5px"><?php echo the_content();?></div>
+        
         <?php
         /**
          * woocommerce_after_shop_loop_item_title hook

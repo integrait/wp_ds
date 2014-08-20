@@ -4,7 +4,7 @@ add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
 
 function wooc_extra_register_fields( ) {
   
-	//lets make the field required so that i can show you how to validate it later; 
+	//lets make the field required so that i can show you how to validate it later;  
 	?> 
 	<p class="form-row form-row-first">
 
@@ -31,9 +31,11 @@ function wooc_extra_register_fields( ) {
     </p>
 
 	<p class="form-row form-row-wide">
-
-        <label for="reg_phonenumber"><?php _e( 'Phone Number', 'yit' ); ?> <span class="required">*</span></label>
-
+ 
+        <label for="phonenumber"> 
+        	<?php _e( 'Phone Number', 'yit' ); ?> <span class="required">*</span>
+        	<img id="reg_phonenumber" src="<?php echo get_template_directory_uri().'/images/drugstoc_help.png'?>" height="5px" width="5px" title="Important: Your Phone Number is needed for SMS Notification">
+        </label> 
         <input type="text" class="input-text " name="phonenumber" id="billing_phone" placeholder="" value="<?php if (isset($_POST['phonenumber'])) echo esc_attr($_POST['phonenumber']); ?>"> 
 
     </p>
@@ -143,18 +145,23 @@ function wpse8170_activate_user() {
  * Proper way to enqueue scripts and styles
  */
 function add_custom_drugstoc_style() {
-	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' );
+	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.ui.css' );
+	// wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.tooltip.css' );
+	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' ); 
 }
 
 /**
  * Proper way to enqueue scripts and styles
  */
-function add_custom_drugstoc_scripts() {
-	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' );
+function add_custom_drugstoc_scripts() { 
+	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/jquery-ui.min.js' );
+	// wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/jquery.tooltip.js' );
+	wp_enqueue_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' ); 
+
 }
 
 add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_scripts' );
-add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_style' );
+add_action( 'wp_enqueue_style', 'add_custom_drugstoc_style' );
 
 
 //Adding Registration fields to the form   
