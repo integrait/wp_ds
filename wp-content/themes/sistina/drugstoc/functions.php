@@ -145,7 +145,7 @@ function wpse8170_activate_user() {
  * Proper way to enqueue scripts and styles
  */
 function add_custom_drugstoc_style() {
-	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.ui.css' );
+	// wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.ui.css' );
 	//wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/jquery.tooltip.css' );
 	wp_enqueue_style( 'additional-css', get_template_directory_uri() . '/css/additionalCss.css' ); 
 }
@@ -155,11 +155,10 @@ function add_custom_drugstoc_style() {
  */
 function add_custom_drugstoc_scripts() {  
 	wp_register_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' , array('jquery-core', 'jquery-ui-core', 'jquery-ui-tooltip')); 
-	wp_enqueue_script( 'additional-js' ); 
 }
 
 add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_scripts' );
-add_action( 'wp_enqueue_style', 'add_custom_drugstoc_style' );
+add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_style' );
 
 
 //Adding Registration fields to the form   
