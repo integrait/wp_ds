@@ -111,7 +111,7 @@ $height = isset( $image[2] ) ? $image[2] : 0;
     
         <div class="product-meta">
             <div class="product-meta-wrapper">
-            	<div class="conditional-composition-well well" style="padding: 5px"><?php echo the_content();?></div>
+            	<div class="product_commposition"><?php echo the_content();?></div>
                 <?php do_action( 'woocommerce_after_shop_loop_item' ); ?> 
             </div>
         </div>

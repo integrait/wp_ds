@@ -34,7 +34,7 @@ function wooc_extra_register_fields( ) {
  
         <label for="phonenumber"> 
         	<?php _e( 'Phone Number', 'yit' ); ?> <span class="required">*</span>
-        	<img id="reg_phonenumber" src="<?php echo get_template_directory_uri().'/images/drugstoc_help.png'?>" height="5px" width="5px" title="Important: Your Phone Number is needed for SMS Notification">
+        	<span style="font-size:10px; font-style:italics: float: left">Important: Your Phone Number is needed for SMS Notification</span>
         </label> 
         <input type="text" class="input-text " name="phonenumber" id="billing_phone" placeholder="" value="<?php if (isset($_POST['phonenumber'])) echo esc_attr($_POST['phonenumber']); ?>"> 
 
@@ -155,6 +155,7 @@ function add_custom_drugstoc_style() {
  */
 function add_custom_drugstoc_scripts() {  
 	wp_register_script( 'additional-js', get_template_directory_uri() . '/js/drugstoc.js' , array('jquery-core', 'jquery-ui-core', 'jquery-ui-tooltip')); 
+	wp_enqueue_script('additional-js');
 }
 
 add_action( 'wp_enqueue_scripts', 'add_custom_drugstoc_scripts' );
