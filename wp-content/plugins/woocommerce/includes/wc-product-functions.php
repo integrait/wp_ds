@@ -281,7 +281,7 @@ add_filter( 'post_type_link', 'wc_product_post_type_link', 10, 2 );
 function wc_placeholder_img_src() {
 	global $wpdb;
 
-	$result = $wpdb->get_row("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = 'default-item-thumbnail'");
+	$result = $wpdb->get_row($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s",'default-item-thumbnail'));
 	$image_src = ($result)? $result->meta_value: WC()->plugin_url() . '/assets/images/placeholder.png';
 
 	return apply_filters( 'woocommerce_placeholder_img_src', $image_src );
