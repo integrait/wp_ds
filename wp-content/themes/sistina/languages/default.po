@@ -6758,7 +6758,7 @@ msgid "View Orders"
 msgstr ""
 
 #: theme/functions-theme.php:190 theme/woocommerce.php:473
-msgid "Wishlist"
+msgid "DrugStoc"
 msgstr ""
 
 #: theme/functions-theme.php:199
@@ -8800,7 +8800,7 @@ msgid "out of stock"
 msgstr ""
 
 #: theme/woocommerce.php:477
-msgid "View Wishlist"
+msgid "View DrugStoc"
 msgstr ""
 
 #: theme/woocommerce.php:592
@@ -9724,12 +9724,12 @@ msgstr ""
 
 #: theme/yit/Submenu/Tabs/Theme_option/Shop_Products_details_page.php:105
 #: theme/yit/Submenu/Tabs/Theme_option/Shop_Products_page.php:129
-msgid "Show wishlist icon"
+msgid "Show DrugStoc icon"
 msgstr ""
 
 #: theme/yit/Submenu/Tabs/Theme_option/Shop_Products_details_page.php:106
 #: theme/yit/Submenu/Tabs/Theme_option/Shop_Products_page.php:130
-msgid "Say if you want to show the wishlist icon."
+msgid "Say if you want to show the DrugStoc icon."
 msgstr ""
 
 #: theme/yit/Submenu/Tabs/Theme_option/Shop_Products_details_page.php:112
