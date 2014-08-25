@@ -282,7 +282,7 @@ function wc_placeholder_img_src() {
 	global $wpdb;
 
 	$result = $wpdb->get_row($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s",'default-item-thumbnail'));
-	$image_src = ($result)? $result->meta_value: WC()->plugin_url() . '/assets/images/placeholder.png';
+	$image_src = ($result)? '/wp-content/uploads/drugs-images/'.$result->meta_value: WC()->plugin_url() . '/assets/images/placeholder.png';
 
 	return apply_filters( 'woocommerce_placeholder_img_src', $image_src );
 }
