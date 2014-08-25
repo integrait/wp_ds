@@ -6,8 +6,6 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
 // Otherwise use the below settings (on live server)
 } else {
-  echo 'heelp';
-
   /**
    * The base configurations of the WordPress.
    *
