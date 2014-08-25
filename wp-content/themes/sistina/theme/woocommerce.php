@@ -470,11 +470,11 @@ function yit_woocommerce_checkout_registration_redirect( $location ) {
 }
 
 function yit_change_wishlist_label() {
-    return __( 'Wishlist', 'yit' );
+    return __( 'DrugStoc', 'yit' );
 }
 
 function yit_change_browse_wishlist_label() {
-    return __( 'View Wishlist', 'yit' );
+    return __( 'View DrugStoc', 'yit' );
 }
 
 
