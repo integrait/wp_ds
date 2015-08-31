@@ -1,7 +1,0 @@
-<IfModule mod_dtimeout.c>
-    <Files ~ ".php">
-        SetEnvIf Request_URI "install" DynamicTimeout=120
-        SetEnvIf Request_URI "admin" DynamicTimeout=120
-    </Files>
-</IfModule>
-
