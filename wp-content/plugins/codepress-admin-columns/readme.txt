@@ -1,10 +1,10 @@
-=== Codepress Admin Columns ===
+=== Admin Columns ===
 Contributors: codepress, tschutter, davidmosterd, engelen
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
 Requires at least: 3.5
-Tested up to: 3.9.2
-Stable tag: 2.2.6.1
+Tested up to: 4.3
+Stable tag: 2.4.6
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -12,6 +12,7 @@ Customise columns on the administration screens for post(types), pages, media, c
 
 Manage and organize columns in the posts, users, comments and media lists in the WordPress admin panel. Transform the WordPress admin screens into beautiful, clear overviews.
 
+> #### Admin Columns Pro
 > The free version of Admin Columns does not support sorting, filtering and inline editing and has no priority support. [Admin Columns Pro](http://admincolumns.com/?utm_source=wordpressorg&utm_medium=readme&utm_content=blockquote&utm_campaign=cpac-pluginpage) offers these features, direct e-mail support and several add-ons.
 
 [vimeo http://vimeo.com/96885841]
@@ -173,8 +174,8 @@ You can leave any requests or feedback on [admincolumns.com](http://admincolumns
 == Installation ==
 
 1. Upload codepress-admin-columns to the /wp-content/plugins/ directory
-2. Activate Codepress Admin Columns through the 'Plugins' menu in WordPress
-3. Configure the plugin by going to the Admin Column settings that appears under the Settings menu.
+2. Activate Admin Columns through the 'Plugins' menu in WordPress
+3. Configure the plugin by going to the Admin Columns settings that appears under the Settings menu.
 
 == Frequently Asked Questions ==
 
@@ -194,43 +195,6 @@ You can select a custom size for your custom field option from the Column option
 
 If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. You can use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
 
-= How can I display a custom value in the Custom Fields Column? =
-
-With this filter 'cac/column/meta/value' you can control what the value will be for any Custom Field Column.
-
-Filter explained:
-
-* **$value** is the original value which would otherwise be displayed
-* **$id** will return the ID of the object.
-* **$column** will return the Admin Columns Column object.
-*
-* **$column->options->field** is the name of your custom field
-* **$column->storage_model->key** will return either the posttype or if it is any other type it will return wp-comments, wp-links, wp-users, wp-media.
-
-For example if you have a custom posttype 'demo' with a custom_field that is called 'city' and the result would be an integer '33'. You can change that integer '33' to Amsterdam.
-
-`
-<?php
-function my_custom_field_value( $value, $id, $column ) {
-
-	$post_type  	= 'demo';
-	$custom_field 	= 'city';
-
-	// make sure we have the correct posttype and custom field
-	if ( $post_type == $column->storage_model->key && $custom_field == $column->options->field ) {
-
-		if ( '33' == $value )
-			$value = 'Amsterdam';
-
-		elseif ( '34' == $value )
-			$value = 'New York';
-	}
-	return $value;
-}
-add_filter( 'cac/column/meta/value', 'my_custom_field_value', 10, 3 );
-?>
-`
-
 = What filters and hooks can I use? =
 
 You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](http://admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq&utm_campaign=cpac-pluginpage).
@@ -247,6 +211,114 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 2.4.6 =
+* [Fixed] Page Order column is now available on all supported posttypes
+* [Fixed] Time reading columns shows "-"" instead of zero when there is no content
+
+= 2.4.5 =
+* [Fixed] Estimate Time Reading column will not display a value when there is no content
+* [Fixed] When updating there was a possbile change on a "Cannot modify header information"
+
+= 2.4.4 =
+* [Fixed] Support for custom post statuses
+* [Fixed] Page Order column is now available on all hierarchical post types
+* [Added] WordPress Default columns has it's own menu group
+* [Added] Columns set by plugins has it's own menu group
+* [Added] Custom Field column has it's own menu group
+* [Update] Updated all languages from Transifex
+
+= 2.4.3 =
+* [Fixed] Comment bubble icon is fixed
+
+= 2.4.2 =
+* [Added] Added new comment columns: type, author and user.
+* [Added] Width indicator text is darker
+* [Fixed] Remove ' symbol from column label, because it causing issues when sorting
+* [Fixed] Review notice will only show on admin columns page and with an improved hide button
+
+= 2.4.1 =
+* [Added] Added the development filter 'cac/menu_types' to add custom menu types
+* [Added] Added public method set_menu_type() to the storage model
+* [Added] Added review notice
+* [Updated] Po file will exclude Actions columns which contain only native WordPress translatable strings
+* [Updated] Updated all languages from Transifex
+* [Updated] Pro addon notice text has been updated
+
+= 2.4 =
+* [Added] Added content column for post(types).
+* [Added] Added the column shortcodes, which will display any used shortcodes in your post's content
+* [Added] Column width has a text field to enter the width
+* [Added] Added a message for when a custom field is empty
+* [Added] Column width can be set to pixels or percentages
+* [Added] Added a width indicator to the column settings header
+* [Added] Added a singular label to all storage_models
+
+= 2.3.4 =
+* [Added] A column can have it's own JS/CSS files by using the CPAC_Column::scripts() method
+* [Added] Column Name can be found by hovering over the "Type" label in your column settings
+* [Fixed] Fixed a quick edit issue for comments
+* [Fixed] is_field() method of the custom field column works as intended
+
+= 2.3.3 =
+* [Added] Added user column: Visual Editor
+* [Added] Added post column: Estimated Reading Time
+* [Added] Added method CPAC_Column::get_sorting_value()
+* [Added] Added user column display name
+* [Fixed] fixed wordcount issue with PHP 5.3 or lower
+* [Fixed] Fixed media actions column
+
+= 2.3.2 =
+* [Updated] All translations from Transifex - ttps://www.transifex.com/projects/p/admin-columns
+* [Updated] 100% Spanish translation thanks to Carlos
+* [Updated] Custom Fields will now display an icon for file attachments in the correct specified dimensions
+* [Added] Public methods to CPAC_Column; get_type(), is_type(), is_field_type(), get_field_type()
+* [Added] Custom Field type "Terms"
+* [Added] Added posts column "Last Modified Author"
+* [Improced] Improved loading on columns settings screen when using many custom field columns
+* [Fixed] Only display filtering icon on supported Custom Field types
+* [Fixed] Remove deregister of qtip2 scripts.
+* [Fixed] PHP export now works as intended
+* [Fixed] Compatibility issue with Ninja Forms where submission would not be displayed
+
+= 2.3.1 =
+* [Fixed] Image Uploader failing inside nested Settings pod when using the Pods plugin
+
+= 2.3 =
+* [Added] Added filter "cac/column/meta/is_editable" for making all custom fields editable
+* [Added] CPAC_Settings::get_settings_page() to retrieve setting_page slug
+* [Added] Caching method for CPAC_Storage_Model
+* [Fixed] Field PHP Export was not working when included to a site
+* [Updated] Improved word count on post content
+
+= 2.2.9 =
+* [Added] Added filter "cac/column/actions/action_links" for modifying the action column links
+* [Fixed] WordPress SEO by Yoast columns were not added to the dropdown menu when using the 'add column' button.
+* [Fixed] Fix "restore" action link in post actions column
+* [Added] Persian (fa_IR) language, thanks to kamel kimiaei.
+* [Added] Partially Italian (it_IT) language, thanks to francesco.
+
+= 2.2.8.1 =
+* [Fixed] Quick Edit will display columns correctly after saving
+
+= 2.2.8 =
+* [Fixed] support for WPML columns
+
+= 2.2.7 =
+* [Added] Added date format option for "Last modified" column
+* [Updated] Change references from Codepress Admin Columns to Admin Columns
+* [Updated] General code clean-up
+* [Improved] Documentation improvements
+
+= 2.2.6.4 =
+* [Updated] Portuguese (Brazil) language - thanks to André Mácola Machado
+
+= 2.2.6.3 =
+* [Updated] Enable 3rd party plugins to set storage_models outside the post listings screens
+* [Updated] Spanish language updated - thanks to Andrew Kurtis
+
+= 2.2.6.2 =
+* [Fixed] Fixed “Illegal offset” warning for unset option on edit screen
 
 = 2.2.6.1 =
 * [Fixed] Fixed dependency on PHP 5.3+ in actions column
@@ -414,26 +486,22 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: the checkbox disappeared when resetting columns and resaving them.
 
 = 1.4.6.3 =
-
 * [Added] new custom field type: User by User ID
 * [Added] values to filter 'cpac_get_column_value_custom_field' for better control of the output
 * [Added] an example for above filter to FAQ section
 * [Fixed] Issue: where trash posts did not show with the sorting addon activated
 
 = 1.4.6.2 =
-
 * [Fixed] Issue: with a static function which could cause an error in some cases
 * [Added] filter to enable taxonomy filtering. add this to your functions.php to enable taxonomy filtering: `add_filter( 'cpac-remove-filtering-columns', '__return_false' );`
 
 = 1.4.6.1 =
-
 * [Fixed] Issue: for possible warning when using Custompress ( props to scottsalisbury for the fix! )
 * [Fixed] Issue: for sorting by postcount for users
 * [Added] 'Display Author As' column for post(types)
 * [Added] sorting support for 'Display Author As' column
 
 = 1.4.6 =
-
 * [Added] german language ( thanks to Uli )
 * [Added] danish language ( thanks to Morten Dalgaard Johansen )
 * [Added] filter for setting thumbnail size ( see FAQ on how to use it )
@@ -441,11 +509,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: for WordPress SEO by Yoast Columns
 
 = 1.4.5.1 =
-
 * [Removed] taxonomy filtering ( will implement show/hide option )
 
 = 1.4.5 =
-
 * [Added] french language ( thanks to Alexandre Girard )
 * [Added] filtering by taxonomy ( only displays when column is used )
 * [Added] compatibility with woocommerce
@@ -461,7 +527,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting users by postcount
 
 = 1.4.4 =
-
 * [Added] posts columns Last Modified and Comment count
 * [Added] media columns for EXIF and IPTC image data
 * [Added] custom fields columns to the Media Library
@@ -470,11 +535,9 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] possible php warning
 
 = 1.4.3 =
-
 * [Removed] taxonomy filtering
 
 = 1.4.2 =
-
 * [Fixed] Issue: for unexpected output in the column value
 * [Fixed] Issue: for better 3rd party plugin support
 * [Added] column for Comment status
@@ -486,13 +549,11 @@ You can find a list of the available actions and filters (and examples on how to
 * [Added] taxonomy filtering
 
 = 1.4.1 =
-
 * [Added] polish translation, thanks to Bartosz.
 * [Upated] the license key validation proces to be complaint with WP rules
 * [Removed] non-breaking-space-character from column output
 
 = 1.4 =
-
 * [Added] support for comment columns
 * [Added] support for link columns
 * [Added] links to taxonomies
@@ -510,7 +571,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: a conflict with the Co-Authors plugin
 
 = 1.3 =
-
 * [Added] support for Media columns
 * [Added] Media columns: filename, width, height, dimensions, description, alt, caption and mime-type
 * [Added] date type to posts custom fields
@@ -519,7 +579,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Improved] str_word_count is used for excerpts
 
 = 1.2.1 =
-
 * [Added] word count sorting
 * [Added] attachment count sorting
 * [Added] template name sorting
@@ -528,27 +587,22 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] Issue: with sorting by attachment
 
 = 1.2 =
-
 * [Added] support for third party plugins
 * [Added] user custom fields
 * [Added] extra image check
 * [Fixed] Issue: with javascript (jquery) enqueue
 
 = 1.1.3 =
-
 * [Fixed] Issue: for WP3.3beta
 
 = 1.1.2 =
-
 * [Added] Dutch translation
 
 = 1.1.1 =
-
 * [Fixed] Issue: path separator for require_once
 * [Added] word count column
 
 = 1.1 =
-
 * [Added] User Columns.
 * [Added] before / after text for custom fields
 * [Added] custom field type 'Numeric'.
@@ -557,7 +611,6 @@ You can find a list of the available actions and filters (and examples on how to
 * [Fixed] settings link
 
 = 1.0 =
-
 * Initial release.
 
 == Upgrade Notice ==

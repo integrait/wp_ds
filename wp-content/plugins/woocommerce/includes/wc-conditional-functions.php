@@ -10,7 +10,9 @@
  * @version     2.1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * is_woocommerce - Returns true if on a page which uses WooCommerce templates (cart and checkout are standard pages with shortcodes and thus are not included)
@@ -265,7 +267,7 @@ if ( ! function_exists( 'meta_is_product_attribute' ) ) {
 	 * @return bool
 	 */
 	function meta_is_product_attribute( $name, $value, $product_id ) {
-		$product    = get_product( $product_id );
+		$product    = wc_get_product( $product_id );
 
 		if ( $product->product_type != 'variation' ) {
 			return false;

@@ -16,7 +16,7 @@ $items = (!is_null( $items )) ? $items : -1;
 $sidebar_layout = yit_get_sidebar_layout() ?>
 <div class="row">
     <!-- START SECTION BLOG -->
-    <div class="section blog margin-bottom span<?php echo $sidebar_layout == 'sidebar-no' ? 12 : 9 ?>">
+    <div class="section blog margin-bottom span<?php echo $sidebar_layout == 'sidebar-no' ? 12 : 9 ?> responsive">
         <?php
         //Separated code for a better organization of the code
 

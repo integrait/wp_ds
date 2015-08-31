@@ -9,6 +9,15 @@
 
 if ( !defined( 'YITH_WOOCOMPARE' ) ) { exit; } // Exit if accessed directly
 
+global $woocommerce;
+
+if ( version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.2', '<' ) ) {
+    $image_width_type = 'image_width';
+}
+else {
+    $image_width_type = 'yit_wc_image_width';
+}
+
 $options = array(
     'general' => array(
         array(
@@ -88,7 +97,7 @@ $options = array(
         array(
             'name' => __( 'Fields to show', 'yit' ),
             'desc' => __( 'Select the fields to show in the comparison table and order them by drag&drop (are included also the woocommerce attributes)', 'yit' ),
-            'id'   => 'yith_woocompare_fields',
+            'id'   => 'yith_woocompare_fields_attrs',
             'std'  => 'all',
             'default' => 'all',
             'type' => 'attributes'
@@ -116,7 +125,7 @@ $options = array(
             'name' => __( 'Image size', 'yit' ),
             'desc' => __( 'Set the size for the images', 'yit' ),
             'id'   => 'yith_woocompare_image_size',
-            'type' 		=> 'image_width',
+            'type' 		=> $image_width_type,
             'default'	=> array(
                 'width' 	=> 220,
                 'height'	=> 154,

@@ -1,6 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Handle data for the current customers session.
@@ -69,6 +71,10 @@ class WC_Session_Handler extends WC_Session {
     	add_action( 'woocommerce_set_cart_cookies', array( $this, 'set_customer_session_cookie' ), 10 );
     	add_action( 'woocommerce_cleanup_sessions', array( $this, 'cleanup_sessions' ), 10 );
     	add_action( 'shutdown', array( $this, 'save_data' ), 20 );
+    	add_action( 'clear_auth_cookie', array( $this, 'destroy_session' ) );
+    	if ( ! is_user_logged_in() ) {
+    		add_action( 'woocommerce_thankyou', array( $this, 'destroy_session' ) );
+    	}
     }
 
     /**
@@ -111,8 +117,8 @@ class WC_Session_Handler extends WC_Session {
     }
 
 	/**
-	 * Generate a unique customer ID for guests, or return user ID if logged in. 
-	 * 
+	 * Generate a unique customer ID for guests, or return user ID if logged in.
+	 *
 	 * Uses Portable PHP password hashing framework to generate a unique cryptographically strong ID.
 	 *
 	 * @access public
@@ -183,6 +189,29 @@ class WC_Session_Handler extends WC_Session {
 	    	}
 	    }
     }
+
+    /**
+     * Destroy all session data
+     */
+    public function destroy_session() {
+		// Clear cookie
+		wc_setcookie( $this->_cookie, '', time() - YEAR_IN_SECONDS, apply_filters( 'wc_session_use_secure_cookie', false ) );
+
+		// Delete session
+		$session_option        = '_wc_session_' . $this->_customer_id;
+		$session_expiry_option = '_wc_session_expires_' . $this->_customer_id;
+
+		delete_option( $session_option );
+		delete_option( $session_expiry_option );
+
+		// Clear cart
+		wc_empty_cart();
+
+		// Clear data
+		$this->_data        = array();
+		$this->_dirty       = false;
+		$this->_customer_id = $this->generate_customer_id();
+	}
 
     /**
 	 * cleanup_sessions function.

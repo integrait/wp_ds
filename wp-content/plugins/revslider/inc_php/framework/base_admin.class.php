@@ -446,7 +446,7 @@
 		
 		public static function onActivateHook(){
 			
-			$options = array('use_hammer_js' => 'on');
+			$options = array();
 			
 			$options = apply_filters('revslider_mod_activation_option', $options);
 			

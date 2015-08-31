@@ -10,7 +10,9 @@
  * @version     2.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 if ( ! class_exists( 'WC_Admin_Reports' ) ) :
 
@@ -155,7 +157,7 @@ class WC_Admin_Reports {
 		$name  = sanitize_title( str_replace( '_', '-', $name ) );
 		$class = 'WC_Report_' . str_replace( '-', '_', $name );
 
-		include_once( 'reports/class-wc-report-' . $name . '.php' );
+		include_once( apply_filters( 'wc_admin_reports_path', 'reports/class-wc-report-' . $name . '.php', $name, $class ) );
 
 		if ( ! class_exists( $class ) )
 			return;

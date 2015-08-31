@@ -131,14 +131,17 @@
 				
 				<div style="clear:both"></div>
 				
-				<div id="fullscreenvideofun" class="mtop_20">
+				<div class="mtop_10">
 					<label for="input_video_cover" class="float_left">
 						<?php _e("Cover:",REVSLIDER_TEXTDOMAIN)?>
 					</label>				
 					<input type="checkbox" class="checkbox_video_dialog float_left " id="input_video_cover" ></input>
+				</div>
 				
-					
-					<label for="input_video_dotted_overlay" class="float_left mleft_20" id="input_video_dotted_overlay_lbl">
+				<div style="clear:both"></div>
+				
+				<div id="fullscreenvideofun1" class="mtop_20">
+					<label for="input_video_dotted_overlay" class="float_left" id="input_video_dotted_overlay_lbl">
 						<?php _e("Dotted Overlay:",REVSLIDER_TEXTDOMAIN)?>
 					</label>				
 					<select id="input_video_dotted_overlay" style="float: left; margin-top:-5px">
@@ -149,10 +152,12 @@
 						<option value="threexthreewhite"><?php _e('3 x 3 White',REVSLIDER_TEXTDOMAIN); ?></option>
 					</select>
 					
-					<label for="input_video_ratio" class="float_left mleft_20" id="input_video_ratio_lbl">
+					<div style="clear: both;"></div>
+					
+					<label for="input_video_ratio" class="float_left mtop_10" id="input_video_ratio_lbl">
 						<?php _e("Aspect Ratio:",REVSLIDER_TEXTDOMAIN)?>
 					</label>				
-					<select id="input_video_ratio" style="margin-top:-10px">
+					<select id="input_video_ratio" style="margin-top:5px">
 						<option value="16:9"><?php _e('16:9',REVSLIDER_TEXTDOMAIN); ?></option>
 						<option value="4:3"><?php _e('4:3',REVSLIDER_TEXTDOMAIN); ?></option>
 					</select>
@@ -169,16 +174,22 @@
 				</div>
 				
 				
-				
-				<label for="input_video_loop" class=" float_left mtop_10">
-					<?php _e("Loop Video:",REVSLIDER_TEXTDOMAIN)?>
-				</label>				
-				<input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_video_loop" ></input>
-				
-				<label for="input_video_autoplay" class="float_left mtop_10 mleft_20">
+				<label for="input_video_autoplay" class="float_left mtop_10 ">
 					<?php _e("Autoplay:",REVSLIDER_TEXTDOMAIN)?>
 				</label>
 				<input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_video_autoplay" ></input>
+				
+				<div id="rev-video-loop-wrap" class="float_left" style="display: none;">
+					<label for="input_video_loop" class=" float_left mleft_20 mtop_10">
+						<?php _e("Loop Video:",REVSLIDER_TEXTDOMAIN)?>
+					</label>				
+					<?php /* <input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_video_loop" ></input> */ ?>
+					<select id="input_video_loop" style="width: 200px;">
+						<option value="none"><?php _e('Disable', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="loop"><?php _e('Loop', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="loopandnoslidestop"><?php _e('Loop, Slide does not stop', REVSLIDER_TEXTDOMAIN); ?></option>
+					</select>
+				</div>
 				
 				<div id="showautoplayfirsttime" class="float_left">
 					<label for="input_video_autoplay_first_time" class="float_left mtop_10 mleft_20">
@@ -186,7 +197,7 @@
 					</label>
 					<input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_video_autoplay_first_time" ></input>
 				</div>
-													
+				
 				<div style="clear:both"></div>	
 				
 				<label for="input_video_nextslide" class="float_left mtop_10">
@@ -210,7 +221,35 @@
 					<?php _e("Mute:",REVSLIDER_TEXTDOMAIN)?>
 				</label>				
 				<input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_video_mute" ></input>
-			<div class="clear"></div>
+				
+				<label for="input_disable_on_mobile" class="float_left mleft_20 mtop_10">
+					<?php _e("Disable Mobile:",REVSLIDER_TEXTDOMAIN)?>
+				</label>
+				<input type="checkbox" class="checkbox_video_dialog float_left mtop_13" id="input_disable_on_mobile" ></input>
+				<div class="clear"></div>
+				<div id="rev-youtube-options">
+					<label for="input_video_speed" class="float_left mtop_10">
+						<?php _e("Video Speed:",REVSLIDER_TEXTDOMAIN)?>
+					</label>
+					<select id="input_video_speed" style="margin-top: 5px;">
+						<option value="0.25"><?php _e('0.25', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="0.50"><?php _e('0.50', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="1"><?php _e('1', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="1.5"><?php _e('1.5', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="2"><?php _e('2', REVSLIDER_TEXTDOMAIN); ?></option>
+					</select>
+				</div>
+				<div id="rev-html5-options" style="display: none;">
+					<label for="input_video_preload" class="float_left mtop_10">
+						<?php _e("Video Preload:",REVSLIDER_TEXTDOMAIN)?>
+					</label>
+					<select id="input_video_preload" style="margin-top: 5px;">
+						<option value="auto"><?php _e('Auto', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="none"><?php _e('Disable', REVSLIDER_TEXTDOMAIN); ?></option>
+						<option value="metadata"><?php _e('Metadata', REVSLIDER_TEXTDOMAIN); ?></option>
+					</select>
+				</div>
+				<div class="clear"></div>
 			</div>
 
 			<div class="video-title mtop_20" id="preview-image-video-wrap">

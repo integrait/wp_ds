@@ -1,6 +1,6 @@
 <?php
 /**
- * Displayed when no drugs are found matching the current query.
+ * Displayed when no products are found matching the current query.
  *
  * Override this template by copying it to yourtheme/woocommerce/loop/no-products-found.php
  *
@@ -11,4 +11,4 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
-<p class="woocommerce-info"><?php _e( 'No drugs were found matching your selection.', 'woocommerce' ); ?></p>
+<p class="woocommerce-info"><?php _e( 'No products were found matching your selection.', 'woocommerce' ); ?></p>

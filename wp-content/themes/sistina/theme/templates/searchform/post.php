@@ -13,7 +13,7 @@
  */
 ?>
 <form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
-        <input  type="text" value="" name="s" id="s" placeholder="<?php _e( 'Search  here...', 'yit' ) ?>" />
+        <input  type="text" value="" name="s" id="s" placeholder="<?php _e( 'Search  here ...', 'yit' ) ?>" />
         <input  type="submit" class="button" id="searchsubmit" value="<?php _e( 'Search', 'yit' ) ?>" />
     <?php
         $post_types =  apply_filters( 'yit_searchform_post_types', array( 'post' ) );

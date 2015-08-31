@@ -66,6 +66,9 @@ get_header('shop'); ?>
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
             <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
+            
+             <?php do_shortcode('[gdym_didyoumean]');?>
+             
 
 		<?php endif; ?>
 

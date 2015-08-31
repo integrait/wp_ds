@@ -7,8 +7,6 @@
  * @version 1.1.4
  */
 
-global $product;
-
 // remove the style of woocommerce
 if( defined('WOOCOMMERCE_USE_CSS') && WOOCOMMERCE_USE_CSS ) wp_dequeue_style('woocommerce_frontend_styles');
 
@@ -22,6 +20,9 @@ foreach( $products as $product ) $widths[] = '{ "sWidth": "205px", resizeable:tr
 
 /** FIX WOO 2.1 */
 $wc_get_template = function_exists('wc_get_template') ? 'wc_get_template' : 'woocommerce_get_template';
+
+$table_text = get_option( 'yith_woocompare_table_text' );
+$localized_table_text = function_exists( 'icl_translate' ) ? icl_translate( 'Plugins', 'plugin_yit_compare_table_text', $table_text ) : $table_text;
 
 ?><!DOCTYPE html>
 <!--[if IE 6]>
@@ -64,11 +65,14 @@ $wc_get_template = function_exists('wc_get_template') ? 'wc_get_template' : 'woo
     </style>
 </head>
 <!-- END HEAD -->
+
+<?php global $product; ?>
+
 <!-- START BODY -->
 <body <?php body_class('woocommerce') ?>>
 
 <h1>
-    <?php echo get_option( 'yith_woocompare_table_text' ) ?>
+    <?php echo $localized_table_text ?>
     <?php if ( ! $is_iframe ) : ?><a class="close" href="#"><?php _e( 'Close window [X]', 'yit' ) ?></a><?php endif; ?>
 </h1>
 
@@ -125,7 +129,7 @@ $wc_get_template = function_exists('wc_get_template') ? 'wc_get_template' : 'woo
                                 break;
 
                             case 'add-to-cart':
-                                $wc_get_template( 'loop/add-to-cart.php', array( 'product' => $product ) );
+                                $wc_get_template( 'loop/add-to-cart.php' );
                                 break;
 
                             default:
@@ -156,7 +160,7 @@ $wc_get_template = function_exists('wc_get_template') ? 'wc_get_template' : 'woo
                 <th><?php echo $fields['add-to-cart'] ?></th>
 
                 <?php foreach( $products as $i => $product ) : $product_class = ( $i % 2 == 0 ? 'odd' : 'even' ) . ' product_' . $product->id ?>
-                    <td class="<?php echo $product_class ?>"><?php $wc_get_template( 'loop/add-to-cart.php', array( 'product' => $product ) ); ?></td>
+                    <td class="<?php echo $product_class ?>"><?php $wc_get_template( 'loop/add-to-cart.php' ); ?></td>
                 <?php endforeach; ?>
 
             </tr>

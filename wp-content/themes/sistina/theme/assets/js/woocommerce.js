@@ -161,7 +161,7 @@ jQuery( document ).ready( function( $ ) {
     var product;
     $('ul.products').on( 'click', 'li.product .add_to_cart_button', function(){
         product = $(this).parents('li.product');
-        product.find('.product-wrapper').block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.plugin_url + '/assets/images/ajax-loader.gif) no-repeat center', opacity: 0.3, cursor:'none'}});
+        product.find('.product-wrapper').block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.ajax_loader_url + ') no-repeat center', opacity: 0.3, cursor:'none'}});
         $('.widget.woocommerce.widget_shopping_cart a.cart_control').show();
         $('.widget.woocommerce.widget_shopping_cart a.cart_control.cart_control_empty').remove();
     });
@@ -200,7 +200,7 @@ jQuery( document ).ready( function( $ ) {
     var wishlist_clicked;
     $(document).on( 'click', '.yith-wcwl-add-button a', function(){
         wishlist_clicked = $(this);
-        wishlist_clicked.block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.plugin_url + '/assets/images/ajax-loader.gif) no-repeat center', opacity: 0.6, cursor:'none'}});
+        wishlist_clicked.block({message: null, overlayCSS: {background: '#fff url(' + woocommerce_params.ajax_loader_url + ') no-repeat center', opacity: 0.6, cursor:'none'}});
     });
 
     // wishlist tooltip

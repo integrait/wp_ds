@@ -18,7 +18,16 @@
 			<option value="on" text="On" />
 			<option value="off" text="Off" />
 		</field>
-		<field type="hr" />
+		<field name="next_slide_on_window_focus" type="radio" default="off" label="Next Slide on Focus" description="Enabling this will move to the next slide if the Slider gets into focus if the user switched between tabs">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+		<field name="simplify_ie8_ios4" type="radio" default="off" label="Simplify on IOS4/IE8" description="Simplyfies the Slider on IOS4 and IE8">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+	</fieldset>
+	<fieldset name="stopslider" label="Loop and Progress" icon="eg-icon-chart-bar">
 		<field name="stop_slider" type="radio" default="off" label="Stop Slider" description="On / Off to stop slider after some amount of loops / slides">
 			<option value="on" text="On" />
 			<option value="off" text="Off" />
@@ -27,17 +36,15 @@
 		<field name="stop_at_slide" type="text" default="2" label="Stop At Slide" datatype="number" description="Stop the slider at the given slide" />
 		<field type="control" ctype="enable" parent="stop_slider" child="stop_after_loops" value="on" />
 		<field type="control" ctype="enable" parent="stop_slider" child="stop_at_slide" value="on" />
-	</fieldset>
-	<fieldset name="google_fonts" label="Google Font Settings" icon="eg-icon-font">
-		<field name="text_google_deprecated" type="statictext" label=" This menu point will be deprecated in V5.0. Please use the Punch Fonts Menu" />
-		<field name="load_googlefont" type="radio" default="false" label="Load Google Font" description="yes / no to load google font">
-			<option value="true" text="Yes" />
-			<option value="false" text="No" />
+		<field name="show_timerbar" type="list" default="top" label="Show Progressbar" description="Show the top running progressbar">
+			<option value="top" text="Top" />
+			<option value="bottom" text="Bottom" />
+			<option value="hide" text="Hide" />
 		</field>
-		<field name="text_google_font" type="statictext" label="The google font families to load:" />
-		<field name="google_font" type="multitext" class="text-sidebar-long-double" default="&lt;link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'&gt;" />
-		<field name="text_google_font" type="statictext" label="&lt;a href=&quot;javascript:void(0);&quot; data-name=&quot;google_font&quot; class=&quot;multiple_text_add&quot; &gt;&lt;div class='addnewicon reviconwithhover'&gt;&lt;i class='revicon-list-add'&gt;&lt;/i&gt;Add New&lt;/div&gt;&lt;div class='clear'&gt;&lt;/div&gt;&lt;/a&gt;" />
-		<field name="text_google" type="statictext" label="To add more google fonts please read &lt;a target=&quot;_blank&quot; href=&quot;http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380/faqs/15268&quot;&gt; this tutorial &lt;/a&gt; " />
+		<field name="loop_slide" type="radio" default="loop" label="Loop Single Slide" description="If only one Slide is in the Slider, you can choose wether the Slide should loop or if it should stop.">
+			<option value="loop" text="On" />
+			<option value="noloop" text="Off" />
+		</field>
 	</fieldset>
 	<fieldset name="position" label="Position" icon="eg-icon-resize-full-alt">
 		<field name="position" type="list" default="center" label="Position on the page" description="The position of the slider on the page, (float:left, float:right, margin:0px auto;)">
@@ -58,11 +65,6 @@
 			<option value="1" text="1" />
 			<option value="2" text="2" />
 			<option value="3" text="3" />
-		</field>
-		<field name="show_timerbar" type="list" default="top" label="Show Timer Line" description="Show the top running timer line">
-			<option value="top" text="Top" />
-			<option value="bottom" text="Bottom" />
-			<option value="hide" text="Hide" />
 		</field>
 		<field name="padding" type="text" default="0" label="Padding (border)" datatype="number" description="The wrapper div padding, if it has value, then together with background color it it will make border around the slider." />
 		<field name="backround_image_options" type="statictext" label="&lt;div class='setting_info_small'&gt;Background Image Options (best used with transparent slides)&lt;/div&gt;" />
@@ -107,59 +109,6 @@
 		<field type="control" ctype="enable" parent="show_background_image" child="bg_fit" value="true" />
 		<field type="control" ctype="enable" parent="show_background_image" child="bg_repeat" value="true" />
 		<field type="control" ctype="enable" parent="show_background_image" child="bg_position" value="true" />
-	</fieldset>
-	<fieldset name="parallax" label="Parallax" icon="eg-icon-camera-alt">
-		<field name="use_parallax" type="radio" default="off" label="Enable Parallax" description="Enabling this, will give you new options in the slides to create a unique parallax effect">
-			<option value="on" text="On" />
-			<option value="off" text="Off" />
-		</field>
-		<field name="disable_parallax_mobile" type="list" default="off" label="Disable on Mobile" description="If set to on, parallax will be disabled on mobile devices to save performance">
-			<option value="on" text="On" />
-			<option value="off" text="Off" />
-		</field>
-		<field name="parallax_type" type="list" default="mouse" label="Type" description="Defines on what input type the parallax should react to">
-			<option value="mouse" text="Mouse Position" />
-			<option value="scroll" text="Scroll Position" />
-			<option value="mouse+scroll" text="Mouse and Scroll" />
-		</field>
-		<field name="parallax_bg_freeze" type="list" default="off" label="BG Freeze" description="Setting this to on will freeze the background so that it is not affected by the parallax effect">
-			<option value="on" text="On" />
-			<option value="off" text="Off" />
-		</field>
-		<field name="parallax_level_1" type="text" label="Level Depth 1" default="5" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_2" type="text" label="Level Depth 2" default="10" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_3" type="text" label="Level Depth 3" default="15" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_4" type="text" label="Level Depth 4" default="20" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_5" type="text" label="Level Depth 5" default="25" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_6" type="text" label="Level Depth 6" default="30" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_7" type="text" label="Level Depth 7" default="35" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_8" type="text" label="Level Depth 8" default="40" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_9" type="text" label="Level Depth 9" default="45" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field name="parallax_level_10" type="text" label="Level Depth 10" default="50" description="Defines a level that can be used in Slide Editor for this Slider" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_type" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_bg_freeze" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_1" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_2" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_3" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_4" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_5" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_6" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_7" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_8" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_9" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_10" value="on" />
-		<field type="control" ctype="enable" parent="use_parallax" child="disable_parallax_mobile" value="on" />
-	</fieldset>
-	<fieldset name="spinner" label="Spinner" icon="eg-icon-back-in-time">
-		<field name="use_spinner" type="list" default="0" label="Choose Spinner" description="Select a Spinner for your Slider">
-			<option value="0" text="0" />
-			<option value="1" text="1" />
-			<option value="2" text="2" />
-			<option value="3" text="3" />
-			<option value="4" text="4" />
-			<option value="5" text="5" />
-		</field>
-		<field name="spinner_color" type="color" default="#FFFFFF" label="Spinner Color" description="The Color the Spinner will be shown in" />
 	</fieldset>
 	<fieldset name="navigation" label="Navigation" icon="eg-icon-flickr">
 		<field name="stop_on_hover" type="radio" default="on" label="Stop On Hover" description="Stop the Timer when hovering the slider">
@@ -251,21 +200,77 @@
 		<field name="thumb_height" type="text" label="Thumb Height" default="50" unit="px" datatype="number" description="the basic Height of one Thumbnail (only if thumb is selected)" />
 		<field name="thumb_amount" type="text" label="Thumb Amount" default="5" unit="px" datatype="number" description="the amount of the Thumbs visible same time (only if thumb is selected)" />
 	</fieldset>
+	<fieldset name="spinner" label="Spinner" icon="eg-icon-back-in-time">
+		<field name="use_spinner" type="list" default="0" label="Choose Spinner" description="Select a Spinner for your Slider">
+			<option value="0" text="0" />
+			<option value="1" text="1" />
+			<option value="2" text="2" />
+			<option value="3" text="3" />
+			<option value="4" text="4" />
+			<option value="5" text="5" />
+		</field>
+		<field name="spinner_color" type="color" default="#FFFFFF" label="Spinner Color" description="The Color the Spinner will be shown in" />
+	</fieldset>
+	<fieldset name="parallax" label="Parallax" icon="eg-icon-camera-alt">
+		<field name="use_parallax" type="radio" default="off" label="Enable Parallax" description="Enabling this, will give you new options in the slides to create a unique parallax effect">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+		<field name="disable_parallax_mobile" type="list" default="off" label="Disable on Mobile" description="If set to on, parallax will be disabled on mobile devices to save performance">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+		<field name="parallax_type" type="list" default="mouse" label="Type" description="Defines on what input type the parallax should react to">
+			<option value="mouse" text="Mouse Position" />
+			<option value="scroll" text="Scroll Position" />
+			<option value="mouse+scroll" text="Mouse and Scroll" />
+		</field>
+		<field name="parallax_bg_freeze" type="list" default="off" label="BG Freeze" description="Setting this to on will freeze the background so that it is not affected by the parallax effect">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+		<field name="parallax_level_1" type="text" label="Level Depth 1" default="5" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_2" type="text" label="Level Depth 2" default="10" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_3" type="text" label="Level Depth 3" default="15" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_4" type="text" label="Level Depth 4" default="20" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_5" type="text" label="Level Depth 5" default="25" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_6" type="text" label="Level Depth 6" default="30" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_7" type="text" label="Level Depth 7" default="35" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_8" type="text" label="Level Depth 8" default="40" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_9" type="text" label="Level Depth 9" default="45" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field name="parallax_level_10" type="text" label="Level Depth 10" default="50" description="Defines a level that can be used in Slide Editor for this Slider" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_type" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_bg_freeze" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_1" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_2" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_3" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_4" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_5" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_6" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_7" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_8" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_9" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="parallax_level_10" value="on" />
+		<field type="control" ctype="enable" parent="use_parallax" child="disable_parallax_mobile" value="on" />
+	</fieldset>
 	<fieldset name="mobile_touch" label="Mobile Touch" icon="eg-icon-up-hand">
 		<field name="touchenabled" type="radio" default="on" label="Touch Enabled" description="Enable Swipe Function on touch devices">
 			<option value="on" text="On" />
 			<option value="off" text="Off" />
 		</field>
-		<field name="swipe_velocity" type="text" label="Swipe Velocity (0 - 1)" default="0.7" datatype="number" description="Defines the sensibility of gestures. Smaller values mean a higher sensibility" />
-		<field name="swipe_min_touches" type="text" label="Swipe Min Touches" default="1" datatype="number" description="Defines how many fingers are needed minimum for swiping" />
-		<field name="swipe_max_touches" type="text" label="Swipe Max Touches" default="1" datatype="number" description="Defines how many fingers are allowed for swiping at the same time" />
-		<field name="drag_block_vertical" type="radio" default="false" label="Drag Block Vertical" description="Prevent vertical scroll during swipe">
+		<field name="swipe_velocity" type="text" label="Swipe Treshhold (0 - 200)" default="75" datatype="number" description="Defines the sensibility of gestures. Smaller values mean a higher sensibility" />
+		<field name="swipe_min_touches" type="text" label="Swipe Min Finger" default="1" datatype="number" description="Defines how many fingers are needed minimum for swiping" />
+		<field name="drag_block_vertical" type="radio" default="false" label="Drag Block Vertical" description="Scroll below slider on vertical swipe">
 			<option value="true" text="On" />
 			<option value="false" text="Off" />
 		</field>
 	</fieldset>
 	<fieldset name="mobile_visibility" label="Mobile Visibility" icon="eg-icon-mobile">
 		<field name="disable_on_mobile" type="radio" default="off" label="Disable Slider on Mobile" description="If this is enabled, the slider will not be loaded on mobile devices.">
+			<option value="on" text="On" />
+			<option value="off" text="Off" />
+		</field>
+		<field name="disable_kenburns_on_mobile" type="radio" default="off" label="Disable KenBurn On Mobile" description="This will disable KenBurns on mobile devices to save performance">
 			<option value="on" text="On" />
 			<option value="off" text="Off" />
 		</field>
@@ -288,16 +293,10 @@
 		<field name="hide_thumbs_under_resolution" type="text" label="Hide Thumbs Under Width" default="0" unit="px" datatype="number" description="Hide the Thumbnails on Mobile Devices under some slider width" />
 		<field name="hide_thumbs_delay_mobile" type="text" label="Hide Mobile Nav After" default="1500" unit="ms" datatype="number" description="Time after that the Navigation and the Thumbs will be hidden on mobile devices(Default: 1500 ms)" />
 	</fieldset>
-	<fieldset name="single_slide" label="Single Slide" icon="eg-icon-male">
-		<field name="loop_slide" type="radio" default="loop" label="Loop Slide" description="If only one Slide is in the Slider, you can choose wether the Slide should loop or if it should stop.">
-			<option value="loop" text="On" />
-			<option value="noloop" text="Off" />
-		</field>
-	</fieldset>
 	<fieldset name="first_slide" label="Alternative First Slide" icon="eg-icon-thumbs-up">
 		<field name="start_with_slide" type="text" default="1" label="Start With Slide" description="Change it if you want to start from a different slide then 1" />
 		<field type="hr" />
-		<field name="first_transition_active" type="radio" default="off" label="First Transition Active" description="If active, it will overwrite the first slide transition. Use it when you want a special transition for the first slide only.">
+		<field name="first_transition_active" type="radio" default="false" label="First Transition Active" description="If active, it will overwrite the first slide transition. Use it when you want a special transition for the first slide only.">
 			<option value="true" text="On" />
 			<option value="false" text="Off" />
 		</field>
@@ -382,4 +381,16 @@
 			<option value="echo" text="By Echo Output" />
 		</field>
 	</fieldset>
+	<fieldset name="google_fonts" label="Google Font Settings (deprecated)" icon="eg-icon-font">
+		<field name="text_google_deprecated" type="statictext" label=" This menu point will be deprecated in V5.0. Please use the Punch Fonts Menu" />
+		<field name="load_googlefont" type="radio" default="false" label="Load Google Font" description="yes / no to load google font">
+			<option value="true" text="Yes" />
+			<option value="false" text="No" />
+		</field>
+		<field name="text_google_font" type="statictext" label="The google font families to load:" />
+		<field name="google_font" type="multitext" class="text-sidebar-long-double" default="&lt;link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'&gt;" />
+		<field name="text_google_font" type="statictext" label="&lt;a href=&quot;javascript:void(0);&quot; data-name=&quot;google_font&quot; class=&quot;multiple_text_add&quot; &gt;&lt;div class='addnewicon reviconwithhover'&gt;&lt;i class='revicon-list-add'&gt;&lt;/i&gt;Add New&lt;/div&gt;&lt;div class='clear'&gt;&lt;/div&gt;&lt;/a&gt;" />
+		<field name="text_google" type="statictext" label="To add more google fonts please read &lt;a target=&quot;_blank&quot; href=&quot;http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380/faqs/15268&quot;&gt; this tutorial &lt;/a&gt; " />
+	</fieldset>
+	
 </fields>

@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Revolution Slider
-Plugin URI: http://www.themepunch.com/codecanyon/revolution_wp/
+Plugin URI: http://www.themepunch.com/revolution/
 Description: Revolution Slider - Premium responsive slider
 Author: ThemePunch
-Version: 4.5.95
+Version: 4.6.0
 Author URI: http://themepunch.com
 */
 
@@ -26,7 +26,7 @@ if(isset($_GET['revSliderAsTheme'])){
 }
 
 
-$revSliderVersion = "4.5.95";
+$revSliderVersion = "4.6.0";
 $currentFile = __FILE__;
 $currentFolder = dirname($currentFile);
 $revSliderAsTheme = false;

@@ -33,21 +33,7 @@ if( $slogan ) :
 
 ?>
     <!-- SLOGAN -->
-    <div class="<?php echo $slogan_class ?>">
-    <?php
-        do_action( 'yit_before_slogan' );
-
-        if($icon_slogan){
-            yit_string( '<' . $tag_slogan . ' class="' . ( defined('YIT_SLIDER_USED') && YIT_SLIDER_USED ? 'nopadding' : '' ) . '">', yit_image("src=$icon_slogan&echo=0"). yit_decode_title($slogan), '</' . $tag_slogan . '>' );
-        }
-        else{
-            yit_string( '<' . $tag_slogan . ' class="' . ( defined('YIT_SLIDER_USED') && YIT_SLIDER_USED ? 'nopadding' : '' ) . '">', yit_decode_title($slogan), '</' . $tag_slogan . '>' );
-        }
-
-        if( $sub_slogan ) {
-            do_action( 'yit_before_sub_slogan' );
-            yit_string( '<' . $tag_sub_slogan . '>', yit_decode_title($sub_slogan), '</' . $tag_sub_slogan . '>' );
-        }    
-    ?>
+    <div class="slogan">
+    <h2 class=""><img src="http://drugstoc.biz/wp-content/uploads/2013/07/cart1.png" class="yit-image">Secure, Simple, Reliable &amp; Efficient</h2>
     </div>
 <?php endif; ?>  

@@ -206,6 +206,7 @@
 
 				$arrTransition = array(
 					"notselectable1"=>"RANDOM TRANSITIONS",
+					"random-selected"=>"Random of Selected",
 					"random-static"=>"Random Flat",
 					"random-premium"=>"Random Premium",
 					"random"=>"Random Flat and Premium",
@@ -409,7 +410,7 @@
 			if(trim($rawID) != '') {
 				$db = new UniteDBRev();
 				$id = str_replace(array('customin-', 'customout'), array('', ''), $rawID);
-				$db->delete(GlobalsRevSlider::$table_layer_anims, "id = '".mysql_real_escape_string($id)."'");
+				$db->delete(GlobalsRevSlider::$table_layer_anims, "id = '".mysqli_real_escape_string($id)."'");
 			}
 
 			$arrAnims['customin'] = RevOperations::getCustomAnimations();

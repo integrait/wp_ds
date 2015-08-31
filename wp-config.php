@@ -23,7 +23,7 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
   // ** MySQL settings - You can get this info from your web host ** //
   /** The name of the database for WordPress */
-  define('DB_NAME', 'drugstoc_drugst');
+  define('DB_NAME', 'drugstoc_db_v1');
 
   /** MySQL database username */
   define('DB_USER', 'drugstoc_integra');
@@ -53,6 +53,8 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
   define('SECURE_AUTH_KEY',  '`,7TUz:;H9f%-6ruzLc]c1~fsKIN~5j-%Qe9yz{yXvq^6ML=CL)3Iff4J9@vV,I&');
   define('LOGGED_IN_KEY',    'jZ.<|xWE%-@)H%cX(d)[?fzVnG,*SV1|V=NofI&v #vl/B[T)B+U!.|0p{a,/l5}');
   define('NONCE_KEY',        ']8k6pBYmWor@U/EU+[`J+kE}TlMoIuQB|hX.L@8ycyj+j2>.YS9`#<`?3XGUD2Bv');
+  //define('WP_CACHE', true); //Added by WP-Cache Manager
+  //define( 'WPCACHEHOME', '/home/drugstoc/public_html/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
   define('AUTH_SALT',        '$+ Y9$Wvw0V/c:4=0#~lqX1$7gp$*4+x,,I=_8ZzwmDh19hZ4N#PlQ}&&U%w> ve');
   define('SECURE_AUTH_SALT', 'IY[+[*qz#7^!0Y(nM}gip(kxcks6qoxI~>-OfL&<~SY0wE;$P{Bty]#kz^EcT9$)');
   define('LOGGED_IN_SALT',   'TY=T! xBXU8xspoGYpKN?LDLH&Lf%lS,aVMFv?3=iK`F4rouRDr(++Qh%5LhWI$6');
@@ -89,11 +91,16 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
+// Tells WordPress to log everything to the /wp-content/debug.log file
+define('WP_DEBUG_LOG', true);
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
+
+
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

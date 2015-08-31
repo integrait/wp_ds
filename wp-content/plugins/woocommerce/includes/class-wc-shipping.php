@@ -11,7 +11,9 @@
  * @author 		WooThemes
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 class WC_Shipping {
 
@@ -34,20 +36,19 @@ class WC_Shipping {
 	var $packages					= array();
 
 	/**
-	 * @var WooCommerce The single instance of the class
+	 * @var WC_Shipping The single instance of the class
 	 * @since 2.1
 	 */
 	protected static $_instance = null;
 
 	/**
-	 * Main WooCommerce Instance
+	 * Main WC_Shipping Instance
 	 *
-	 * Ensures only one instance of WooCommerce is loaded or can be loaded.
+	 * Ensures only one instance of WC_Shipping is loaded or can be loaded.
 	 *
 	 * @since 2.1
 	 * @static
-	 * @see WC()
-	 * @return Main WooCommerce instance
+	 * @return WC_Shipping Main instance
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) )

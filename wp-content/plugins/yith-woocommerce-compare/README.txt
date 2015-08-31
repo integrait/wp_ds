@@ -3,13 +3,13 @@
 Contributors: yithemes
 Tags: woocommerce, compare, compare products, product compare, widget
 Requires at least: 3.5.1
-Tested up to: 3.9.1
-Stable tag: 1.1.4
+Tested up to: 4.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 YITH WooCommerce Compare allows you to compare more products of your shop in one complete table.
-WooCommerce Compatible up to 2.1.x
+WooCommerce Compatible up to 2.2.x
 
 
 == Description ==
@@ -83,10 +83,22 @@ Yes, you can sort the fields in the compare table. You can do it in Woocommerce 
 
 == Changelog ==
 
+= 1.2.1 =
+
+* Added: Support to WC 2.2.3
+
+= 1.2.0 =
+
+* Added: Support to WC 2.2.2
+* Update: Compare Template
+* Updated: Plugin Core Framework
+* Tweek: WPML Support improved
+* Fixed: Fields orders
+
 = 1.1.4 =
 
-* Fixed: Horizontal scroll bar issue: show at the end of iframe
 * Updated: Colorbox Library Version 1.5.10
+* Fixed: Horizontal scroll bar issue: show at the end of iframe
 
 = 1.1.3 =
 
@@ -118,7 +130,7 @@ Yes, you can sort the fields in the compare table. You can do it in Woocommerce 
 = 1.0.4 =
 
 * Added: complete Dutch translation. Thanks to Frans Pronk
-* Sortable scripts included only in the plugin admin page
+* Fixed: Sortable scripts included only in the plugin admin page
 * Fixed: products list in popup don't update after have added a product
 
 = 1.0.3 =
@@ -127,7 +139,7 @@ Yes, you can sort the fields in the compare table. You can do it in Woocommerce 
 
 = 1.0.2 =
 
-* Improved: trigger in javascript file for add to compare event
+* Tweak: trigger in javascript file for add to compare event
 
 = 1.0.1 =
 

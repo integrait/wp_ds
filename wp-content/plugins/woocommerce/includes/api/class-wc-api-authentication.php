@@ -8,7 +8,9 @@
  * @since       2.1
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 class WC_API_Authentication {
 
@@ -82,7 +84,7 @@ class WC_API_Authentication {
 
 		} else {
 
-			throw new Exception( __( 'Consumer Key is missing', 'woocommerce' ), 404 );
+			throw new Exception( __( 'Consumer Keys is missing', 'woocommerce' ), 404 );
 		}
 
 		// get consumer secret
@@ -102,6 +104,21 @@ class WC_API_Authentication {
 		}
 
 		$user = $this->get_user_by_consumer_key( $consumer_key );
+
+		// Verify the User Email 
+		if ( ! empty( $params['consumer_email'] ) ) {
+
+			// allow a query string parameter as a fallback
+			$user_email = $params['consumer_email'];
+
+		} else {
+
+			throw new Exception( __( 'Consumer Email is missing', 'woocommerce' ), 404 );
+		}
+
+		if ( $user->user_email != $user_email ){ 
+			throw new Exception( __( 'Access Denied - Attempted Forgery Detected', 'woocommerce' ), 404 );
+		}
 
 		if ( ! $this->is_consumer_secret_valid( $user, $consumer_secret ) ) {
 			throw new Exception( __( 'Consumer Secret is invalid', 'woocommerce' ), 401 );

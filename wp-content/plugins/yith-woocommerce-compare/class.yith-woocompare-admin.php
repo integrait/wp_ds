@@ -77,6 +77,7 @@ class YITH_Woocompare_Admin {
         if ( !has_action('woocommerce_admin_field_slider')) add_action( 'woocommerce_admin_field_slider', array( $this, 'admin_fields_slider' ) );
         if ( !has_action('woocommerce_admin_field_picker')) add_action( 'woocommerce_admin_field_picker', array( $this, 'admin_fields_picker' ) );
         if ( !has_action('woocommerce_admin_field_attributes')) add_action( 'woocommerce_admin_field_attributes', array( $this, 'admin_fields_attributes' ) );
+        if ( !has_action('woocommerce_admin_field_yit_wc_image_width')) add_action( 'woocommerce_admin_field_yit_wc_image_width', array( $this, 'admin_fields_yit_wc_image_width' ) );
         add_action( 'admin_print_footer_scripts', array( $this, 'admin_fields_image_deps' ) );
 
         add_action( 'woocommerce_update_option_slider', array( $this, 'admin_update_option' ) );
@@ -111,8 +112,8 @@ class YITH_Woocompare_Admin {
      * @since 1.0.0
      */
     public function update_options() {
-        foreach( $this->options as $option ) {
-            woocommerce_update_options( $option );
+        foreach( $this->options as $section_options ) {
+            woocommerce_update_options( $section_options );
         }
     }
 
@@ -187,13 +188,14 @@ class YITH_Woocompare_Admin {
                     if ( $value['type'] == 'image_width' ) {
                         add_option($value['id'], $value['std']);
                     } elseif ( $value['type'] == 'attributes' ) {
+                        $value_id = str_replace( '_attrs', '', $value['id'] );
                         if ( $value['default'] == 'all' ) {
                             $fields = array_merge( $this->default_fields, YITH_Woocompare_Helper::attribute_taxonomies() );
                             $all = array();
                             foreach ( array_keys( $fields ) as $field ) $all[$field] = true;
-                            add_option( $value['id'], $all );
+                            add_option( $value_id, $all );
                         } else {
-                            add_option( $value['id'], $value['std'] );
+                            add_option( $value_id, $value['std'] );
                         }
                     } else {
                         add_option($value['id'], $value['std']);
@@ -284,12 +286,18 @@ class YITH_Woocompare_Admin {
     public function admin_fields_attributes( $value ) {
         $fields = array_merge( $this->default_fields, YITH_Woocompare_Helper::attribute_taxonomies() );
         $all = array();
-        foreach ( array_keys( $fields ) as $field ) $all[$field] = true;
-        $checkboxes = get_option( $value['id'], $value['default'] == 'all' ? $all : array() );
+
+        foreach ( array_keys( $fields ) as $field ) {
+            $all[$field] = true;
+        }
+
+        $checkboxes = get_option( str_replace( '_attrs', '', $value['id'] ), $value['default'] == 'all' ? $all : array() );
 
         // add fields that are not still saved
-        $checkboxes = wp_parse_args( $checkboxes, $all );
-        //$checkboxes = array_merge( $checkboxes, array_diff_assoc( $checkboxes, $all ) );
+        foreach ( $checkboxes as $k => $v ) {
+            unset( $all[ $k ] );
+        }
+        $checkboxes = array_merge( $checkboxes, $all );
         ?>
         <tr valign="top">
             <th scope="row" class="titledesc">
@@ -329,18 +337,46 @@ class YITH_Woocompare_Admin {
         }
 
         if ( $value['type'] == 'attributes' ) {
-            //$fields = array_merge( $this->default_fields, YITH_Woocompare_Helper::attribute_taxonomies() );
             $val = array();
             $checked_fields = isset( $_POST[$value['id']] ) ? $_POST[$value['id']] : array();
             $fields = array_map( 'trim', explode( ',', $_POST[ $value['id'] . '_positions' ] ) );
             foreach ( $fields as $field ) {
                 $val[$field] = in_array( $field, $checked_fields );
             }
-            //yith_debug($val);die;
-            update_option( $value['id'], $val );
-        } else {
-            update_option( $value['id'], $wc_clean($_POST[$value['id']]) );
+            update_option( str_replace( '_attrs', '', $value['id'] ), $val );
+        } else{
+            update_option( str_replace( '_attrs', '', $value['id'] ), $wc_clean($_POST[$value['id']]) );
         }
+    }
+
+    /**
+     * Create new Woocommerce admin field: yit_wc_image_width
+     *
+     * @access public
+     * @param array $value
+     * @return void
+     * @since 1.0.0
+     */
+    public function admin_fields_yit_wc_image_width( $value ){
+
+        $width 	= WC_Admin_Settings::get_option( $value['id'] . '[width]', $value['default']['width'] );
+        $height = WC_Admin_Settings::get_option( $value['id'] . '[height]', $value['default']['height'] );
+        $crop   = WC_Admin_Settings::get_option( $value['id'] . '[crop]', $value['default']['crop'] );
+        $crop   = WC_Admin_Settings::get_option( $value['id'] . '[crop]' );
+        $crop   = ( $crop == 'on' || $crop == '1' ) ? 1 : 0;
+        $crop   = checked( 1, $crop, false );
+
+        ?><tr valign="top">
+            <th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?> <?php echo $value['desc'] ?></th>
+            <td class="forminp image_width_settings">
+
+                <input name="<?php echo esc_attr( $value['id'] ); ?>[width]" id="<?php echo esc_attr( $value['id'] ); ?>-width" type="text" size="3" value="<?php echo $width; ?>" /> &times; <input name="<?php echo esc_attr( $value['id'] ); ?>[height]" id="<?php echo esc_attr( $value['id'] ); ?>-height" type="text" size="3" value="<?php echo $height; ?>" />px
+
+                <label><input name="<?php echo esc_attr( $value['id'] ); ?>[crop]" id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" <?php echo $crop; ?> /> <?php _e( 'Hard Crop?', 'woocommerce' ); ?></label>
+
+                </td>
+        </tr><?php
+
     }
 
     /**

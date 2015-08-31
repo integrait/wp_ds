@@ -47,7 +47,7 @@
 											<div class="layout-preshow-text">SLIDER</div>
 									</div>
 									<div id="layout-preshow-grid">
-											<div class="layout-preshow-text">CAPTIONS GRID</div>										
+											<div class="layout-preshow-text">LAYERS GRID</div>										
 									</div>
 								</div>
 							</div>

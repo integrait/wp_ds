@@ -50,7 +50,30 @@ do_action( 'yit_before_primary' ) ?>
 
 <!-- START PRIMARY -->
 <div id="primary" class="<?php yit_sidebar_layout(); ?>">
+
+    <?php do_shortcode('[show_homepage_map]'); ?>
+
     <div class="container group">
+      <div class="row">
+      <div class="span6 count-span">
+        <div class="count-blk">
+          <img style="width: 33px;float: right;position: relative;top: 21px;" src="<?php echo home_url();?>/wp-content/themes/sistina/images/mfct-icon.png">
+          <h4 id="b1" class="count">568</h4> 
+          <small>Manufacturers</small>
+        </div>
+        <div  class="count-blk">
+          <img style="width: 33px;float: right;position: relative;top: 21px;" src="<?php echo home_url();?>/wp-content/themes/sistina/images/dist-icon.png">
+          <h4 id="b2" class="count">218</h4> 
+          <small>Distributors</small>
+        </div>
+        <div class="count-blk">
+          <img style="width: 33px;float: right;position: relative;top: 21px;" src="<?php echo home_url();?>/wp-content/themes/sistina/images/pharm-icon.png">
+          <h4  id="b3" class="count">564</h4> 
+          <small>Pharmacies</small>
+        </div> 
+      </div>
+    </div>
+    <script type="text/javascript">draw_map("All");</script>
 	    <div class="row">
 	        <?php do_action( 'yit_before_content' ) ?>	        
 			
@@ -61,6 +84,8 @@ do_action( 'yit_before_primary' ) ?>
 	        
 	        comments_template();
 	        ?>
+            	<?php //do_action('ds_featured_manufacturer');?>
+            
 	        </div>
 	        <!-- END CONTENT -->
 	        <?php do_action( 'yit_after_content' ) ?>

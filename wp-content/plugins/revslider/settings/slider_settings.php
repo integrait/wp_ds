@@ -99,9 +99,17 @@
 				$sliderMainSettings->addRadio("auto_height", array("on"=>__("On",REVSLIDER_TEXTDOMAIN), "off"=>__("Off",REVSLIDER_TEXTDOMAIN)),__("Unlimited Height",REVSLIDER_TEXTDOMAIN),"off");
 				$sliderMainSettings->addRadio("force_full_width", array("on"=>__("On",REVSLIDER_TEXTDOMAIN), "off"=>__("Off",REVSLIDER_TEXTDOMAIN)),__("Force Full Width",REVSLIDER_TEXTDOMAIN),"off");
 				
-				$paramsSize = array("width"=>960,"height"=>350,"datatype"=>UniteSettingsRev::DATATYPE_NUMBER);
-				$sliderMainSettings->addCustom("slider_size", "slider_size","",__("Grid Settings",REVSLIDER_TEXTDOMAIN),$paramsSize);
-
+				$arrParams = array("description"=>__("",REVSLIDER_TEXTDOMAIN));
+				$sliderMainSettings->addTextBox("min_height", "0",__("Min. Height",REVSLIDER_TEXTDOMAIN), $arrParams);
+				
+				$paramsSize = array("width"=>960,"height"=>350,"datatype"=>UniteSettingsRev::DATATYPE_NUMBER,"description"=>__('
+- The <span class="prevxmpl">LAYERS GRID</span> is the container of layers within the <span class="prevxmpl">SLIDER</span> <br>
+- The "Grid Size" setting does not relate to the actual "Slider Size". <br>
+- "Max Height" of the slider equals the "Grid Height"<br>
+- "Slider Width" can be greater than the set "Grid Width"',REVSLIDER_TEXTDOMAIN));
+				$sliderMainSettings->addCustom("slider_size", "slider_size","",__("Layers Grid Size",REVSLIDER_TEXTDOMAIN),$paramsSize);
+				
+				
 				$paramsResponsitive = array("w1"=>940,"sw1"=>770,"w2"=>780,"sw2"=>500,"w3"=>510,"sw3"=>310,"datatype"=>UniteSettingsRev::DATATYPE_NUMBER);
 				$sliderMainSettings->addCustom("responsitive_settings", "responsitive","",__("Responsive Sizes",REVSLIDER_TEXTDOMAIN),$paramsResponsitive);
 

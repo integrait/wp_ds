@@ -46,7 +46,7 @@ global $woocommerce;
                     } else {
                         $account_url = get_permalink( get_option('woocommerce_myaccount_page_id') );
                     } ?>
-                <form method="post" action=""<?php echo $account_url ?>" class="group">
+                <form method="post" action="<?php echo $account_url ?>" class="group">
                     <input type="text" name="username" id="header_username" placeholder="<?php _e('Username', 'yit') ?>" />
                     <input type="password" name="password" id="header_password" placeholder="<?php _e('Password', 'yit') ?>" />
 

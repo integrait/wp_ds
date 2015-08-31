@@ -15,6 +15,13 @@ class CPAC_Settings {
 	private $cpac;
 
 	/**
+	 * Settings Page
+	 *
+	 * @since 2.0
+	 */
+	private $settings_page;
+
+	/**
 	 * @since 2.0
 	 * @param object CPAC
 	 */
@@ -31,6 +38,13 @@ class CPAC_Settings {
 		add_action( 'wp_ajax_cpac_column_refresh', array( $this, 'ajax_column_refresh' ) );
 
 		add_action( 'cpac_messages', array( $this, 'maybe_display_addon_statuschange_message' ) );
+	}
+
+	/**
+	 * @since 3.1.1
+	 */
+	public function get_settings_page() {
+		return $this->settings_page;
 	}
 
 	/**
@@ -51,6 +65,7 @@ class CPAC_Settings {
 		 */
 		$settings_urls = apply_filters( 'cac/settings/settings_urls', array(
 			'admin' 		=> admin_url( 'options-general.php?page=codepress-admin-columns' ),
+			'settings' 		=> admin_url( 'options-general.php?page=codepress-admin-columns&tab=settings' ),
 			'info' 			=> admin_url( 'options-general.php?page=codepress-admin-columns&info=' ),
 			'upgrade' 		=> admin_url( 'options-general.php?page=cpac-upgrade' )
 		), $this );
@@ -152,14 +167,14 @@ class CPAC_Settings {
 	public function settings_menu() {
 
 		// add settings page
-		$settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
+		$this->settings_page = add_submenu_page( 'options-general.php', __( 'Admin Columns Settings', 'cpac' ), __( 'Admin Columns', 'cpac' ), 'manage_admin_columns', 'codepress-admin-columns', array( $this, 'display' ), false, 98 );
 
 		// add help tabs
-		add_action( "load-{$settings_page}", array( $this, 'help_tabs' ) );
+		add_action( "load-{$this->settings_page}", array( $this, 'help_tabs' ) );
 
 		// add scripts & styles
-		add_action( "admin_print_styles-{$settings_page}", array( $this, 'admin_styles' ) );
-		add_action( "admin_print_scripts-{$settings_page}", array( $this, 'admin_scripts' ) );
+		add_action( "admin_print_styles-{$this->settings_page}", array( $this, 'admin_styles' ) );
+		add_action( "admin_print_scripts-{$this->settings_page}", array( $this, 'admin_scripts' ) );
 
 		// register setting
 		register_setting( 'cpac-general-settings', 'cpac_general_options' );
@@ -181,9 +196,11 @@ class CPAC_Settings {
 	 * @since 1.0
 	 */
 	public function admin_styles() {
+		$minified = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_style( 'jquery-ui-lightness', CPAC_URL . 'assets/ui-theme/jquery-ui-1.8.18.custom.css', array(), CPAC_VERSION, 'all' );
-		wp_enqueue_style( 'cpac-admin', CPAC_URL . 'assets/css/admin-column.css', array(), CPAC_VERSION, 'all' );
+		wp_enqueue_style( 'cpac-admin', CPAC_URL . "assets/css/admin-column{$minified}.css", array(), CPAC_VERSION, 'all' );
 	}
 
 	/**
@@ -210,8 +227,9 @@ class CPAC_Settings {
 	public function handle_column_request() {
 
 		// only handle updates from the admin columns page
-		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns' ) ) && isset( $_REQUEST['cpac_action'] ) ) )
+		if ( ! ( isset($_GET['page'] ) && in_array( $_GET['page'], array( 'codepress-admin-columns' ) ) && isset( $_REQUEST['cpac_action'] ) ) ) {
 			return false;
+		}
 
 		// use $_REQUEST because the values are send both over $_GET and $_POST
 		$action = isset( $_REQUEST['cpac_action'] ) ? $_REQUEST['cpac_action'] 	: '';
@@ -221,16 +239,18 @@ class CPAC_Settings {
 		switch ( $action ) :
 
 			case 'update_by_type' :
-				if ( wp_verify_nonce( $nonce, 'update-type' ) ) {
-					$storage_model = $this->cpac->get_storage_model( $key );
-					$storage_model->store();
+				if ( wp_verify_nonce( $nonce, 'update-type' ) && $key ) {
+					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->store();
+					}
 				}
 				break;
 
 			case 'restore_by_type' :
-				if ( wp_verify_nonce( $nonce, 'restore-type' ) ) {
-					$storage_model = $this->cpac->get_storage_model( $key );
-					$storage_model->restore();
+				if ( wp_verify_nonce( $nonce, 'restore-type' ) && $key ) {
+					if ( $storage_model = $this->cpac->get_storage_model( $key ) ) {
+						$storage_model->restore();
+					}
 				}
 				break;
 
@@ -272,7 +292,7 @@ class CPAC_Settings {
 			array(
 				'title'		=> __( "Overview", 'cpac' ),
 				'content'	=>
-					"<h5>Codepress Admin Columns</h5>
+					"<h5>Admin Columns</h5>
 					<p>". __( "This plugin is for adding and removing additional columns to the administration screens for post(types), pages, media library, comments, links and users. Change the column's label and reorder them.", 'cpac' ) . "</p>"
 			),
 			array(
@@ -322,7 +342,7 @@ class CPAC_Settings {
 	 * @param string $storage_model URL type.
 	 * @return string Url.
 	 */
-	function get_url( $type ) {
+	public function get_url( $type ) {
 
 		$site_url = 'http://www.admincolumns.com';
 
@@ -374,23 +394,18 @@ class CPAC_Settings {
 		$show_welcome = false !== get_transient('cpac_show_welcome');
 
 		// Should only be set manual
-		if ( isset( $_GET['info'] ) )
+		if ( isset( $_GET['info'] ) ) {
 			$show_welcome = true;
+		}
 
-		if ( ! $show_welcome )
+		if ( ! $show_welcome ) {
 			return false;
+		}
 
 		// Set check that welcome should not be displayed.
 		delete_transient('cpac_show_welcome');
 
 		$tab = !empty( $_GET['info'] ) ? $_GET['info'] : 'whats-new';
-
-		// check if old site used custom field columns
-		$uses_customfields 	= $this->uses_custom_fields();
-		$uses_sortorder 	= get_option( "cpac_sortable_ac" ) && ! class_exists( 'CAC_Addon_Pro' ) ? true : false;
-
-		$installed_customfields = false;
-		$installed_sortorder 	= false;
 
 		?>
 
@@ -410,27 +425,6 @@ class CPAC_Settings {
 				</h2>
 
 			<?php if ( 'whats-new' === $tab ) : ?>
-
-				<h3><?php _e( "Addons", 'cpac' ); ?></h3>
-				<p>
-					<?php _e( "Addons are now activated by downloading and installing individual plugins. Although these plugins will not be hosted on the wordpress.org repository, each Add-on will continue to receive updates in the usual way.",'cpac'); ?>
-				</p>
-			<?php if ( $uses_sortorder ) : ?>
-				<h4><?php _e( "This website uses the Sortorder Addon. This addon needs to be downloaded." ,'cpac' ); ?></h4>
-				<div class="cpac-alert cpac-alert-success">
-					<p>
-						<?php _e( "Addons are seperate plugins which need to be downloaded.", 'cpac' ); ?> <a href="<?php echo $this->get_settings_url( 'info' ); ?>download-add-ons" class="button-primary" style="display: inline-block;"><?php _e( "Download your Addons", 'cpac'); ?></a>
-					</p>
-				</div>
-			<?php else : ?>
-				<div class="cpac-alert cpac-alert-success">
-					<p>
-						<strong><?php _e( 'This website does not use add-ons', 'cpac' ); ?></strong>. <a target="_blank" href="<?php echo $this->get_url('admincolumnspro'); ?>"><?php _e( 'See our website for Admin Columns Pro.', 'cpac' ); ?></a>
-					</p>
-				</div>
-			<?php endif; ?>
-
-				<hr />
 
 				<h3><?php _e( "Important", 'cpac' ); ?></h3>
 
@@ -455,8 +449,8 @@ class CPAC_Settings {
 				<?php
 
 				$items = file_get_contents( CPAC_DIR . 'readme.txt' );
-
-				$items = end( explode('= ' . CPAC_VERSION . ' =', $items) );
+				$items = explode('= ' . CPAC_VERSION . ' =', $items);
+				$items = end( $items );
 				$items = current( explode("\n\n", $items) );
 				$items = current( explode("= ", $items) );
 				$items = array_filter( array_map('trim', explode("*", $items)) );
@@ -486,35 +480,11 @@ class CPAC_Settings {
 	}
 
 	/**
-	 * @since 2.2
-	 */
-	function display_menu_by_type( $menu_type = '', $label = '', $active_item = '' ) {
-
-		$storage_models_by_type = array();
-
-		foreach( $this->cpac->storage_models as $k => $storage_model ) {
-			if ( $menu_type == $storage_model->menu_type ) {
-				$storage_models_by_type[ $menu_type ][ $k ] = $storage_model;
-			}
-		}
-
-		if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) { $count = 0; ?>
-			<ul class="subsubsub">
-				<li class="first"><?php echo $label; ?>: </li>
-			<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
-				<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $active_item ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
-			<?php endforeach; ?>
-			</ul>
-		<?php
-		}
-	}
-
-	/**
 	 * @since 1.0
 	 */
 	public function display_settings() {
 	?>
-		<table class="form-table cpac-form-table">
+		<table class="form-table cpac-form-table settings">
 			<tbody>
 
 				<tr class="general">
@@ -527,9 +497,6 @@ class CPAC_Settings {
 							<form method="post" action="options.php">
 								<?php settings_fields( 'cpac-general-settings' ); ?>
 								<?php $options = get_option( 'cpac_general_options' ); ?>
-								<p>
-									<br/>
-								</p>
 								<p>
 									<label for="show_edit_button">
 										<input name="cpac_general_options[show_edit_button]" type="hidden" value="0" >
@@ -600,11 +567,25 @@ class CPAC_Settings {
 	}
 
 	/**
+	 * @since 2.4.1
+	 */
+	private function get_menu_types() {
+		$menu_types = array(
+			'post' => __( 'Posttypes', 'cpac' ),
+			'other' => __( 'Others', 'cpac' ),
+			'taxonomy' => __( 'Taxonomies', 'cpac' ),
+		);
+		return apply_filters( 'cac/menu_types', $menu_types );
+	}
+
+	/**
 	 * @since 1.0
 	 */
 	public function display() {
 
-		if ( $this->welcome_screen() ) return;
+		if ( $this->welcome_screen() ) {
+			return;
+		}
 
 		$tabs = array(
 			'general'	=> __( 'Admin Columns', 'cpac' ),
@@ -612,14 +593,15 @@ class CPAC_Settings {
 			'addons'	=> __( 'Add-ons', 'cpac' )
 		);
 
+		/**
+		 * Filter the tabs on the settings screen
+		 *
+		 * @param array $tabs Available tabs
+		 */
 		$tabs = apply_filters( 'cac/settings/tabs', $tabs );
 
 		$current_tab = ( empty( $_GET['tab'] ) ) ? 'general' : sanitize_text_field( urldecode( $_GET['tab'] ) );
-
-		$post_types = array_values( $this->cpac->get_post_types() );
-		$first 		= array_shift( $post_types );
 		?>
-
 		<div id="cpac" class="wrap">
 			<?php screen_icon( 'codepress-admin-columns' ); ?>
 			<h2 class="nav-tab-wrapper cpac-nav-tab-wrapper">
@@ -633,11 +615,31 @@ class CPAC_Settings {
 			<?php
 			switch ( $current_tab ) :
 				case 'general':
+
+					$post_types = array_values( $this->cpac->get_post_types() );
+					$first = array_shift( $post_types );
+
+					$storage_models_by_type = array();
+					foreach ( $this->cpac->storage_models as $k => $storage_model ) {
+						$storage_models_by_type[ $storage_model->menu_type ][ $k ] = $storage_model;
+					}
+
 					?>
 					<div class="cpac-menu">
-						<?php $this->display_menu_by_type( 'post', __( 'Posttypes', 'cpac' ), $first ); ?>
-						<?php $this->display_menu_by_type( 'other', __( 'Others', 'cpac' ) ); ?>
-						<?php $this->display_menu_by_type( 'taxonomy', __( 'Taxonomies', 'cpac' ) ); ?>
+					<?php
+					foreach ( $this->get_menu_types() as $menu_type => $label ) {
+						if ( ! empty( $storage_models_by_type[ $menu_type ] ) ) {
+							$count = 0; ?>
+							<ul class="subsubsub">
+								<li class="first"><?php echo $label; ?>: </li>
+							<?php foreach ( $storage_models_by_type[ $menu_type ] as $storage_model ) : ?>
+								<li><?php echo $count++ != 0 ? ' | ' : ''; ?><a href="#cpac-box-<?php echo $storage_model->key; ?>" <?php echo $storage_model->is_menu_type_current( $first ) ? ' class="current"' : '';?> ><?php echo $storage_model->label; ?></a></li>
+							<?php endforeach; ?>
+							</ul>
+						<?php
+						}
+					}
+					?>
 					</div>
 
 					<?php do_action( 'cac/settings/after_menu' ); ?>
@@ -654,16 +656,16 @@ class CPAC_Settings {
 									</h2>
 								</div>
 
-								<?php if ( $storage_model->stored_columns !== NULL ) : ?>
+								<?php if ( $storage_model->is_using_php_export() ) : ?>
 									<div class="error below-h2">
-										<p><?php printf( __( 'The columns for <strong>%s</strong> are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), $storage_model->label ); ?></p>
+										<p><?php printf( __( 'The columns for %s are set up via PHP and can therefore not be edited in the admin panel.', 'cpac' ), '<strong>' . $storage_model->label . '</strong>' ); ?></p>
 									</div>
 								<?php endif; ?>
 							</div>
 
 							<div class="columns-right">
 								<div class="columns-right-inside">
-									<?php if ( $storage_model->stored_columns === NULL ) : ?>
+									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="sidebox" id="form-actions">
 											<h3>
 												<?php _e( 'Store settings', 'cpac' ) ?>
@@ -820,7 +822,7 @@ class CPAC_Settings {
 
 							<div class="columns-left">
 								<div class="cpac-boxes">
-									<?php if ( $storage_model->stored_columns === NULL ) : ?>
+									<?php if ( ! $storage_model->is_using_php_export() ) : ?>
 										<div class="cpac-columns">
 
 											<form method="post" action="">
@@ -874,8 +876,13 @@ class CPAC_Settings {
 					//$this->tab_addons();
 					break;
 				default:
-					echo apply_filters( 'cac/settings/tab_contents/tab=' . $current_tab, apply_filters( 'cac/settings/tab_contents', '', $current_tab ) );
-					break;
+
+					/**
+					 * Action to add tab contents
+					 *
+					 */
+					do_action( 'cac/settings/tab_contents/tab=' . $current_tab );
+
 			endswitch;
 			?>
 		</div><!--.wrap-->

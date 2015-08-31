@@ -1965,7 +1965,7 @@ ul.list_idlehover li a	{	cursor: pointer !important}
 **************************************************/
 
 
-#layout-preshow-page 	{width:550px; height:200px;border:1px solid #ddd; background:#fff;position:relative;margin:auto;}
+#layout-preshow-page 	{width:550px; height:200px;border:1px solid #ddd; background:#fff;position:relative;margin:0px 0px 0px 165px;}
 #layout-preshow-theme	{width:360px; height:200px; background:#eee;position:absolute;top:0px; left:95px}
 #layout-preshow-slider	{width:360px; height:130px; background:#95a5a6; position:absolute;left:95px;top:35px;
 							-webkit-transition: all 0.2s ease-out;
@@ -2418,3 +2418,17 @@ line-height:30px;
 
 #viewWrapper .list_static_slide_links [class^="eg-icon-"]:before, 
 .list_static_slide_links li i:before	{	color:#fff !important }
+
+
+
+#slider_size_row th							{	vertical-align: top !important; padding-top:6px !important}
+
+#slider_size_row td .description			{	border-left:40px solid #f1c40f;  background:#eee; color:#222; padding:20px 10px; max-width:400px; margin-top:30px; margin-bottom:20px;font-weight: 400;position: relative}
+#slider_size_row td .description:before		{	content: '\e80f';font-family: "revicons"; font-size:25px; color:#fff; position:absolute; top:20px;left:-30px; font-style: normal;}
+#slider_size_row .prevxmpl					{	color:#fff; font-style: normal; padding:3px 5px; background:#34495e; font-size:11px;}
+
+#layout-preshow strong						{ 	color:#222; font-weight:400; font-size:14px;}	
+#layout-preshow span						{	margin-left:59px; font-size: 13px !important;font-style: italic;color: #999;font-weight: 300;line-height: 30px;}
+
+
+#tp-validation-box i.revicon-info-circled.redrevicon:before		{  color: #bdc3c7 !important}

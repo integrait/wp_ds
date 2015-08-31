@@ -652,6 +652,8 @@
 			if(gettype($setting) == "string")
 				$setting = $this->settings->getSettingByName($setting);
 			
+			$setting = apply_filters('revslider_modify_sidebar_settings', $setting);
+			
 			switch($state){
 				case "hidden":
 					$setting["hidden"] = true;

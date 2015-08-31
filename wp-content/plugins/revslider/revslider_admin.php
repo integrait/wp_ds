@@ -219,6 +219,15 @@
 		 * common scripts even if the plugin not load, use this function only if no choise.
 		 */
 		public static function onAddScripts(){
+			global $wp_version;
+			
+			$style_pre = '';
+			$style_post = '';
+			if($wp_version < 3.7){
+				$style_pre = '<style type="text/css">';
+				$style_post = '</style>';
+			}
+			
 			self::addStyle("edit_layers","edit_layers");
 
 			//add google font
@@ -241,16 +250,16 @@
 			$styles = $db->fetch(GlobalsRevSlider::$table_css);
 			$styles = UniteCssParserRev::parseDbArrayToCss($styles, "\n");
 			$styles = UniteCssParserRev::compress_css($styles);
-			wp_add_inline_style( 'rs-plugin-settings', $styles );
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$styles.$style_post );
 
 			// KRISZTIAN MODIFICATION FOR INNERLAYERS
 			$stylesinnerlayers = str_replace('.tp-caption', '',$styles);
-			wp_add_inline_style( 'rs-plugin-settings', $stylesinnerlayers );
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$stylesinnerlayers.$style_post );
 			// END MODIFICATION
 
 			$custom_css = RevOperations::getStaticCss();
 			$custom_css = UniteCssParserRev::compress_css($custom_css);
-			wp_add_inline_style( 'rs-plugin-settings', $custom_css );
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$custom_css.$style_post );
 			//self::addStyle("static-captions","rs-plugin-static","rs-plugin/css");
 		}
 

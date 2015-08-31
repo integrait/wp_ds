@@ -1,6 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Local Pickup Shipping Method
@@ -123,7 +125,7 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 	 * @return void
 	 */
 	function admin_options() {
-		global $woocommerce; ?>
+		?>
 		<h3><?php echo $this->method_title; ?></h3>
 		<p><?php _e( 'Local pickup is a simple method which allows the customer to pick up their order themselves.', 'woocommerce' ); ?></p>
 		<table class="form-table">
@@ -149,31 +151,34 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 		} else {
 
 			// If post codes are listed, let's use them.
-			$codes = '';
+			$codes = array();
+
 			if ( $this->codes != '' ) {
 				foreach( explode( ',', $this->codes ) as $code ) {
-					$codes[] = $this->clean( $code );
+					$codes[] = strtoupper( trim( $code ) );
 				}
 			}
 
-			if ( is_array( $codes ) ) {
+			if ( ! empty( $codes ) ) {
 
-				$found_match = false;
+				$found_match        = false;
+				$postcode           = $this->clean( $package['destination']['postcode'] );
+				$formatted_postcode = wc_format_postcode( $postcode, $package['destination']['country'] );
 
-				if ( in_array( $this->clean( $package['destination']['postcode'] ), $codes ) )
+				if ( in_array( $postcode, $codes ) || in_array( $formatted_postcode, $codes ) ) {
 					$found_match = true;
+				}
 
 				// Wildcard search
 				if ( ! $found_match ) {
-
-					$customer_postcode = $this->clean( $package['destination']['postcode'] );
+					$customer_postcode        = $formatted_postcode;
 					$customer_postcode_length = strlen( $customer_postcode );
 
 					for ( $i = 0; $i <= $customer_postcode_length; $i++ ) {
-
-						if ( in_array( $customer_postcode, $codes ) )
+						if ( in_array( $customer_postcode, $codes ) ) {
 							$found_match = true;
-
+							break;
+						}
 						$customer_postcode = substr( $customer_postcode, 0, -2 ) . '*';
 					}
 				}
@@ -184,10 +189,11 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 
 				} else {
 
-					if ( $this->availability == 'specific' )
+					if ( $this->availability === 'specific' ) {
 						$ship_to_countries = $this->countries;
-					else
+					} else {
 						$ship_to_countries = array_keys( WC()->countries->get_shipping_countries() );
+					}
 
 					if ( is_array( $ship_to_countries ) && ! in_array( $package['destination']['country'], $ship_to_countries ) ) {
 						$is_available = false;
@@ -195,16 +201,16 @@ class WC_Shipping_Local_Pickup extends WC_Shipping_Method {
 
 				}
 			} else {
-				if ( $this->availability == 'specific' )
+				if ( $this->availability === 'specific' ) {
 					$ship_to_countries = $this->countries;
-				else
+				} else {
 					$ship_to_countries = array_keys( WC()->countries->get_shipping_countries() );
+				}
 
 				if ( is_array( $ship_to_countries ) && ! in_array( $package['destination']['country'], $ship_to_countries ) ) {
 					$is_available = false;
 				}
 			}
-
 		}
 
 		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package );

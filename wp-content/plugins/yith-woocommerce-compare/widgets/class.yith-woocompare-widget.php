@@ -33,7 +33,9 @@ if( !class_exists( 'YITH_WOOCOMPARE' ) ) {
 
             extract( $args );
 
-            echo $before_widget . $before_title . $instance['title'] . $after_title; ?>
+            $localized_widget_title = function_exists( 'icl_translate' ) ? icl_translate( 'Widget', 'widget_yit_compare_title_text', $instance['title'] ) : $instance['title'];
+
+            echo $before_widget . $before_title . $localized_widget_title . $after_title; ?>
 
             <ul class="products-list" data-lang="<?php echo $lang ?>">
             <?php echo $yith_woocompare->obj->list_products_html(); ?>

@@ -24,6 +24,7 @@ if( !class_exists( 'YITH_Woocompare_Helper' ) ) {
          */
         public static function set_image_size() {
             $size = get_option( 'yith_woocompare_image_size' );
+            $size['crop'] = isset( $size['crop'] ) ? true : false;
             add_image_size( 'yith-woocompare-image', $size['width'], $size['height'], $size['crop'] );
         }
 

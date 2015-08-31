@@ -49,3 +49,8 @@ It will always override rules in style.css.
 Good work... and good luck! :)
 
 ********************************************/
+#nav .megamenu ul.sub-menu li a, #nav .megamenu ul.sub-menu li a span.special-font { font-size:12px !important; font-family: 'Open Sans', sans-serif; color: #ff9700 !important; font-style: normal; font-weight:normal !important; }
+#sidebar-nafdac-drug-database,#sidebar-medical-facilities{margin-top:100px;}
+.welcome_username a,#footer h3{color:#ff9700 !important;}
+.woo_cart .widget_shopping_cart .cart_label span,.woocommerce ul.products li.product.grid.with-hover .grid-add-to-cart a.button{background-color:#ff9700 !important;}
+form input[type="text"]{border-color:#FF9700 !important;}

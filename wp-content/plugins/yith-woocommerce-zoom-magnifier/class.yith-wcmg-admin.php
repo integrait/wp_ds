@@ -70,6 +70,9 @@ if ( ! class_exists( 'YITH_WCMG_Admin' ) ) {
             if ( ! has_action( 'woocommerce_admin_field_picker' ) ) {
                 add_action( 'woocommerce_admin_field_picker', array( $this, 'admin_fields_picker' ) );
             }
+            if ( !has_action('woocommerce_admin_field_yit_wc_image_width')) {
+                add_action( 'woocommerce_admin_field_yit_wc_image_width', array( $this, 'admin_fields_yit_wc_image_width' ) );
+            }
             add_action( 'woocommerce_admin_field_banner', array( $this, 'admin_fields_banner' ) );
             add_action( 'admin_print_footer_scripts', array( $this, 'admin_fields_image_deps' ) );
 
@@ -212,7 +215,16 @@ if ( ! class_exists( 'YITH_WCMG_Admin' ) ) {
          * @since 1.0.0
          */
         protected function _initOptions() {
+            global $woocommerce;
             $image_size = array();
+
+            if ( version_compare( preg_replace( '/-beta-([0-9]+)/', '', $woocommerce->version ), '2.2', '<' ) ) {
+                $image_width_type = 'image_width';
+            }
+            else {
+                $image_width_type = 'yit_wc_image_width';
+            }
+
 
             if ( function_exists( 'WC' ) ) {
                 $image_size = array(
@@ -220,7 +232,7 @@ if ( ! class_exists( 'YITH_WCMG_Admin' ) ) {
                     'desc'     => __( 'The size of images used within the magnifier box', 'yit' ),
                     'id'       => 'woocommerce_magnifier_image',
                     'css'      => '',
-                    'type'     => 'image_width',
+                    'type'     => $image_width_type,
                     'default'  => array(
                         'width'  => 600,
                         'height' => 600,
@@ -653,6 +665,35 @@ if ( ! class_exists( 'YITH_WCMG_Admin' ) ) {
             );
 
             return array_merge( $plugin_links, $links );
+        }
+
+        /**
+         * Create new Woocommerce admin field: yit_wc_image_width
+         *
+         * @access public
+         * @param array $value
+         * @return void
+         * @since 1.1.3
+         */
+        public function admin_fields_yit_wc_image_width( $value ){
+
+            $width 	= WC_Admin_Settings::get_option( $value['id'] . '[width]', $value['default']['width'] );
+            $height = WC_Admin_Settings::get_option( $value['id'] . '[height]', $value['default']['height'] );
+            $crop   = WC_Admin_Settings::get_option( $value['id'] . '[crop]' );
+            $crop   = ( $crop == 'on' || $crop == '1' ) ? 1 : 0;
+            $crop 	= checked( 1, $crop, false );
+
+            ?><tr valign="top">
+                <th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?> <?php echo $value['desc'] ?></th>
+                <td class="forminp image_width_settings">
+
+                    <input name="<?php echo esc_attr( $value['id'] ); ?>[width]" id="<?php echo esc_attr( $value['id'] ); ?>-width" type="text" size="3" value="<?php echo $width; ?>" /> &times; <input name="<?php echo esc_attr( $value['id'] ); ?>[height]" id="<?php echo esc_attr( $value['id'] ); ?>-height" type="text" size="3" value="<?php echo $height; ?>" />px
+
+                    <label><input name="<?php echo esc_attr( $value['id'] ); ?>[crop]" id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" <?php echo $crop; ?> /> <?php _e( 'Hard Crop?', 'woocommerce' ); ?></label>
+
+                    </td>
+            </tr><?php
+
         }
     }
 }

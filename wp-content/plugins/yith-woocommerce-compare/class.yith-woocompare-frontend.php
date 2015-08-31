@@ -227,7 +227,7 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
             $fields = $this->fields();
 
             foreach ( $products as $product_id ) {
-                $product = get_product( $product_id );
+                $product = $this->wc_get_product( $product_id );
                 if ( ! $product ) continue;
 
                 $product->fields = array();
@@ -334,7 +334,10 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
 
             $is_button = !isset( $button_or_link ) || !$button_or_link ? get_option( 'yith_woocompare_is_button' ) : $button_or_link;
 
-            printf( '<a href="%s" class="%s" data-product_id="%d">%s</a>', $this->add_product_url( $product_id ), 'compare' . ( $is_button == 'button' ? ' button' : '' ), $product_id, ( isset( $button_text ) && $button_text != 'default' ? $button_text : get_option( 'yith_woocompare_button_text', __( 'Compare', 'yit' ) ) ) );
+            $button_text = get_option( 'yith_woocompare_button_text', __( 'Compare', 'yit' ) );
+            $localized_button_text = function_exists( 'icl_translate' ) ? icl_translate( 'Plugins', 'plugin_yit_compare_button_text', $button_text ) : $button_text;
+
+            printf( '<a href="%s" class="%s" data-product_id="%d">%s</a>', $this->add_product_url( $product_id ), 'compare' . ( $is_button == 'button' ? ' button' : '' ), $product_id, ( isset( $button_text ) && $button_text != 'default' ? $button_text : $localized_button_text ) );
         }
 
         /**
@@ -423,7 +426,7 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
          * @param $product_id The product ID to add in the comparison table
          */
         public function add_product_to_compare( $product_id ) {
-            $product = get_product( $product_id );
+            $product = $this->wc_get_product( $product_id );
 
             // don't add the product if doesn't exist
             if ( !$product->exists() || in_array( $product_id, $this->products_list ) ) return;
@@ -509,7 +512,7 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
             }
 
             foreach ( $this->products_list as $product_id ) {
-                $product = get_product( $product_id );
+                $product = $this->wc_get_product( $product_id );
                 if ( ! $product ) continue;
                 ?>
                 <li>
@@ -528,7 +531,7 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
          * @param $product_id The product ID to remove from the comparison table
          */
         public function remove_product_from_compare( $product_id ) {
-            $product = get_product( $product_id );
+            $product = $this->wc_get_product( $product_id );
             if ( ! $product ) return;
 
             // don't add the product if doesn't exist
@@ -587,6 +590,11 @@ if( !class_exists( 'YITH_Woocompare_Frontend' ) ) {
             ) );
             if ( $atts['container'] == 'yes' ) echo '</div>';
             return ob_get_clean();
+        }
+
+        public function wc_get_product( $product_id ){
+            $wc_get_product = function_exists( 'wc_get_product' ) ? 'wc_get_product' : 'get_product';
+            return $wc_get_product( $product_id );
         }
 
     }

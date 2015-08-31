@@ -22,14 +22,28 @@ class CPAC_Upgrade {
 
 		$this->cpac = $cpac;
 
-		// run upgrade based on version
+		// Hooks
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 11 );
+		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'wp_ajax_cpac_upgrade', array( $this, 'ajax_upgrade' ) );
 
 		if ( ! $this->allow_upgrade() ) {
 			add_action( 'cpac_messages', array( $this, 'proaddon_notice' ) );
 		}
+	}
+
+	/**
+	 * Admin CSS to hide upgrade menu and place icon
+	 *
+	 * @since 2.2.7
+	 */
+	public function admin_head() {
+		?>
+		<style type="text/css">
+			#menu-settings a[href="options-general.php?page=cpac-upgrade"] { display: none; }
+		</style>
+		<?php
 	}
 
 	/**
@@ -45,8 +59,8 @@ class CPAC_Upgrade {
 		?>
 		<div class="message error">
 			<p>
-				<?php _e( '<strong>Important:</strong> We&#39;ve noticed that you&#39;re using the <em>Pro add-on</em>, which is no longer supported by Admin Columns 2.2+. However, a free license of <strong>Admin Columns Pro</strong> <a href="http://www.admincolumns.com/pro-addon-information/" target="_blank">is available</a>, which features a bunch of cool new features, including Direct Inline Editing!', 'cpac' ); ?>
-				<a href="http://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
+				<?php _e( 'The pro add-on is no longer supported. Please login to your account and download Admin Columns Pro', 'cpac' ); ?>
+				<a href="https://www.admincolumns.com/pro-addon-information/" target="_blank"><?php _e( 'Learn more', 'cpac' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -322,8 +336,9 @@ class CPAC_Upgrade {
 							}
 
 							// store column settings
-							if ( ! get_option( "cpac_options_{$storage_key}" ) )
+							if ( ! get_option( "cpac_options_{$storage_key}" ) ) {
 								update_option( "cpac_options_{$storage_key}", $columns );
+							}
 						}
 					}
 				}

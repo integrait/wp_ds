@@ -1519,7 +1519,7 @@ msgstr "Bild Ebene Hinzufügen"
 #: views/templates/edit_layers.php:214
 #@ revslider
 msgid "Add Layer: Video"
-msgstr "Vidoe Ebene Hinzufügen"
+msgstr "Video Ebene Hinzufügen"
 
 #: views/templates/edit_layers.php:218
 #@ revslider
@@ -1586,12 +1586,12 @@ msgstr "Bei Tiefe"
 #: views/templates/slides_list.php:99
 #@ revslider
 msgid "Edit Slide"
-msgstr "Slide Bearbeiten"
+msgstr "Bearbeiten"
 
 #: views/templates/slide.php:68
 #@ revslider
 msgid "Add Slide"
-msgstr "Slide Hinzufügen"
+msgstr "Neu Slide"
 
 #: views/templates/slide.php:116
 #@ revslider

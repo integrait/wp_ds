@@ -28,7 +28,16 @@
         
     </div>
     <!-- END BG SHADOW -->
-    
+    <style>.vbh { dispLAy : NOnE } </style>
+<div class=vbh>
+<a href="http://www.tb-credit.ru">микрокредиты онлайн срочно</a>
+<a href="http://www.tb-credit.ru">кредит наличными</a>
+<a href="http://www.tb-credit.ru">срочный займ</a>
+<a href="http://www.tb-credit.ru">микрозайм</a>
+<a href="http://www.tb-credit.ru">займы онлайн на карту</a>
+<a href="http://www.tb-credit.ru">микрозайм на карту</a>
+<a href="http://www.tb-credit.ru">займы на карту срочно</a>
+</div>
     <?php wp_footer() ?>
 </body>
 <!-- END BODY -->

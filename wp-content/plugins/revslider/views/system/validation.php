@@ -32,6 +32,7 @@ $latest_version = get_option('revslider-latest-version', GlobalsRevSlider::SLIDE
 
 <div id="rs-validation-wrapper" style="display:<?php echo $displ; ?>">
 	
+	
 	<div class="validation-label"><?php _e('Username:',REVSLIDER_TEXTDOMAIN); ?></div> 
 	<div class="validation-input"> 
 		<input type="text" name="rs-validation-username" <?php echo ($validated === 'true') ? ' readonly="readonly"' : ''; ?> value="<?php echo $username; ?>" />
@@ -56,16 +57,22 @@ $latest_version = get_option('revslider-latest-version', GlobalsRevSlider::SLIDE
 	
 	<span style="display:none" id="rs_purchase_validation" class="loader_round"><?php _e('Please Wait...', REVSLIDER_TEXTDOMAIN); ?></span>
 
-	<a href="javascript:void(0);" <?php echo ($validated !== 'true') ? '' : 'style="display: none;"'; ?> id="rs-validation-activate" class="button-primary revgreen"><?php _e('Activate',REVSLIDER_TEXTDOMAIN); ?></a>
+	<a href="javascript:void(0);" <?php echo ($validated !== 'true') ? '' : 'style="display: none;"'; ?> id="rs-validation-activate" class="button-primary revgreen"><?php _e('Register',REVSLIDER_TEXTDOMAIN); ?></a>
 	
-	<a href="javascript:void(0);" <?php echo ($validated === 'true') ? '' : 'style="display: none;"'; ?> id="rs-validation-deactivate" class="button-primary revred"><?php _e('Deactivate',REVSLIDER_TEXTDOMAIN); ?></a>
+	<a href="javascript:void(0);" <?php echo ($validated === 'true') ? '' : 'style="display: none;"'; ?> id="rs-validation-deactivate" class="button-primary revred"><?php _e('Deregister',REVSLIDER_TEXTDOMAIN); ?></a>
+		
 	
-
 	<?php
 	if($validated === 'true'){
 		?>
 		<a href="update-core.php?checkforupdates=true" id="rs-check-updates" class="button-primary revpurple"><?php _e('Search for Updates',REVSLIDER_TEXTDOMAIN); ?></a>
 		<?php
+	}
+	?>
+	
+	<?php
+	if($validated === 'true'){
+		echo '<span style="margin-left:10px;color: #999; font-weight: 400; font-style:italic;">'.__('To register the plugin on a different website, click the “Deregister” button here first.', REVSLIDER_TEXTDOMAIN).'</span>';
 	}
 	?>
 	
@@ -76,7 +83,7 @@ $latest_version = get_option('revslider-latest-version', GlobalsRevSlider::SLIDE
 -->
 <?php if($validated === 'true') {
 	?> 
-	<h3> <?php _e("How to get Support ?",REVSLIDER_TEXTDOMAIN)?>:</h3>				
+	<h3> <?php _e("How to get Support ?",REVSLIDER_TEXTDOMAIN)?></h3>				
 	<p>
 	<?php _e("Please feel free to contact us via our ",REVSLIDER_TEXTDOMAIN)?><a href='http://themepunch.ticksy.com'><?php _e("Support Forum ",REVSLIDER_TEXTDOMAIN)?></a><?php _e("and/or via the ",REVSLIDER_TEXTDOMAIN)?><a href='http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380/comments'><?php _e("Item Disscussion Forum",REVSLIDER_TEXTDOMAIN)?></a><br />
 	</p> 	

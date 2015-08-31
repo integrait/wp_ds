@@ -9,8 +9,13 @@
 <div id="headersearchform-container" class="group<?php if ( !yit_get_option('responsive-show-header-search') ) echo ' hidden-phone' ?>">
     <form role="search" method="get" id="headersearchform" action="<?php echo home_url( '/' ); ?>">
         <div class="group formborder">
-            <input  type="text" value="" name="s" id="headers" placeholder="<?php $post_type == 'product' ? _e( 'Search products here...', 'yit' ) : _e( 'Search here...', 'yit' ) ?>" />
+            <input  type="text" value="" name="s" id="headers" placeholder="<?php $post_type == 'product' ? _e( 'Search by Brand Name, NAFDAC Number, Manufacturer or Composition', 'yit' ) : _e( 'Search here...', 'yit' ) ?>" />
             <input  type="submit" class="button" id="headersearchsubmit" value="<?php _e( 'Search', 'yit' ) ?>" />
+            
+            <div style="width:500;margin-left:auto;margin-right:auto;">
+            
+            </div>
+            
         </div>
         <input type="hidden" name="post_type" value="<?php echo $post_type ?>" />
     </form>

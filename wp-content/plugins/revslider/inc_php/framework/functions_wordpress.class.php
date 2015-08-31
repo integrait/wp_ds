@@ -1125,7 +1125,7 @@
 		 */  
 		public static function hasShortcode($shortcode = '') {  
 		
-			if(is_404())
+			if(!is_singular())
 				return false;
 				
 		    $post = get_post(get_the_ID());  

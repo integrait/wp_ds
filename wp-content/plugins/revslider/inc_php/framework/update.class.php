@@ -148,7 +148,9 @@ class UniteUpdateClassRev {
 		
 		// Check for updates
 		if(time() - $last_check > 172800 || $force_check == true){
-		
+			
+			update_option('revslider-update-check-short', time());
+			
 			$response = wp_remote_post($this->remote_url, array(
 				'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
 				'body' => array(
@@ -166,7 +168,6 @@ class UniteUpdateClassRev {
 			$version_info = json_decode($version_info);
 			if(isset($version_info->version)){
 				update_option('revslider-latest-version', $version_info->version);
-				update_option('revslider-update-check-short', time());
 			}
 		}
 		

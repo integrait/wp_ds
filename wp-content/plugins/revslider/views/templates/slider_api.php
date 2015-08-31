@@ -99,6 +99,10 @@
 <?php echo $api?>.bind("revolution.slide.onafterswap",function (e) {
 	//alert("after swap");
 });
+
+<?php echo $api?>.bind("revolution.slide.slideatend",function (e) {
+	//alert("slide at end");
+});
 			
 			
 			</textarea>

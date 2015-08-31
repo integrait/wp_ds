@@ -29,6 +29,14 @@
 		 *   
 		 */		
 		public static function onAddScripts(){
+			global $wp_version;
+			
+			$style_pre = '';
+			$style_post = '';
+			if($wp_version < 3.7){
+				$style_pre = '<style type="text/css">';
+				$style_post = '</style>';
+			}
 			
 			$operations = new RevOperations();
 			$arrValues = $operations->getGeneralSettingsValues();
@@ -52,7 +60,23 @@
 			
 			$custom_css = RevOperations::getStaticCss();
 			$custom_css = UniteCssParserRev::compress_css($custom_css);
-			wp_add_inline_style( 'rs-plugin-settings', $custom_css );
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$custom_css.$style_post );
+			
+			
+			/*
+			
+			*/
+			/*
+			$styles = $db->fetch(GlobalsRevSlider::$table_css);
+			$styles = UniteCssParserRev::parseDbArrayToCss($styles, "\n");
+			$styles = UniteCssParserRev::compress_css($styles);
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$styles.$style_post );
+			
+			// KRISZTIAN MODIFICATION FOR INNERLAYERS
+			$stylesinnerlayers = str_replace('.tp-caption', '',$styles);´
+			wp_add_inline_style( 'rs-plugin-settings', $style_pre.$stylesinnerlayers.$style_post );
+			// END MODIFICATION
+			*/
 			
 			$setBase = (is_ssl()) ? "https://" : "http://";
 			
@@ -61,12 +85,14 @@
 			
 			
 			if($includesFooter == "off"){
-				$use_hammer = UniteFunctionsRev::getVal($arrValues, "use_hammer_js",'on');
 				
 				$waitfor = array('jquery');
-				if($use_hammer == 'off'){
-					self::addScriptWaitFor("jquery.themepunch.disablehammer","rs-plugin/js",'disable-hammer');
-					$waitfor[] = 'disable-hammer';
+				
+				$enable_logs = UniteFunctionsRev::getVal($arrValues, "enable_logs",'off');
+				
+				if($enable_logs == 'on'){
+					self::addScriptWaitFor("jquery.themepunch.enablelog","rs-plugin/js",'enable-logs');
+					$waitfor[] = 'enable-logs';
 				}
 				
 				self::addScriptWaitFor("jquery.themepunch.tools.min","rs-plugin/js",'tp-tools', $waitfor);
@@ -96,12 +122,6 @@
 			$operations = new RevOperations();
 			$arrValues = $operations->getGeneralSettingsValues();
 			
-			$use_hammer = UniteFunctionsRev::getVal($arrValues, "use_hammer_js",'on');
-			if($use_hammer == 'off'){
-				?>
-				<script type='text/javascript' src='<?php echo $urlPlugin?>js/jquery.themepunch.disablehammer.js?rev=<?php echo GlobalsRevSlider::SLIDER_REVISION; ?>'></script>
-				<?php
-			}
 			?>
 			<script type='text/javascript' src='<?php echo $urlPlugin?>js/jquery.themepunch.tools.min.js?rev=<?php echo GlobalsRevSlider::SLIDER_REVISION; ?>'></script>
 			<script type='text/javascript' src='<?php echo $urlPlugin?>js/jquery.themepunch.revolution.min.js?rev=<?php echo  GlobalsRevSlider::SLIDER_REVISION; ?>'></script>

@@ -3,13 +3,13 @@
 Contributors: yithemes
 Tags: zoom, magnifier, woocommerce, products, themes, yit, e-commerce, shop
 Requires at least: 3.5.1
-Tested up to: 3.8.1
-Stable tag: 1.1.2
+Tested up to: 4.0
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 YITH WooCommerce Zoom Magnifier is a Wordpress plugins that enables you to add a zoom effect to product images.
-WooCommerce 2.1.x Compatible.
+WooCommerce 2.2.x Compatible.
 
 == Description ==
 
@@ -69,6 +69,11 @@ The size of the Zoom Image is automatically setted. If you want to change these 
 2. The Magnifier settings page
 
 == Changelog ==
+
+= 1.1.3 =
+
+* Added: Support to WC 2.2.2
+* Updated: Plugin Core Framework
 
 = 1.1.2 =
 

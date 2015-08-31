@@ -14,7 +14,7 @@
 		 * update settign in db
 		 */		
 		public function updateFieldInDB($name,$value){
-						
+			
 			$arr = $this->db->fetch(GlobalsRevSlider::$table_settings);
 			if(empty($arr)){	//insert to db
 				$arrInsert = array();

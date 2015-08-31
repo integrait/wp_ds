@@ -8,7 +8,9 @@
  * @version     2.1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 if ( ! class_exists( 'WC_Admin_Duplicate_Product' ) ) :
 
@@ -197,7 +199,6 @@ class WC_Admin_Duplicate_Product {
 	 * @return void
 	 */
 	private function duplicate_post_taxonomies( $id, $new_id, $post_type ) {
-		global $wpdb;
 		$taxonomies = get_object_taxonomies($post_type); //array("category", "post_tag");
 		foreach ($taxonomies as $taxonomy) {
 			$post_terms = wp_get_object_terms($id, $taxonomy);

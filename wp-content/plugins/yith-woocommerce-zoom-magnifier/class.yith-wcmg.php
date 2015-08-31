@@ -22,7 +22,7 @@ if( !class_exists( 'YITH_WCMG' ) ) {
          * @var string
          * @since 1.0.0
          */
-        public $version = '1.1.2';
+        public $version = '1.1.3';
         
         /**
          * Plugin object
@@ -78,10 +78,9 @@ if( !class_exists( 'YITH_WCMG' ) ) {
 		    $size = get_option('woocommerce_magnifier_image');
 			$width  = $size['width'];
 			$height = $size['height'];
-			$crop   = $size['crop'];
+			$crop   = isset( $size['crop'] ) ? true : false;
 			
 			add_image_size( 'shop_magnifier', $width, $height, $crop );
 		}
-		
 	}
 }

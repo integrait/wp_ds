@@ -921,7 +921,7 @@ var UniteCssEditorRev = new function(){
 		var cssData = "{\n"; 
 		
 		if(typeof ignoreExample === 'undefined') updateActiveStylesWithNovice();
-		//alert(curActiveStyles.background);
+		
 		for(var attr in curActiveStyles){
 			if(jQuery.trim(curActiveStyles[attr]) == '') continue;
 			if(attr == 'background-color' && curActiveStyles[attr] !== 'transparent'){

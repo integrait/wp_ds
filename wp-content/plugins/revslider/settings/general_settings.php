@@ -31,11 +31,11 @@
 							   "off",
 							   array("description"=>__("This will enable the option to export the Slider Markups to copy/paste it directly into websites.",REVSLIDER_TEXTDOMAIN)));
 		
-	$generalSettings->addRadio("use_hammer_js", 
+	$generalSettings->addRadio("enable_logs", 
 							   array("on"=>__("On",REVSLIDER_TEXTDOMAIN),"off"=>__("Off",REVSLIDER_TEXTDOMAIN)),
-							   __("Use Own hammer.js",REVSLIDER_TEXTDOMAIN),
-							   "on",
-							   array("description"=>__("Disable this only if hammer.js is already loaded.",REVSLIDER_TEXTDOMAIN)));
+							   __("Enable Logs",REVSLIDER_TEXTDOMAIN),
+							   "off",
+							   array("description"=>__("Enable console logs for debugging.",REVSLIDER_TEXTDOMAIN)));
 	//transition
 	/*$operations = new RevOperations();
 	$arrTransitions = $operations->getArrTransition();

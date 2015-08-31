@@ -52,7 +52,24 @@
         <?php endif ?>
 
         <!-- cart -->
-        <?php do_action('yit_header_cart') ?>
+        <?php do_action('yit_header_cart') ?> 
+        <p>
+            <img src="http://drugstoc.biz/wp-content/uploads/2014/10/old-phone-5122.png">
+            <span style="margin-left:5px;vertical-align:middle;color:#ff9700;">+234.810.460.8748</span>
+            <?php  
+            $user_id = get_current_user_id(); 
+            $refcode = get_user_meta($user_id, 'ds_referral_code', true); 
+            if( $refcode != ""){
+                $url = DS_ReferralCodes::geturl($refcode); ?>
+                <span>
+                    <a href='<?php echo home_url("/{$url}");?>' title='Visit Store' alt='Visit Store'>
+                        <img style="width: 30px;" src="<?php echo plugins_url('/drugstoc-commission/images/ds_store.png');?>"/> 
+                        <span>Visit Store</span>
+                    </a>
+                </span> 
+            <?php
+            }?> 
+        </p> 
     </div>
     <?php do_action( 'yit_after_header_right_content' ); ?>
     <!-- END HEADER RIGHT CONTENT -->

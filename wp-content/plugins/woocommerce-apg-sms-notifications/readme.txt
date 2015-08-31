@@ -1,10 +1,10 @@
 === WooCommerce - APG SMS Notifications ===
 Contributors: artprojectgroup
-Donate link: http://www.artprojectgroup.es/donacion
-Tags: Art Project Group, APG, Plugins, WooCommerce, e-Commerce, Commerce, Shop, Virtual shop, SMS, SMS notifications, SMS gateway, VoipStunt, Solutions Infini, Twilio, Clickatell, Clockwork, BulkSMS, OPEN DND, MSG91, mVaayoo, Custom Order Statuses & Actions, Esebun Business (Enterprise & Developers only), WooCommerce Advance Order Status, WooCommerce Sequential Order Numbers Pro, iSMS Malaysia
+Donate link: http://www.artprojectgroup.es/tienda/donacion
+Tags: Art Project Group, APG, Plugins, WooCommerce, e-Commerce, Commerce, Shop, Virtual shop, SMS, SMS notifications, SMS gateway, VoipStunt, Solutions Infini, Twilio, Clickatell, Clockwork, BulkSMS, OPEN DND, MSG91, mVaayoo, Esebun Business (Enterprise & Developers only), iSMS Malaysia, SMS Lane (Transactional SMS only), Custom Order Statuses & Actions, WooCommerce Advance Order Status, WooCommerce Sequential Order Numbers Pro
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 2.4.2
+Tested up to: 4.0
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,7 @@ Añade a tu tienda WooCommerce notificaciones SMS a tus clientes cuando cambie e
  * mVaayoo.
  * Esebun Business (Enterprise & Developers only).
  * iSMS Malaysia
+ * SMS Lane (Transactional SMS only)
 * Posibilidad de informar al propietario de la tienda sobre nuevos pedidos.
 * Posibilidad de enviar, o no, SMS internacionales.
 * Soporte de los estados personalizados de los plugin [Custom Order Statuses & Actions](http://codecanyon.net/item/woocommerce-custom-order-status-actions/6392174) y [WooCommerce Advance Order Status](http://codecanyon.net/item/woocommerce-advance-order-status/6222931).
@@ -68,7 +69,7 @@ Recuerda que puedes encontrar más [plugins para WordPress](http://www.artprojec
  * Buscar **WooCommerce - APG SMS Notifications** en el buscador disponible en *Plugins -> Añadir nuevo* y pulsar el botón *Instalar ahora*.
 2. Activar el plugin a través del menú *Plugins* en el Panel de Administración de WordPress.
 3. Configurar el plugin en *WooCommerce -> Ajustes -> Envío* o a través del botón *Ajustes*.
-4. Listo, ahora ya puedes disfrutar de él, y si te gusta y te resulta útil, hacer una [*donación*](http://www.artprojectgroup.es/donacion).
+4. Listo, ahora ya puedes disfrutar de él, y si te gusta y te resulta útil, hacer una [*donación*](http://www.artprojectgroup.es/tienda/donacion).
 
 
 == Frequently asked questions ==
@@ -93,6 +94,8 @@ Si necesitas ayuda para configurar o instalar **WooCommerce - APG SMS Notificati
 1. Captura de pantalla de WooCommerce - APG SMS Notifications.
 
 == Changelog ==
+= 2.5 =
+* Soporte para SMS Lane (Transactional SMS only). **Actualización patrocinada por [SMS Lane (India)](http://www.smslane.com/)**.
 = 2.4.2 =
 * Solución de un problema detectado con el proveedor mVaayoo.
 = 2.4.1 = 
@@ -210,6 +213,8 @@ Si necesitas ayuda para configurar o instalar **WooCommerce - APG SMS Notificati
 * Versión inicial.
 
 == Upgrade Notice ==
+= 2.5 =
+* Soporte para SMS Lane (Transactional SMS only). **Actualización patrocinada por [SMS Lane (India)](http://www.smslane.com/)**.
 = 2.4.2 =
 * Solución de un problema detectado con el proveedor mVaayoo.
 = 2.4.1 = 
@@ -341,7 +346,7 @@ Por ello regalamos a esa gran comunidad hispana nuestros plugins con interfaces,
 Esperamos que os guste nuestra iniciativa.
 
 == Donación ==
-¿Te ha gustado y te ha resultado útil **WooCommerce - APG SMS Notifications** en tu sitio web? Te agradeceríamos una [pequeña donación](http://www.artprojectgroup.es/donacion) que nos ayudará a seguir mejorando este plugin y a crear más plugins totalmente gratuitos para toda la comunidad WordPress.
+¿Te ha gustado y te ha resultado útil **WooCommerce - APG SMS Notifications** en tu sitio web? Te agradeceríamos una [pequeña donación](http://www.artprojectgroup.es/tienda/donacion) que nos ayudará a seguir mejorando este plugin y a crear más plugins totalmente gratuitos para toda la comunidad WordPress.
 
 == Gracias ==
 * A [Chirag Vora](http://profiles.wordpress.org/chirag740) por habernos inspirado para crear **WooCommerce - APG SMS Notifications**.

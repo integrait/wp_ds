@@ -160,7 +160,7 @@ $get_checkout_url = apply_filters( 'woocommerce_get_checkout_url', WC()->cart->g
 jQuery(document).ready(function($){
     <?php if ( is_plugin_active('woocommerce-gateway-stripe/gateway-stripe.php') ) : ?>
         jQuery(document).on('click', '#multistep_steps #order_review input#place_order', function() {
-
+		jQuery(this).val('Processing...');
             return stripeFormHandler(); });
     <?php endif; ?>
 
