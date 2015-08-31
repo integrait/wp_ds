@@ -1,0 +1,43 @@
+Options All -Indexes
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# Added by Siteground Support Team
+<IfModule mod_security.c>
+SecFilterRemove 001566
+</IfModule>
+RewriteCond %{HTTP_HOST} ^nhc\.drugstoc\.biz$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.nhc\.drugstoc\.biz$
+RewriteRule ^/?$ "http\:\/\/drugstoc\.biz\/vendor\/nhc" [R=301,L]
+
+## ENABLE GZIP COMPRESSION ##
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+## ENABLE GZIP COMPRESSION ##
+
+AddHandler application/x-httpd-php56 .php .php5 .php4 .php3
+RewriteCond %{HTTP_HOST} ^afrabchem\.drugstoc\.biz$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.afrabchem\.drugstoc\.biz$
+RewriteRule ^/?$ "http\:\/\/drugstoc\.biz\/m\/afrab\-chem\-ltd" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^afrabchem\.drugstoc\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.afrabchem\.drugstoc\.com$
+RewriteRule ^/?$ "http\:\/\/drugstoc\.biz\/m\/afrab\-chem\-ltd\/" [R=301,L]
+

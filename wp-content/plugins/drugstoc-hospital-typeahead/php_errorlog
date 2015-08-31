@@ -1,0 +1,1 @@
+[18-Sep-2014 08:09:23 CST6CDT] PHP Fatal error:  Call to undefined function do_action() in /home/drugstoc/public_html/wp-content/plugins/drugstoc-hospital-typeahead/ajax.php on line 3

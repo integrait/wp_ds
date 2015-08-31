@@ -1,0 +1,1 @@
+[13-May-2015 03:25:55 CST6CDT] PHP Fatal error:  Class 'WP_Filesystem_Base' not found in /home/drugstoc/public_html/wp-admin/includes/class-wp-filesystem-ssh2.php on line 36

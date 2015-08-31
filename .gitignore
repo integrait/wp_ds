@@ -1,10 +1,4 @@
-
-*
-!wp-content
-!package.json
-!gruntfile.js
-!.gitignore
-!sql_dump
+wp-content/plugins_live_v2.zip
 *.log
 sitemap.xml
 sitemap.xml.gz

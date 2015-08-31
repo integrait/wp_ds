@@ -1,0 +1,2 @@
+[29-May-2015 22:39:44 UTC] PHP Fatal error:  Cannot use string offset as an array in /home/drugstoc/public_html/wp-content/plugins/redistributor-orders/process_order.php on line 13
+[29-May-2015 22:44:04 UTC] PHP Fatal error:  Cannot use string offset as an array in /home/drugstoc/public_html/wp-content/plugins/redistributor-orders/process_order.php on line 13

@@ -1,0 +1,5 @@
+.colset, .breaker  { clear:both; width:100%; }
+.colset .column { float:left; width:48%; margin: 1%; }
+.colset:after { content:""; display:block; clear:both; }
+
+label { display:block; margin: 1%; padding:1%;}
