@@ -2,6 +2,9 @@
 //require_once( $_SERVER['DOCUMENT_ROOT'] . '/drugstoc_2/wp-config.php' );
 //require_once( $_SERVER['DOCUMENT_ROOT'] . '/drugstoc_2/wp-includes/wp-db.php' );
 
+ //echo getcwd();
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php' );
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php' );
 function add_custom_drugstoc_map_style() {  
 
 

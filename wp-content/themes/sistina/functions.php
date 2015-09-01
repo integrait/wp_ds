@@ -20,6 +20,9 @@ require_once('core/load.php');
 //---------------------------------------------
 
 require_once('drugstoc/functions.php');
-require_once('drugstoc/search-map.php');
+
 require_once('drugstoc/homepage-map.php');
+
+require_once('drugstoc/search-map.php');
+
 require_once('drugstoc/group_distributor_count.php');
