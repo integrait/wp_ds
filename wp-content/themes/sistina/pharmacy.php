@@ -184,10 +184,10 @@ $pdt_manuf = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_o
 <div id="dist_category" style="display:none">
 	<h3 style="margin-bottom: 0">Search</h3>
 	<p style="margin-top: 0"><?php echo $institution?> Products</p>
-	<form action="<?php echo home_url( '/' ); ?>" method="get" class="search_mini">
-		<input type="text" name="ds" id="search_mini" value="<?php echo $keyword;?>" title="Search all <?php echo $institution;?> products" alt="Search all <?php echo $institution;?> products" placeholder="Search <?php echo $institution;?> products" />
-		<input type="hidden" name="post_type" value="<?php echo $search_type ?>" />
-		<input type="submit" value="Search" title="Search all <?php echo $institution;?> products" alt="Search all <?php echo $institution;?> products" style="height: 38px; margin-top: 0; float: right; background-color: rgba(255, 151, 0, 0.75); border-radius: 7px; border: solid 1px #FF9700; color: #fff;"/> 
+	<form method="get" class="search_mini">
+		<input type="text" name="ds" id="search_mini" value="<?php echo $keyword;?>" title="Search all <?php echo $institution;?> products" alt="Search <?php echo $institution;?> products" placeholder="<?php _e( 'Search for...', 'yit' );?>" />
+		<!-- <input type="hidden" name="post_type" value="<?php //echo $search_type ?>" /> -->
+		<input type="submit" value="Search" title="Search all <?php echo $institution;?> products" alt="Search all <?php echo $institution;?> products" style="height: 38px; margin-top: 0; float: right; background-color: rgba(255, 151, 0, 0.75); border-radius: 7px; border: solid 1px #FF9700; color: #fff;"/>
 	</form>
 	<h3>Categories</h3>
 	<div style="height: 500px;overflow-y: auto;">
