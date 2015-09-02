@@ -18,6 +18,7 @@ $dist_category   = isset($_GET['category'])? esc_attr($_GET['category']):"";
 $pa_composition  = isset($_GET['composition'])? esc_attr($_GET['composition']):"";
 $pa_manufacturer = isset($_GET['manufacturer'])? esc_attr($_GET['manufacturer']):"";
 $keyword 		 = isset($_GET['ds'])? esc_attr(sanitize_text_field($_GET['ds'])):""; // << Search Keyword
+$orderby 		 = isset($_GET['orderby'])? esc_attr(sanitize_text_field($_GET['orderby'])):"";
 
 $meta_key = "{$distributor}_price"; //custom_color for example
 $paged = explode("/", $_SERVER['REQUEST_URI']);
@@ -155,6 +156,51 @@ if($dist_category != "" && $pa_composition != "" && $pa_manufacturer != ""){
 		);
 }
 
+//*********************
+// Sort by Functions 
+//*********************
+if($orderby != ""){ 
+	if($orderby == "price"){ // By Price Low to High
+		$args['meta_query'][] = array(
+		    array(
+		        'key'         => '_price',
+		        'value'       => 0,
+		        'compare'     => '>',
+		        'type'        => 'NUMERIC'
+		    )
+		);
+		$args['orderby']  = 'meta_value_num';
+		$args['order'] 	  = 'ASC';  
+ 	}elseif ($orderby == "price-desc") { // By Price High to Low
+		$args['meta_query'][] = array(
+		    array(
+		        'key'         => '_price',
+		        'value'       => 0,
+		        'compare'     => '>',
+		        'type'        => 'NUMERIC'
+		    )
+		);
+		$args['orderby']  = 'meta_value_num';
+		$args['order'] 	  = 'DESC';
+ 	}elseif ($orderby == "popularity") { // By Popularity
+		$args['meta_query'][] = array(
+		    array(
+		        'key'         => 'total_sales',
+		        'value'       => 0,
+		        'compare'     => '>',
+		        'type'        => 'NUMERIC'
+		    )
+		);
+		$args['orderby']  = 'meta_value_num';
+		$args['order'] 	  = 'DESC';
+ 	}elseif ($orderby == "date") { // By Newest
+		$args['orderby']  = 'date';
+		$args['order'] 	  = 'DESC';
+ 	}else{  // Default
+ 		$args['orderby']  = 'menu_order';
+ 	} 
+}
+
 query_posts( $args );
 
 // Filtered IDs
@@ -194,8 +240,8 @@ $pdt_manuf = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_o
 		<input type="submit" value="Search" title="Search all <?php echo $institution;?> products" alt="Search all <?php echo $institution;?> products" style="height: 38px; margin-top: 0; float: right; background-color: rgba(255, 151, 0, 0.75); border-radius: 7px; border: solid 1px #FF9700; color: #fff;"/>
 	</form>
 	<h3>Categories</h3>
-	<div style="height: 500px;overflow-y: auto;">
-		<ul class="distCategory" style="margin-left: 5px;">
+	<div style="max-height: 600px;overflow-y: auto;">
+		<ul class="distCategory">
 			<?php
 			foreach ($pdt as $key => $category) { ?>
 			    <li><a href='<?php echo home_url("/vendor/$distributor/?category={$category->slug}&composition=$pa_composition&manufacturer=$pa_manufacturer$search_param")?>' style="cursor: pointer;"> <?php echo "{$category->name} ({$category->no_of_pdts})"; ?> </a></li>
