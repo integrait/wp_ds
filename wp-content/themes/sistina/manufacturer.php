@@ -240,21 +240,17 @@ $pdt_comp = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of
 	<h3 style="margin-bottom:0">Distributors</h3>
 		<br/>
 		<ul class="distCategory">  
-	    <?php
-		$manufacturers_dist = $wpdb->get_results("SELECT w.* FROM `wp_users` as w INNER JOIN wp_usermeta as m on w.ID = m.user_id WHERE m.meta_key = 'primary_distributor' and m.meta_value!=''");
-      	foreach ($manufacturers_dist as $key => $_user) {
-      		$user = get_user_by('id', $_user->ID);
-	        if(in_array('shop_manager', $user->roles ) ) {
-	        	$dist = get_user_meta($_user->ID, 'primary_distributor',true); ?> 
+	    	<?php
+		$distributors = explode(",", get_user_meta($user->ID,'distributor_list', true) );
+	   	foreach ($distributors as $key => $dist) { ?> 
       		<li>
-      			<a href="<?php echo home_url('/vendor/'.substr($dist, count($dist)-1, -6)."/?manufacturer={$manu_slug}");?>" style="color:black" target="_blank">
-	      			<?php echo get_user_meta($_user->ID, 'institution', true);?>
+      			<a href="<?php echo home_url('/vendor/'.substr($dist, count($dist)-1, -6)."/?manufacturer={$manu_slug}");?>" style="color:black">
+	      			<?php echo DS_Util::getDistributorNamebyKey($dist);?>
 	      		</a>
       		</li> 
-		    <?php
-		    }
-		}?>
-		</ul> 
+		<?php
+ 		}?>
+		</ul>  
 	<?php
 	}?>
 </div>
@@ -289,10 +285,10 @@ get_header('shop');
         		<li class="active">
 					<a aria-controls="map" role="tab" data-toggle="tab">Map</a>
         		</li>
-        		<li>
+        		<!--<li>
 					<a aria-controls="about" role="tab" data-toggle="tab">About</a>
         		</li>
-        		<!--<li>
+        		<li>
 					<a href="" aria-controls="about" role="tab" data-toggle="tab">Contact Us</a>
         		</li> -->
         	</ul>

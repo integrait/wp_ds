@@ -261,11 +261,11 @@ function fb_add_custom_user_profile_fields( $user ) {
       <td>
         <?php  
           global $wpdb;
-          $prices = $wpdb->get_results("SELECT meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key LIKE 'primary_distributor' AND meta_value != '' ");
+          $prices = $wpdb->get_results("SELECT DISTINCT meta_value FROM {$wpdb->prefix}usermeta WHERE meta_key LIKE 'primary_distributor' AND meta_value != '' ");
           
           $price = array();
           foreach ($prices as $key => $dist_code) { 
-            $price[ $dist_code->meta_value ] = __( $dist_code->meta_value, 'woocommerce');
+            $price[ $dist_code->meta_value ] = __( DS_Util::getDistributorNamebyKey($dist_code->meta_value), 'woocommerce');
           }
           $price[''] = 'None';
 
@@ -320,8 +320,9 @@ function fb_add_custom_user_profile_fields( $user ) {
       </td>
     </tr>
     <?php 
-    // For Distributors, Manufacturers and Pharmacies only
-      }elseif(in_array("manufacturer", $user->roles)){?>
+      // For Distributors, Manufacturers and Pharmacies only Get the Coordinates
+      }elseif(in_array("manufacturer", $user->roles)){ 
+        $distributors = explode(",", get_user_meta($user->ID,'distributor_list', true) ); ?>
         <tr>
           <th>
             <label for="manufacturer_slug"><?php _e('Manufacturer slug', 'your_textdomain'); ?>
@@ -333,10 +334,21 @@ function fb_add_custom_user_profile_fields( $user ) {
         </tr>
         <tr>
           <th>
-            <label for="distributor_list"><?php _e('Manufacturer Distributor List', 'your_textdomain'); ?>
-          </label></th>
+            <label for="distributor_list"><?php _e('Manufacturer Distributor List', 'your_textdomain'); ?></label>
+          </th>
           <td>
-            <input type="text" name="distributor_list" id="distributor_list" value="<?php echo esc_attr( get_the_author_meta( 'distributor_list', $user->ID ) ); ?>" class="regular-text" /><br />
+            <select name="distributor_list[]" id="distributor_list" width="500px" multiple >
+              <?php  
+              // Loop through all distributors
+              foreach ($prices as $key => $dist_code) {
+                if(in_array($dist_code->meta_value, $distributors)){?>
+                  <option value="<?php echo $dist_code->meta_value?>" selected><?php echo DS_Util::getDistributorNamebyKey($dist_code->meta_value); ?></option>
+                <?php }else{ ?>
+                  <option value="<?php echo $dist_code->meta_value?>" ><?php echo DS_Util::getDistributorNamebyKey($dist_code->meta_value); ?></option>
+          <?php }                   
+              }?>
+            </select>
+            <br>
             <span class="description"><?php _e("List of Manufacturer's distributors", 'your_textdomain'); ?></span>
           </td>
         </tr>
@@ -352,24 +364,29 @@ function fb_add_custom_user_profile_fields( $user ) {
     </tr>
     <tr>
       <th>
-        <label for="gmap_coords"><?php _e('GMap Coordinates [X, Y]', 'your_textdomain'); ?>
+        <label for="gmap_coords"><?php _e('GMap Coordinates [Lat., Long.]', 'your_textdomain'); ?>
       </label></th>
       <td>
         <input type="text" name="gmap_coords" id="gmap_coords" value="<?php echo esc_attr( get_the_author_meta( 'gmap_coords', $user->ID ) ); ?>" class="regular-text" /><br />
-        <span class="description"><?php _e("Vendor's Google Map Coordinates e.g 6.34234, 3.123123", 'your_textdomain'); ?></span>
+        <br><span class="description"><?php _e("Vendor's Google Map Coordinates e.g 6.34234, 3.123123", 'your_textdomain'); ?></span>
       </td>
     </tr> 
   </table>
+  <script type="text/javascript">
+  jQuery(document).ready(function(event) {  
+    jQuery('select#distributor_list, select#primary_distributor').chosen({ width: "350px" }); 
+  });
+  </script>
 <?php
 }
 
-function fb_save_custom_user_profile_fields( $user_id ) {
+function fb_save_custom_user_profile_fields( $user_id ) { 
   update_usermeta( $user_id, 'primary_distributor', $_POST['primary_distributor'] );
   update_usermeta( $user_id, 'ds_premium_user', $_POST['free_user'] );
-  update_usermeta( $user_id, 'ds_referral_code', esc_attr(sanitize_text_field($_POST['referral_code'] )));
-  update_usermeta( $user_id, 'gmap_coords', esc_attr(sanitize_text_field($_POST['gmap_coords'] )));
+  update_usermeta( $user_id, 'ds_referral_code', esc_attr(sanitize_text_field($_POST['referral_code'])) );
+  update_usermeta( $user_id, 'gmap_coords', esc_attr(sanitize_text_field($_POST['gmap_coords'])) );
   update_usermeta( $user_id, 'manufacturer_slug', esc_attr(sanitize_text_field($_POST['manufacturer_slug'])) );
-  update_usermeta( $user_id, 'distributor_list', esc_attr(sanitize_text_field($_POST['distributor_list'])) );
+  update_usermeta( $user_id, 'distributor_list', join(",", $_POST['distributor_list']) );
   update_usermeta( $user_id, 'institution', esc_attr(sanitize_text_field($_POST['institution'])) );
 }
 
