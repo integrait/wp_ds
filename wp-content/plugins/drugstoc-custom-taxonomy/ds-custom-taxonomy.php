@@ -37,8 +37,12 @@ class ds_lc_taxonomy extends WP_Widget {
 					if($manufacturer->name != "CHECK PICTURE"){
 				?>
 				<li class="cat-item cat-item-<?php echo $manufacturer->term_id?>">
-					<a href="<?php echo home_url('/').'manufacturer/'.$manufacturer->slug;?>/"><?php echo __($manufacturer->name, 'woocommerce')?></a>
-				</li>
+					<?php if(DS_Util::getManufacturerBySlug($manufacturer->slug) != null){ ?>
+						<a href="<?php echo home_url("/m/$manufacturer->slug")?>/"><?php echo __($manufacturer->name, 'woocommerce')?></a>
+					<?php } else { ?>
+						<a href="<?php echo home_url("/manufacturer/$manufacturer->slug");?>/"><?php echo __($manufacturer->name, 'woocommerce')?></a>
+					<?php }?>
+				</li> 
 				<?php }
 				}?>
 			</ul> 

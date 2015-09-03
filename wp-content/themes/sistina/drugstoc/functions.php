@@ -321,27 +321,56 @@ function fb_add_custom_user_profile_fields( $user ) {
     </tr>
     <?php 
     // For Distributors, Manufacturers and Pharmacies only
-      }else{ // Get the Coordinates of Distributor ?> 
+      }elseif(in_array("manufacturer", $user->roles)){?>
+        <tr>
+          <th>
+            <label for="manufacturer_slug"><?php _e('Manufacturer slug', 'your_textdomain'); ?>
+          </label></th>
+          <td>
+            <input type="text" name="manufacturer_slug" id="manufacturer_slug" value="<?php echo esc_attr( get_the_author_meta( 'manufacturer_slug', $user->ID ) ); ?>" class="regular-text" /><br />
+            <span class="description"><?php _e("Slug associated with Manufacturer on DrugStoc", 'your_textdomain'); ?></span>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <label for="distributor_list"><?php _e('Manufacturer Distributor List', 'your_textdomain'); ?>
+          </label></th>
+          <td>
+            <input type="text" name="distributor_list" id="distributor_list" value="<?php echo esc_attr( get_the_author_meta( 'distributor_list', $user->ID ) ); ?>" class="regular-text" /><br />
+            <span class="description"><?php _e("List of Manufacturer's distributors", 'your_textdomain'); ?></span>
+          </td>
+        </tr>
+    <?php    
+      }?>
     <tr>
       <th>
-        <label for="gmap_coords"><?php _e('GMap Coordinates [Lat., Long.]', 'your_textdomain'); ?>
+        <label for="institution"><?php _e('Institution', 'your_textdomain'); ?>
+      </label></th>
+      <td>
+        <input type="text" name="institution" id="institution" value="<?php echo esc_attr( get_the_author_meta( 'institution', $user->ID ) ); ?>" class="regular-text" /><br />
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <label for="gmap_coords"><?php _e('GMap Coordinates [X, Y]', 'your_textdomain'); ?>
       </label></th>
       <td>
         <input type="text" name="gmap_coords" id="gmap_coords" value="<?php echo esc_attr( get_the_author_meta( 'gmap_coords', $user->ID ) ); ?>" class="regular-text" /><br />
         <span class="description"><?php _e("Vendor's Google Map Coordinates e.g 6.34234, 3.123123", 'your_textdomain'); ?></span>
       </td>
     </tr> 
-    <?php
-      }?>   
   </table>
-<?php  
+<?php
 }
 
 function fb_save_custom_user_profile_fields( $user_id ) {
   update_usermeta( $user_id, 'primary_distributor', $_POST['primary_distributor'] );
   update_usermeta( $user_id, 'ds_premium_user', $_POST['free_user'] );
-  update_usermeta( $user_id, 'ds_referral_code', $_POST['referral_code'] );
-  update_usermeta( $user_id, 'gmap_coords', $_POST['gmap_coords'] );
+  update_usermeta( $user_id, 'ds_referral_code', esc_attr(sanitize_text_field($_POST['referral_code'] )));
+  update_usermeta( $user_id, 'gmap_coords', esc_attr(sanitize_text_field($_POST['gmap_coords'] )));
+  update_usermeta( $user_id, 'manufacturer_slug', esc_attr(sanitize_text_field($_POST['manufacturer_slug'])) );
+  update_usermeta( $user_id, 'distributor_list', esc_attr(sanitize_text_field($_POST['distributor_list'])) );
+  update_usermeta( $user_id, 'institution', esc_attr(sanitize_text_field($_POST['institution'])) );
 }
 
 add_action( 'show_user_profile', 'fb_add_custom_user_profile_fields' );
@@ -672,6 +701,7 @@ function myinit(){
 function custom_rewrite_tag() {
   add_rewrite_tag('%distributor%', '([^&]+)'); 
   add_rewrite_tag('%pharmacy%', '([^&]+)');
+  add_rewrite_tag('%maker%', '([^&]+)'); 
   add_rewrite_tag('%m%', '([^&]+)');
 }
 add_action('init', 'custom_rewrite_tag', 10, 0);
@@ -680,7 +710,7 @@ add_action('init', 'custom_rewrite_tag', 10, 0);
 function custom_rewrite_basic() {
   add_rewrite_rule('^vendor/([^/]*)/?', 'index.php?page_id=43504&distributor=$matches[1]', 'top');
   add_rewrite_rule('^pharma/([^/]*)/?', 'index.php?page_id=43557&pharmacy=$matches[1]', 'top');
-  add_rewrite_rule('^m/([^/]*)/?', 'index.php?page_id=43633&m=$matches[1]', 'top');
+  add_rewrite_rule('^m/([^/]*)/?', 	'index.php?page_id=43633&maker=$matches[1]', 'top');
 }
 add_action('init', 'custom_rewrite_basic', 10, 0);
 
@@ -688,7 +718,9 @@ add_action('init', 'custom_rewrite_basic', 10, 0);
 function add_var_for_distributor( $query_vars ){
     $query_vars[] = 'distributor';
     $query_vars[] = 'pharmacy';
+    $query_vars[] = "maker";
     $query_vars[] = 'm';
+    
     return $query_vars;
 }
 add_filter( 'query_vars', 'add_var_for_distributor' );

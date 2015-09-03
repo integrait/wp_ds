@@ -11,7 +11,7 @@ global $woocommerce_loop, $blog_id, $wp_query, $wpdb;
 $cookie_shop_view = 'yit_' . get_template() . ( is_multisite() ? '_' . $blog_id : '' ) . '_shop_view';
 $woocommerce_loop['view'] = isset( $_COOKIE[ $cookie_shop_view ] ) ? $_COOKIE[ $cookie_shop_view ] : yit_get_option( 'shop-view', 'grid' );
 
-// $manu_slug = $wp_query->query_vars['maker'];
+$manu_slug = $wp_query->query_vars['maker'];
 
 $url = explode("/", $_SERVER['REQUEST_URI']);
 $manu_slug = in_array('m', $url)? $url[array_search('m', $url) + 1]: '';
@@ -55,7 +55,7 @@ $gmap_lon = $map_coords[1];
 
 // Main Product Query
 $args = array(
-	'post_type'  => 'product',
+	'post_type'  => 'product', 
 	'ignore_sticky_posts' => 1,
 	'posts_per_page' => 9,
 	'paged'		 => $page_num,
@@ -69,8 +69,15 @@ $args = array(
 		'taxonomy' => 'pa_manufacturer',
 		'field'    => 'slug',
 		'terms'    => $manu_slug
-	)
+	),
 );
+
+if(DS_Util::get_manufacturer_pdts($manu_slug) != null){
+	$ids = DS_Util::get_manufacturer_pdts($manu_slug);
+	if($ids != null){
+		$args['post__in'] = DS_Util::get_manufacturer_pdts($manu_slug);  
+	}
+}
 
 $subtitle = "All products by $institution";
 $search_param = '';
@@ -240,7 +247,7 @@ $pdt_comp = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of
 	        if(in_array('shop_manager', $user->roles ) ) {
 	        	$dist = get_user_meta($_user->ID, 'primary_distributor',true); ?> 
       		<li>
-      			<a href="<?php echo home_url('/vendor/'.substr($dist, count($dist)-1, -6).'/?manufacturer={$manu_slug}');?>" style="color:black">
+      			<a href="<?php echo home_url('/vendor/'.substr($dist, count($dist)-1, -6)."/?manufacturer={$manu_slug}");?>" style="color:black" target="_blank">
 	      			<?php echo get_user_meta($_user->ID, 'institution', true);?>
 	      		</a>
       		</li> 
@@ -406,4 +413,3 @@ h5#distributor_header_verify {
 	jQuery(".distComposition, .distManufacturer").chosen({no_results_text: "Oops, nothing found!"});
 
 </script>
-

@@ -180,6 +180,25 @@ class DS_Util
     }  
   }  
 
+  // Get Manufacturer product ids
+  public static function get_manufacturer_pdts($slug){
+    global $wpdb, $woocommerce;
+    
+    $ids = array();
+    $results = $wpdb->get_results("SELECT ID from wp_posts as pdt 
+      INNER JOIN wp_term_relationships wtr on pdt.ID = wtr.object_ID 
+      INNER JOIN wp_term_taxonomy as p on wtr.term_taxonomy_id = p.term_taxonomy_id 
+      INNER JOIN wp_terms as t on p.term_id = t.term_id 
+     WHERE p.taxonomy LIKE 'pa_manufacturer' and t.slug='$slug' AND pdt.post_status = 'publish'");
+
+    if(count($results) > 0){
+      foreach ($results as $key => $product) {  
+        $ids[] = $product->ID; 
+      }
+      return $ids;
+    } else return null;
+  }
+
   // Determine if price should be shown or not
   public static function show_price($userid = null){
     if(!isset($userid)) $userid = get_current_user_id();
@@ -215,7 +234,6 @@ endif;
 
 // Activate Plugin 
 DS_Util::setup();
-
 
 
 
