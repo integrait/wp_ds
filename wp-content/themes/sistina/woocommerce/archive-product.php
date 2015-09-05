@@ -17,7 +17,13 @@ $cookie_shop_view = 'yit_' . get_template() . ( is_multisite() ? '_' . $blog_id 
 $woocommerce_loop['view'] = isset( $_COOKIE[ $cookie_shop_view ] ) ? $_COOKIE[ $cookie_shop_view ] : yit_get_option( 'shop-view', 'grid' );
 
 get_header('shop'); ?>
-
+	<?php if(is_search()){?>
+		<!-- Search Map -->
+		<div class="map-container" id="map-container" style="height:400px; width:100%; margin-top:-110px; margin-bottom: 29px;"></div>
+		<!-- Search Summary 
+		<div id="group_search_result" style="width:300px; height:200px; background-color:pink;z-index: 10000;margin-top: -319px;position: absolute;float: right;margin-left: 80%;">
+		</div>-->
+	<?php } ?>
 	<?php
 		/**
 		 * woocommerce_before_main_content hook

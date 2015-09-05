@@ -87,6 +87,7 @@ function wooc_extra_register_fields( ) {
 
             <option value="hospital" selected="selected">Hospital</option>
 
+	    <option value="Doctor">Doctor</option>
         </select>
 
     </p>
@@ -104,7 +105,7 @@ function wooc_extra_register_fields( ) {
     <label for="referral_code">
       <?php _e( 'Referral Code', 'yit' ); ?> 
     </label>
-    <input type="text" class="input-text " name="referral_code" id="referral_code" placeholder="" value=""/>
+    <input type="text" class="input-text " name="referral_code" id="referral_code" placeholder="" value="">
   </p>
    <?php  
 }
@@ -159,15 +160,7 @@ function adding_extra_reg_fields($user_id) {
   // Notify Admin
   sendMail(get_option("admin_email"), "DrugStoc - New User Notification", "New Customer: {$_POST['institution']}\n Phone Number: {$_POST['phonenumber']}, Customer Type: {$_POST['usertype']}"); 
 } 	
-
-function check_user_status () {
-  if (current_user_can( 'not_authenticate' ) && !current_user_can( 'manage_options' )) {
-    wp_logout();
-    wp_redirect( '/user-not-approved', '302' );
-    exit;
-  }
-} 
-
+ 
 /**
  * Proper way to enqueue scripts and styles
  */
@@ -381,13 +374,13 @@ function fb_add_custom_user_profile_fields( $user ) {
 }
 
 function fb_save_custom_user_profile_fields( $user_id ) { 
-  update_usermeta( $user_id, 'primary_distributor', $_POST['primary_distributor'] );
-  update_usermeta( $user_id, 'ds_premium_user', $_POST['free_user'] );
-  update_usermeta( $user_id, 'ds_referral_code', esc_attr(sanitize_text_field($_POST['referral_code'])) );
-  update_usermeta( $user_id, 'gmap_coords', esc_attr(sanitize_text_field($_POST['gmap_coords'])) );
-  update_usermeta( $user_id, 'manufacturer_slug', esc_attr(sanitize_text_field($_POST['manufacturer_slug'])) );
-  update_usermeta( $user_id, 'distributor_list', join(",", $_POST['distributor_list']) );
-  update_usermeta( $user_id, 'institution', esc_attr(sanitize_text_field($_POST['institution'])) );
+  if(isset($_POST['primary_distributor'])) update_usermeta( $user_id, 'primary_distributor', $_POST['primary_distributor'] );
+  if(isset($_POST['ds_premium_user'])) update_usermeta( $user_id, 'ds_premium_user', $_POST['free_user'] );
+  if(isset($_POST['ds_referral_code'])) update_usermeta( $user_id, 'ds_referral_code', esc_attr(sanitize_text_field($_POST['referral_code'])) );
+  if(isset($_POST['gmap_coords'])) update_usermeta( $user_id, 'gmap_coords', esc_attr(sanitize_text_field($_POST['gmap_coords'])) );
+  if(isset($_POST['manufacturer_slug'])) update_usermeta( $user_id, 'manufacturer_slug', esc_attr(sanitize_text_field($_POST['manufacturer_slug'])) );
+  if(isset($_POST['distributor_list'])) update_usermeta( $user_id, 'distributor_list', join(",", $_POST['distributor_list']) );
+  if(isset($_POST['institution'])) update_usermeta( $user_id, 'institution', esc_attr(sanitize_text_field($_POST['institution'])) );
 }
 
 add_action( 'show_user_profile', 'fb_add_custom_user_profile_fields' );
@@ -503,10 +496,11 @@ function bulk_request_approve() {
 }
 
 function getMyPost(){
-if (isset($_GET['s']) && !empty($_GET['s'])){
-  $mySearch = new WP_Query("s=".$_GET['s']."&post_type=product");
-  $NumResults = $mySearch->post_count;
- }
+ // Set Search parameter and post type to product 
+  if (isset($_GET['s']) && !empty($_GET['s'])){
+    $mySearch = new WP_Query("s=".$_GET['s']."&post_type=product");
+    $NumResults = $mySearch->post_count;
+  } 
 }
 add_action( 'init', 'getMyPost');
 
@@ -681,17 +675,18 @@ function ds_free_product_html() {
 }
 
 
-add_action('admin_init', 'no_backend_access_');
-function no_backend_access_() { 
+// Faulty code
+// add_action('admin_init', 'no_backend_access_');
+// function no_backend_access_() {
 
-  $user = wp_get_current_user();
-  $allowed_roles = array('author', 'administrator','shop_manager');
-  if( !array_intersect($allowed_roles, $user->roles ) ) {  
-    //stuff here for allowed roles
-    wp_redirect(home_url()); 
-    exit;
-  }     
-}
+//   $user = wp_get_current_user();
+//   $allowed_roles = array('author', 'administrator','shop_manager');
+//   if( !array_intersect($allowed_roles, $user->roles ) ) {
+//     //stuff here for allowed roles
+//     wp_redirect(home_url());
+//     exit;
+//   }
+// }
 
 // Add NAFDAC no post meta
 //add_action('init','myinit');
@@ -989,19 +984,72 @@ function show_all_categories_()
 } 
 add_shortcode( 'show_all_categories', 'show_all_categories_'); 
 
+// [login_popup]
+function ds_popup(){
+  // Unverified account notice
+  if (isset($_GET['status']) && !empty($_GET['status'])){ 
+  ?>
+    <div id="light" class="white_content" onclick="document.getElementById('light').style.display='none';">
+      
+      You will be notified when your account is activated. Thank You
+      
+      <p style="text-align: right;border-top: 1px solid #DBDBDB;">
+        <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';">
+          <b style="color: #BCBCBC;">CLOSE X</b>
+        </a>
+      </p> 
+    </div> 
+    <style type="text/css">
+      div.white_content {
+        top: 20%;
+        left: 25%;
+        width: 530px;
+        height: 40px;
+        padding: 16px;
+        border: 4px solid #7DACFC;
+        background-color: white;
+        z-index: 1002;
+        position: fixed;
+        font-size: large;
+        border-radius: 8px;
+        box-shadow: 0 0 8px;
+      }
+ 
+      @media all and (max-width: 800px) {
+        div.white_content {left:4%; width:250px; height:100px;}
+      }
+    </style> 
+  <?php
+  }
+}
+add_shortcode( 'login_popup', 'ds_popup');
+
 // Login Redirect for Users with Referral Code
 function my_login_redirect($redirect, $user){
  
   global $wpdb;
    
-  $refcode = trim(get_user_meta($user->ID, 'ds_referral_code', true));
-  $query = "SELECT * FROM {$wpdb->prefix}ds_referral_codes WHERE referral_code LIKE '".$refcode."'";
-  $vendor = $wpdb->get_results($query);
+  if( in_array('customer', $user->roles) || 
+      in_array('shop_manager', $user->roles) ||
+      in_array('ds_inv_mgr', $user->roles) ||
+      in_array('manufacturer', $user->roles) ||
+      in_array('pharmacy', $user->roles) ||
+      in_array('administrator', $user->roles)){
  
-  //check for vendor urls if any
-  if(count($vendor) > 0) $redirect = home_url("/{$vendor[0]->url}");
+    $refcode = trim(get_user_meta($user->ID, 'ds_referral_code', true));
+    $query = "SELECT * FROM {$wpdb->prefix}ds_referral_codes WHERE referral_code LIKE '".$refcode."'";
+    $vendor = $wpdb->get_results($query);
  
-  return $redirect;  
+    //check for vendor urls if any
+    if(count($vendor) > 0) $redirect = home_url("/{$vendor[0]->url}");
+ 
+    return $redirect;
+ 
+  } else { 
+    wp_logout();
+    wp_safe_redirect( home_url( '/?status='.uniqid() ) ); 
+    exit; 
+  }
 }
  
 add_filter('woocommerce_login_redirect', 'my_login_redirect', 10, 2);
