@@ -1,4 +1,4 @@
-<?php global $wpo_wcpdf,$woocommerce; ?>
+<?php global $wpo_wcpdf; ?>
 <table class="head container">
 	<tr>
 		<td class="header">
@@ -88,27 +88,7 @@
 							<th class="description"><?php echo $total['label']; ?></th>
 							<td class="price"><span class="totals-price"><?php echo $total['value']; ?></span></td>
 						</tr>
-						<?php endforeach; 
-						// Append Commission to totals - if in admin back-end  
-						$order_ = new WC_Order($_GET['order_ids']);
-
-						$commission = get_post_meta($order_->id, '_ds_commission', true); 
-						$commission2 = ($commission != "")? "₦ ".number_format($commission, 2): "₦ 0.00"; 
-						$net_total = ($commission != "")? "₦ ". number_format((float)($order_->get_total() - $commission), 2) : "₦ ".number_format($order_->get_total(), 2);
-
-						array_push($totals, array("label" => "DrugStoc Commission", "value" => $commission2));  
-						array_push($totals, array("label" => "Net Order Total ", "value" => $net_total));    
-						?> 
-						<tr class="1">
-							<td class="no-borders">&nbsp;</td>
-							<th class="description">DrugStoc Commission</th>
-							<td class="price"><span class="totals-price"><?php echo "$commission2"; ?></span></td>
-						</tr>
-						<tr class="2">
-							<td class="no-borders">&nbsp;</td>
-							<th class="description">Net Order Total </th>
-							<td class="price"><span class="totals-price"><?php echo "$net_total"; ?></span></td>
-						</tr>
+						<?php endforeach; ?> 
 					</tfoot>
 				</table>
 			</td>
