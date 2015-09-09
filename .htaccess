@@ -42,11 +42,11 @@ RewriteCond %{HTTP_HOST} ^www\.afrabchem\.drugstoc\.com$
 RewriteRule ^/?$ "http\:\/\/drugstoc\.biz\/m\/afrab\-chem\-ltd\/" [R=301,L]
 
 AuthUserFile "/home/drugstoc/.htpasswds/public_html/passwd"
-AuthType Basic
 AuthName "Pre-Launch"
-require valid-user
 
 RewriteCond %{HTTP_HOST} ^drugstoc\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.drugstoc\.org$
 RewriteRule ^/?$ "http\:\/\/drugstoc\.com" [R=301,L]
 
+AuthType Basic
+require valid-user

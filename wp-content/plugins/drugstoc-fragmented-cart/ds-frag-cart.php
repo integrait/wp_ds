@@ -98,6 +98,7 @@ class DS_Frag_Cart
         add_action( 'woocommerce_checkout_update_order_meta', array($this, 'ds_add_distributor_order_meta'), 10, 2 );
 
         // Ajax Actions
+        add_action( 'wp_ajax_load-dscart', array( $this, 'ds_load_dscart' ));
         add_action( 'wp_ajax_add-to-dscart', array( $this, 'ds_add_to_cart' ));
         add_action( 'wp_ajax_update-dscart', array( $this, 'ds_update_cart' ));
         add_action( 'wp_ajax_remove-from-dscart', array( $this, 'ds_remove_from_cart' )); 
@@ -215,12 +216,9 @@ class DS_Frag_Cart
                         Order Basket <span class="dscart-items-number"><?php echo $this->count();?></span>
                     </a>
                 </div> 
-                <div class="dscart_wrapper" style="display: none;">
+                <div class="cart_wrapper" style="display: none;">
                     <span class="cart_arrow"></span>
-                    <div class="widget_shopping_cart_content"> 
-                        <ul class="cart_list product_list_widget "> 
-                            <li> </li>
-                        </ul> 
+                    <div class="widget_shopping_cart_content">   
                     </div>
                 </div>  
             </div>
@@ -429,6 +427,15 @@ class DS_Frag_Cart
         }
     }
 
+    // Load items into Cart    
+    public function ds_load_dscart()
+    { 
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'ds_cart_ajax_nouce' ) )
+            die ( 'Busted!');
+        
+        wp_send_json( array( 'code' => 1, 'order_items' => $this->order_items() ));
+    }
+
     // Add Item to DS Frag Cart
     public function ds_add_to_cart(){
 
@@ -615,22 +622,24 @@ class DS_Frag_Cart
 
     // Update Ajax Order Basket - per user
     public function order_items(){
-        global $wpdb;
+        global $wpdb, $woocommerce;
         
-        $items = $wpdb->get_results( $wpdb->prepare("SELECT id, product_id, quantity, price, distributor FROM {$this->table_name} WHERE `user_id` = %d", array( get_current_user_id() )) );
+        $items = $wpdb->get_results( $wpdb->prepare("SELECT count(product_id) as multiple, id, product_id, quantity, price, distributor FROM {$this->table_name} WHERE `user_id` = %d GROUP BY product_id ORDER BY created_at DESC LIMIT 10", array( get_current_user_id() )) );
         
-        $html = '<ul class="cart_list product_list_widget ">';
-        if(count($items) > 0){
+        $html = '<h2>Recently added items</h2><ul class="cart_list product_list_widget ">';
+        if(count($items) > 0){ 
             foreach ($items as $key => $item) {
-                $html.= '<li><a href="'.get_permalink($item->product_id).'">'.get_the_post_thumbnail( $item->product_id, array(50, 50) ).'</a>';
-                $html.= '<a class="remove_item dscartitem" data-dscartid="'.$item->id.'" title="Remove this item">remove</a>';
+                $pdt  = new WC_Product($item->product_id);
+                $html.= '<li><a href="'.get_permalink($item->product_id).'">'.get_the_post_thumbnail( $item->product_id, array(50, 50) )."<span> {$pdt->get_title()} </span></a>";
+                $html.= '<a class="remove_item" id="dscartitem" data-dscartid="'.$item->id.'" title="Remove this item" style="cursor:pointer">remove</a>';
                 $html.= '<span class="quantity">'.$item->quantity.' × '.wc_price($item->price).'</span></li>';            
-            }    
+            }   
+            $html .= '</ul><div><button class="button cart" style="text-align:center; width:100%">View Order Basket</button></div>'; 
         }else{
-            $html .= '<p>No Items to Display</p>'; 
+            $html .= '<li>No Items to Display</li>'; 
         }
         $html .= '</ul>'; 
-
+ 
         return $html;
     }
 

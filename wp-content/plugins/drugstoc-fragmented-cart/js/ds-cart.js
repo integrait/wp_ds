@@ -1,5 +1,18 @@
 jQuery(document).ready(function(event) {
-
+    // First off, lets load our order items
+    jQuery.ajax({
+        url: ds_cart.ajaxurl,
+        method: "POST",
+        data: {
+            action: 'load-dscart',
+            nonce: ds_cart.ds_cart_nouce
+        },   
+        success: function(data){ 
+            if(data.code == 1) 
+                jQuery("div.widget_shopping_cart_content").html(data.order_items);
+        }
+    });
+    
     jQuery(".variations_button").insertBefore('.single_add_to_cart_button');
 
     // Set Shipping dropdown to chosen
@@ -108,15 +121,36 @@ jQuery(document).ready(function(event) {
         }else return false;   
     });
 
+    // Remove button click - Mini-cart
+    jQuery('li').delegate('a.remove_item#dscartitem', 'click',function(e){ 
+        
+        // Add Confirm Button here <<<<<
+        jQuery(this).parent().css({ 'background-color':'red', 'opacity':0.6 });
+        var self = this;
+        alert("Remove this item");
+        // jQuery.ajax({
+        //     url: ds_cart.ajaxurl,
+        //     method: "POST",
+        //     data: {
+        //         action: 'remove-from-dscart',
+        //         dscartid: jQuery(this).data('dscartid'), 
+        //         nonce: ds_cart.ds_cart_nouce
+        //     },
+        //     success: function(data){  
+        //         self.parent()[0].remove();
+        //     }
+        // });   
+    });	
+
     // Checkout Distributor items
     jQuery('input.checkout-button.move_to_cart').click(function(e){ 
 
-     	var cart_n = jQuery('span.cart-items-number').html();
+     	var cart_n = jQuery('span.dscart-items-number').html();
     	
-    	if(cart_n != "0") {
-			alert("Checkout items in cart first. Thanks");
-			return false;
-		}
+    	if(cart_n == "0") {
+  		alert("No items to checkout");
+		return false;
+	}
 
         jQuery(this).val("Processing items...");
 
