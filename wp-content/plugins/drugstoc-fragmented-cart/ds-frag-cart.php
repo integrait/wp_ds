@@ -522,7 +522,7 @@ class DS_Frag_Cart
             $result = $wpdb->query( $wpdb->prepare( $sql, $sql_args ) );
 
             if ( $result )  
-                wp_send_json( array( 'code' => 1, 'message' => 'Product Removed from Cart' ));
+                wp_send_json( array( 'code' => 1, 'message' => 'Product Removed from Cart', 'count' => $this->count() ));
             else 
                 wp_send_json( array( 'code' => 0, 'message' => 'Error Processing Request - Remove Item from Cart' )); 
         }
@@ -626,18 +626,19 @@ class DS_Frag_Cart
         
         $items = $wpdb->get_results( $wpdb->prepare("SELECT count(product_id) as multiple, id, product_id, quantity, price, distributor FROM {$this->table_name} WHERE `user_id` = %d GROUP BY product_id ORDER BY created_at DESC LIMIT 10", array( get_current_user_id() )) );
         
-        $html = '<h2>Recently added items</h2><ul class="cart_list product_list_widget ">';
+        $html = "";
         if(count($items) > 0){ 
+            $html = '<h2>Recently added items</h2><ul class="cart_list product_list_widget ">';
             foreach ($items as $key => $item) {
                 $pdt  = new WC_Product($item->product_id);
                 $html.= '<li><a href="'.get_permalink($item->product_id).'">'.get_the_post_thumbnail( $item->product_id, array(50, 50) )."<span> {$pdt->get_title()} </span></a>";
-                $html.= '<a class="remove_item" id="dscartitem" data-dscartid="'.$item->id.'" title="Remove this item" style="cursor:pointer">remove</a>';
+                $html.= '<a class="remove_item dscartitem" data-dscartid="'.$item->id.'" title="Remove this item" style="cursor:pointer">remove</a>';
                 $html.= '<span class="quantity">'.$item->quantity.' × '.wc_price($item->price).'</span></li>';            
             }   
             $html .= '</ul><div><button class="button cart" style="text-align:center; width:100%">View Order Basket</button></div>'; 
         }else{
-            $html .= '<li>No Items to Display</li>'; 
-        }
+            $html .= '<p>No Products to display</p>'; 
+        } 
         $html .= '</ul>'; 
  
         return $html;

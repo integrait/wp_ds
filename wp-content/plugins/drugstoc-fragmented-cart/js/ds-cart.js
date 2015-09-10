@@ -56,7 +56,8 @@ jQuery(document).ready(function(event) {
                 console.log(data);
                 if(data.code == 1){ 
                     jQuery("span.dscart-items-number").html(data.count); // <<< Update Count 
-                    jQuery('input#ds-addtocart').val("Added to Order Basket");
+                    jQuery("div.widget_shopping_cart_content").html(data.order_items);
+                    jQuery('input#ds-addtocart').val("Added to Order Basket"); 
                 }else{
                     jQuery('input#ds-addtocart').val("Add to Order Basket");
                     alert(data.message);
@@ -100,7 +101,7 @@ jQuery(document).ready(function(event) {
         return false;
     });
 
-    // Remove button click
+    // Remove button click - Custom Cart Page
     jQuery('td.dscartitem, a.dscartitem').on('click', function(e){ 
     	// Add Confirm Button here <<<<<
         var r = confirm("Are you sure?");
@@ -122,24 +123,27 @@ jQuery(document).ready(function(event) {
     });
 
     // Remove button click - Mini-cart
-    jQuery('li').delegate('a.remove_item#dscartitem', 'click',function(e){ 
-        
+	jQuery(document).on('click', 'a.remove_item.dscartitem', function(e){        
         // Add Confirm Button here <<<<<
         jQuery(this).parent().css({ 'background-color':'red', 'opacity':0.6 });
+
         var self = this;
-        alert("Remove this item");
-        // jQuery.ajax({
-        //     url: ds_cart.ajaxurl,
-        //     method: "POST",
-        //     data: {
-        //         action: 'remove-from-dscart',
-        //         dscartid: jQuery(this).data('dscartid'), 
-        //         nonce: ds_cart.ds_cart_nouce
-        //     },
-        //     success: function(data){  
-        //         self.parent()[0].remove();
-        //     }
-        // });   
+        jQuery.ajax({
+            url: ds_cart.ajaxurl,
+            method: "POST",
+            data: {
+                action: 'remove-from-dscart',
+                dscartid: jQuery(this).data('dscartid'), 
+                nonce: ds_cart.ds_cart_nouce
+            },
+            success: function(data){  
+                jQuery(self).parent()[0].remove();
+                jQuery("span.dscart-items-number").html(data.count);
+                if(data.count == 0){
+                    jQuery("div.widget_shopping_cart_content").html("<p>No Products to display</p>");
+                }
+            }
+        });   
     });	
 
     // Checkout Distributor items
@@ -148,9 +152,9 @@ jQuery(document).ready(function(event) {
      	var cart_n = jQuery('span.dscart-items-number').html();
     	
     	if(cart_n == "0") {
-  		alert("No items to checkout");
-		return false;
-	}
+	  		alert("No Products to Checkout");
+			return false;
+		}
 
         jQuery(this).val("Processing items...");
 
@@ -181,4 +185,3 @@ jQuery(document).ready(function(event) {
     });
 
 }); //end document.ready
- 
