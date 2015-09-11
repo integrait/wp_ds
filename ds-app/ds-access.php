@@ -36,8 +36,8 @@ if(count($results) < 1){
 
 // Compare Password hashes
 if($drugstoc->check_password($password, $results['user_pass'])){
-	// $rs = $drugstoc->exec("SELECT ID, user_login, user_email, (SELECT meta_value FROM wp_usermeta WHERE meta_key='woocommerce_api_consumer_key' and user_id=9) as 'key', (select meta_value from wp_usermeta where meta_key='woocommerce_api_consumer_secret' and user_id=9) as 'secret' FROM wp_users where ID = 9;");
-	$rs = $drugstoc->exec("SELECT ID, user_login, user_email, (SELECT meta_value FROM wp_usermeta WHERE meta_key='woocommerce_api_consumer_key' and user_id={$results['ID']}) as 'key', (select meta_value from wp_usermeta where meta_key='woocommerce_api_consumer_secret' and user_id={$results['ID']}) as 'secret' FROM wp_users where ID = {$results['ID']} LIMIT 1;");
+	 
+	$rs = $drugstoc->exec("SELECT ID, user_login, user_email, (SELECT meta_value FROM wp_usermeta WHERE meta_key='primary_distributor' and user_id={$results['ID']}) as 'distributor_key', (SELECT meta_value FROM wp_usermeta WHERE meta_key='woocommerce_api_consumer_key' and user_id={$results['ID']}) as 'key', (select meta_value from wp_usermeta where meta_key='woocommerce_api_consumer_secret' and user_id={$results['ID']}) as 'secret' FROM wp_users where ID = {$results['ID']} LIMIT 1;");
 	$results = $rs->fetch_assoc();  
 } else { 
 	$results = array('error_msg' => 'Invalid Password');

@@ -170,8 +170,7 @@ class DS_FeaturedManufacturer
  
       $m_list = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of_pdts FROM wp_terms as t INNER JOIN wp_term_taxonomy as p on t.term_id = p.term_id INNER JOIN wp_term_relationships as wtr on wtr.term_taxonomy_id = p.term_taxonomy_id WHERE p.taxonomy LIKE 'pa_manufacturer' and t.name != 'CHECK PICTURE' GROUP BY t.name ORDER BY no_of_pdts DESC LIMIT 30");
  
-      // if(count($m_list) > 0) return $m_list[ array_rand($m_list) ]->name;
-      if(count($m_list) > 0) return $m_list[ 'greenfield-pharm-ltd' ]->name;
+      if(count($m_list) > 0) return $m_list[ array_rand($m_list) ]->name;
       else return null;
 
      }
@@ -180,13 +179,11 @@ class DS_FeaturedManufacturer
     // [featured_manufacturer]
     function ds_feature_manufacturer()
     { 
-      // $manufacturer = $this->get_random_manufacturer(); // Randomly select a manufacturer
+       $manufacturer = $this->get_random_manufacturer(); // Randomly select a manufacturer
  
-      // if($this->getProductCount($manufacturer) < 3) // Re-run if less than 3
-      //   $manufacturer = $this->get_random_manufacturer(); 
+       if($this->getProductCount($manufacturer) < 3) // Re-run if less than 3
+         $manufacturer = $this->get_random_manufacturer(); 
  
-      $manufacturer = 'Greenfield Pharm Ltd.';
-
       $args['meta_query'][] = array(
           'key'     => '_visibility',
           'value'   => array('catalog', 'visible'),
