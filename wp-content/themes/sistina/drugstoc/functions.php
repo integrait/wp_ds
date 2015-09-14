@@ -87,7 +87,7 @@ function wooc_extra_register_fields( ) {
 
             <option value="hospital" selected="selected">Hospital</option>
 
-	    <option value="Doctor">Doctor</option>
+	    <option value="doctor">Doctor</option>
         </select>
 
     </p>
@@ -205,21 +205,20 @@ add_filter( 'woocommerce_registration_errors', 'registration_errors_validation' 
 add_action('woocommerce_created_customer','adding_extra_reg_fields');
 
 function user_autologout(){
-   if ( is_user_logged_in() ) {
-      $current_user = wp_get_current_user();
-      $user_id = $current_user->ID;
-      $approved_status = get_user_meta($user_id, 'wp-approve-user', true);
-      //if the user hasn't been approved yet by WP Approve User plugin, destroy the cookie to kill the session and log them out
-      if ( $approved_status == 1 ){
-      //if(!current_user_can('ds_unverified')){
-          return $redirect_url;
-      }else{
-      	$redirect_url = get_permalink(woocommerce_get_page_id('myaccount')) . "?approved=false";
-      	wp_logout();
-      	exit();
-      }
+  if ( is_user_logged_in() ) {
+    $current_user = wp_get_current_user();
+    $user_id = $current_user->ID;
+    $approved_status = (in_array('ds_unverified', $current_user->roles))? 1 : 0; // get_user_meta($user_id, 'wp-approve-user', true);
+    //if the user hasn't been approved yet by WP Approve User plugin, destroy the cookie to kill the session and log them out
+    if ( $approved_status == 1 ){ 
+      $redirect_url = get_permalink(woocommerce_get_page_id('myaccount')) . "?approved=false";
+      wp_logout();
+      return $redirect_url; 
+    }else{
+      return $redirect_url;
     }
-} 
+  }
+}
 
 add_action('woocommerce_registration_redirect', 'user_autologout', 2);
 
