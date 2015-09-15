@@ -179,10 +179,12 @@ class DS_FeaturedManufacturer
     // [featured_manufacturer]
     function ds_feature_manufacturer()
     { 
-       $manufacturer = $this->get_random_manufacturer(); // Randomly select a manufacturer
- 
-       if($this->getProductCount($manufacturer) < 3) // Re-run if less than 3
-         $manufacturer = $this->get_random_manufacturer(); 
+      // $manufacturer = $this->get_random_manufacturer(); // Randomly select a manufacturer
+
+      // if($this->getProductCount($manufacturer) < 3) // Re-run if less than 3
+      //   $manufacturer = $this->get_random_manufacturer();  
+
+      $manufacturer = 'Afrab-Chem Ltd.'; 
  
       $args['meta_query'][] = array(
           'key'     => '_visibility',
