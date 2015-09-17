@@ -4,8 +4,7 @@ jQuery(document).ready(function(event) {
             { "bSortable": false, "aTargets": [0] }
         ],
         "bProcessing":  true,
-        "bSortClasses": false,
-        "deferLoading": 20,
+        "bSortClasses": false, 
         "orderClasses": false
     }),
         table2 = jQuery('#allOtherProductsTable').dataTable({
@@ -13,8 +12,7 @@ jQuery(document).ready(function(event) {
             { "bSortable": false, "aTargets": [0] }
         ],
         "bProcessing":  true,
-        "bSortClasses": false,
-        "deferLoading": 20,
+        "bSortClasses": false, 
         "orderClasses": false 
     }), 
     featured_count = 0;
