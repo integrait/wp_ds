@@ -220,6 +220,31 @@ class DS_Util
     return $show; 
   }
 
+  // List of All Distributor Codes
+  public static function distributors($except='')
+  { 
+    global $wpdb;
+
+    $q = "SELECT DISTINCT * FROM `wp_usermeta` WHERE meta_key = 'primary_distributor' AND meta_value!='' AND meta_value NOT LIKE '%_dimprice' ";
+    $q.= ($except!='')? "AND meta_value NOT LIKE '{$except}'":"";
+    $q.= " GROUP BY meta_value";
+
+    $distributors = $wpdb->get_results($q);
+    $all = array();
+    foreach ($distributors as $key => $value) {
+      $all[] = '"'.$value->meta_value.'"';
+    }
+
+    return join(',',$all);
+  }
+
+  // Pluck Arrays the fabulous way
+  public static function array_pluck ($key, $array) {
+      return array_map(function ($item) use ($key) {
+          return $item[$key];
+      }, $array); 
+  }
+
   // Deactivate DS Referral Code
   public function ds_util_deactivate()
   {
@@ -234,7 +259,6 @@ endif;
 
 // Activate Plugin 
 DS_Util::setup();
-
 
 
 

@@ -48,5 +48,3 @@ RewriteCond %{HTTP_HOST} ^drugstoc\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.drugstoc\.org$
 RewriteRule ^/?$ "http\:\/\/drugstoc\.com" [R=301,L]
 
-AuthType Basic
-require valid-user

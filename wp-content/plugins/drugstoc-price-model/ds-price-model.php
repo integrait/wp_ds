@@ -421,8 +421,19 @@ class DrugstocPriceModel
             echo "<h2>This page is restricted to only Registered DrugStoc Distributors</h2><br/>";
         }else{
             $username  = get_user_meta($id,'nickname',true);
-            $primary_distributor = get_user_meta($id,'primary_distributor',true);  
-            $products = $wpdb->get_results("SELECT wp_posts.*, wp_postmeta.meta_key, wp_postmeta.meta_value FROM wp_posts INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id WHERE wp_posts.post_type='product' AND wp_posts.post_status!='trash' AND wp_postmeta.meta_key='$primary_distributor' AND wp_postmeta.meta_value = '' "); 
+            
+            $primary_distributor = get_user_meta($id,'primary_distributor', true); 
+
+            $distributors = DS_Util::distributors($primary_distributor); // Get All Other Distributors 
+            $query = "SELECT wp_posts.*, wp_postmeta.meta_key, wp_postmeta.meta_value FROM wp_posts INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id 
+                WHERE wp_posts.post_type = 'product' AND wp_posts.post_status!='trash'
+                AND wp_postmeta.meta_key IN ({$distributors}) AND wp_postmeta.meta_value != ''
+                AND wp_posts.ID NOT IN (
+                    SELECT post_id FROM wp_postmeta WHERE wp_postmeta.meta_key = '{$primary_distributor}' AND wp_postmeta.meta_value != ''
+                ) GROUP BY wp_posts.ID";
+
+            // $products = $wpdb->get_results("SELECT wp_posts.*, wp_postmeta.meta_key, wp_postmeta.meta_value FROM wp_posts INNER JOIN wp_postmeta ON wp_posts.id = wp_postmeta.post_id WHERE wp_posts.post_type='product' AND wp_posts.post_status!='trash' AND wp_postmeta.meta_key='$primary_distributor' AND wp_postmeta.meta_value = '' "); 
+            $products = $wpdb->get_results($query); 
             
             ?> 
             <h5>Other DrugStoc Products</h5>
@@ -441,7 +452,7 @@ class DrugstocPriceModel
                     </tr> 
                 </thead>
                 <tbody> 
-            <?php  
+            	<?php  
                 $sn = 0;
  
                 foreach ($products as $key => $product_) {
@@ -453,13 +464,13 @@ class DrugstocPriceModel
                     $pa_composition = $product->get_attribute("pa_composition");
                     $pa_manufacturer = $product->get_attribute("pa_manufacturer");
                     $distributor_price = get_post_meta($product_->ID, $primary_distributor, true);
-                ?>
+                	?>
                     <tr>
                         <td><input type="checkbox" name="chk_price_drugs" value="<?php echo $product_->ID; ?>"/></td>
                         <td><?php echo $product_->ID; ?></td> 
                         <td>
                             <a target="_blank" href="<?php echo get_permalink($product_->ID);?>">
-                                <?php echo get_the_post_thumbnail( $product_->ID, array(65,65) )." : {$product_->post_title} [$product_->post_status]"; ?>
+                                <?php echo get_the_post_thumbnail( $product_->ID, array(65,65) )." : {$product_->post_title}"; ?>
                             </a>
                         </td>
                         <td><?php echo $pa_manufacturer; ?></td> 

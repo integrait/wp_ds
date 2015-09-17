@@ -3,14 +3,20 @@ jQuery(document).ready(function(event) {
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [0] }
         ],
+        "bProcessing":  true,
+        "bSortClasses": false,
+        "deferLoading": 20,
         "orderClasses": false
     }),
         table2 = jQuery('#allOtherProductsTable').dataTable({
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [0] }
         ],
+        "bProcessing":  true,
+        "bSortClasses": false,
+        "deferLoading": 20,
         "orderClasses": false 
-    }),
+    }), 
     featured_count = 0;
 
     jQuery.fn.serializeObject = function() {var o = {}; var a = this.serializeArray(); jQuery.each(a, function() {if (o[this.name] !== undefined) {if (!o[this.name].push) {o[this.name] = [o[this.name]]; } o[this.name].push(this.value || ''); } else {o[this.name] = this.value || ''; } }); return o; };
@@ -109,7 +115,6 @@ jQuery(document).ready(function(event) {
                 ds_price_nouce : MyAjax.ds_price_nouce // send the nonce along with the request
             }, 
             beforeSend: function(){
-                // jQuery(""+thisid).after("<img src='"+MyAjax.pluginurl+"/js/loading.gif' border='0'>");
                 jQuery(".msg").after("<img src='"+MyAjax.pluginurl+"/js/loading.gif' border='0'>");
             },
             success: function(r){
@@ -124,7 +129,6 @@ jQuery(document).ready(function(event) {
             },
             complete: function(){
                 jQuery(".msg + img").remove();
-                // jQuery(""+thisid+"+ img").remove();
             }
         });
     });  
