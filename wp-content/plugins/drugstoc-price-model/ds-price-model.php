@@ -340,6 +340,7 @@ class DrugstocPriceModel
                       <th><input type="checkbox" id="bulk_select" name="bulk_select" value="all" /></th>
                       <th>ID</th> 
                       <th>Product Name</th>
+                      <th>Category</th>
                       <th>Manufacturer</th> 
                       <th>NAFDAC</th>
                       <th>Price(&#8358.00)</th>
@@ -370,6 +371,7 @@ class DrugstocPriceModel
                                 <img src="<?php echo plugins_url("/drugstoc-price-model/images/featured.png");?>" style="width:30px" title="Featured on my page" alt="Featured on my page"/>
                             <?php }?>
                         </td> 
+                        <td><?php echo DS_Util::get_pdt_cat( $product_->ID);?></td>
                         <td><?php echo $pa_manufacturer; ?></td> 
                         <td><?php echo $nafdac_no; ?></td>
                         <td>
@@ -388,6 +390,7 @@ class DrugstocPriceModel
                       <th><input type="checkbox" id="bulk_select2" name="bulk_select" value="all" /></th>
                       <th>ID</th> 
                       <th>Product Name</th>
+                      <th>Category</th>
                       <th>Manufacturer</th> 
                       <th>Nafdac</th>
                       <th>Price(&#8358.00)</th>
@@ -446,6 +449,7 @@ class DrugstocPriceModel
                       <th><input type="checkbox" id="bulk_select_" name="bulk_select_" value="all" /></th>
                       <th>ID</th> 
                       <th>Product Name</th>
+                      <th>Category</th>
                       <th>Manufacturer</th> 
                       <th>NAFDAC</th>
                       <th>Price(&#8358.00)</th>
@@ -473,6 +477,7 @@ class DrugstocPriceModel
                                 <?php echo get_the_post_thumbnail( $product_->ID, array(65,65) )." : {$product_->post_title}"; ?>
                             </a>
                         </td>
+                        <td><?php echo DS_Util::get_pdt_cat( $product_->ID);?></td>
                         <td><?php echo $pa_manufacturer; ?></td> 
                         <td><?php echo $nafdac_no; ?></td>
                         <td>
@@ -491,6 +496,7 @@ class DrugstocPriceModel
                       <th><input type="checkbox" id="bulk_select_2" name="bulk_select_2" value="all" /></th>
                       <th>ID</th> 
                       <th>Product Name</th>
+                      <th>Category</th>
                       <th>Manufacturer</th> 
                       <th>NAFDAC</th>
                       <th>Price(&#8358.00)</th>

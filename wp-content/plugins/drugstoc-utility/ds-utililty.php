@@ -238,6 +238,21 @@ class DS_Util
     return join(',',$all);
   }
 
+  // Get all Product Categories
+  public static function get_pdt_cat($product_id = 0){
+    global $post;
+
+    $categories = array(); 
+    $terms = get_the_terms( $product_id, 'product_cat' );
+    if(count($terms) > 0){
+      foreach ($terms as $term) {
+        $categories[] = $term->name;
+      }
+    } 
+
+    return join(', ', $categories);
+  }
+
   // Pluck Arrays the fabulous way
   public static function array_pluck ($key, $array) {
       return array_map(function ($item) use ($key) {
@@ -259,7 +274,6 @@ endif;
 
 // Activate Plugin 
 DS_Util::setup();
-
 
 
 
