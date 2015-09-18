@@ -244,13 +244,13 @@ class DS_Util
 
     $categories = array(); 
     $terms = get_the_terms( $product_id, 'product_cat' );
-    if(count($terms) > 0){
+    if( is_array($terms) > 0 ){
       foreach ($terms as $term) {
         $categories[] = $term->name;
-      }
-    } 
-
-    return join(', ', $categories);
+      } 
+      return join(', ', $categories);
+    }
+    return '';
   }
 
   // Pluck Arrays the fabulous way
