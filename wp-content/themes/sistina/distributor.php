@@ -14,11 +14,12 @@ $woocommerce_loop['view'] = isset( $_COOKIE[ $cookie_shop_view ] ) ? $_COOKIE[ $
 $distributor = $wp_query->query_vars['distributor'];
 
 // Filters
-$dist_category   = isset($_GET['category'])? esc_attr($_GET['category']):"";
-$pa_composition  = isset($_GET['composition'])? esc_attr($_GET['composition']):"";
-$pa_manufacturer = isset($_GET['manufacturer'])? esc_attr($_GET['manufacturer']):"";
+$dist_category   = isset($_GET['category'])? esc_attr(sanitize_text_field($_GET['category'])):"";
+$pa_composition  = isset($_GET['composition'])? esc_attr(sanitize_text_field($_GET['composition'])):"";
+$pa_manufacturer = isset($_GET['manufacturer'])? esc_attr(sanitize_text_field($_GET['manufacturer'])):"";
 $keyword 		 = isset($_GET['ds'])? esc_attr(sanitize_text_field($_GET['ds'])):""; // << Search Keyword
 $orderby 		 = isset($_GET['orderby'])? esc_attr(sanitize_text_field($_GET['orderby'])):"";
+
 
 $meta_key = "{$distributor}_price"; //custom_color for example
 $paged = explode("/", $_SERVER['REQUEST_URI']);
@@ -154,7 +155,7 @@ if($dist_category != "" && $pa_composition != "" && $pa_manufacturer != ""){
 				'field'    => 'slug',
 				'terms'    => $pa_manufacturer
 		);
-}
+} 
 
 //*********************
 // Sort by Functions 
@@ -211,7 +212,6 @@ $pdt = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of_pdts
   INNER JOIN wp_term_taxonomy as p on t.term_id = p.term_id
   INNER JOIN wp_term_relationships as wtr on wtr.term_taxonomy_id = p.term_taxonomy_id
   WHERE p.taxonomy LIKE 'product_cat' and wtr.object_id IN (
-  	-- $post_ids
   	SELECT p.ID FROM wp_posts as p INNER JOIN wp_postmeta as w on p.ID = w.post_id WHERE p.post_status='publish' AND w.meta_key LIKE '$meta_key' and w.meta_value != ''
   ) GROUP BY t.name ORDER BY t.name ASC ");
 
@@ -220,7 +220,7 @@ $pdt_comp = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of
   INNER JOIN wp_term_taxonomy as p on t.term_id = p.term_id
   INNER JOIN wp_term_relationships as wtr on wtr.term_taxonomy_id = p.term_taxonomy_id
   WHERE p.taxonomy LIKE 'pa_composition' and wtr.object_id IN (
-	SELECT p.ID FROM wp_posts as p INNER JOIN wp_postmeta as w on p.ID = w.post_id WHERE p.post_status='publish' AND w.meta_key LIKE '$meta_key' and w.meta_value != ''
+  	SELECT p.ID FROM wp_posts as p INNER JOIN wp_postmeta as w on p.ID = w.post_id WHERE p.post_status='publish' AND w.meta_key LIKE '$meta_key' and w.meta_value != ''
   ) GROUP BY t.name ORDER BY t.name ASC ");
 
 // Product Manufacturer
@@ -228,15 +228,14 @@ $pdt_manuf = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_o
   INNER JOIN wp_term_taxonomy as p on t.term_id = p.term_id
   INNER JOIN wp_term_relationships as wtr on wtr.term_taxonomy_id = p.term_taxonomy_id
   WHERE p.taxonomy LIKE 'pa_manufacturer' and wtr.object_id IN (
-  	SELECT p.ID FROM wp_posts as p INNER JOIN wp_postmeta as w on p.ID = w.post_id WHERE p.post_status='publish' AND w.meta_key LIKE '$meta_key' and w.meta_value != ''
-  ) GROUP BY t.name ORDER BY t.name ASC");
+	SELECT p.ID FROM wp_posts as p INNER JOIN wp_postmeta as w on p.ID = w.post_id WHERE p.post_status='publish' AND w.meta_key LIKE '$meta_key' and w.meta_value != ''
+  ) GROUP BY t.name ORDER BY t.name ASC ");
 ?>
 <div id="dist_category" style="display:none">
 	<h3 style="margin-bottom: 0">Search</h3>
 	<p style="margin-top: 0"><?php echo $institution?> Products</p>
 	<form method="get" class="search_mini">
 		<input type="text" name="ds" id="search_mini" value="<?php echo $keyword;?>" title="Search all <?php echo $institution;?> products" alt="Search <?php echo $institution;?> products" placeholder="<?php _e( 'Search for...', 'yit' );?>" />
-		<!-- <input type="hidden" name="post_type" value="<?php //echo $search_type ?>" /> -->
 		<input type="submit" value="Search" title="Search all <?php echo $institution;?> products" alt="Search all <?php echo $institution;?> products" style="height: 38px; margin-top: 0; float: right; background-color: rgba(255, 151, 0, 0.75); border-radius: 7px; border: solid 1px #FF9700; color: #fff;"/>
 	</form>
 	<h3>Categories</h3>
@@ -248,7 +247,7 @@ $pdt_manuf = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_o
 			<?php
 			}?>
 		</ul>
-	</div>  
+	</div>
 	<br/>
 	<h3>Filter by Composition</h3>
 	<select onChange="window.location.href=this.value" class="distComposition">
@@ -282,7 +281,6 @@ get_header('shop');
  *
  */
 ?>
-
 <div class="container group">
     <div class="map-user-profile row">
         <div class="user-info-cn span3">
@@ -325,44 +323,48 @@ get_header('shop');
 <?php do_action('woocommerce_before_main_content'); ?>
 
 	<?php do_action( 'woocommerce_archive_description' );
+ 
+	if ( is_user_logged_in() ):
+	    if ( have_posts() ) :
 
-    if ( have_posts() ) :
-
-			/**
-			 * woocommerce_before_shop_loop hook
-			 *
-			 * @hooked woocommerce_result_count - 20
-			 * @hooked woocommerce_catalog_ordering - 30
-			 */
-			do_action( 'woocommerce_before_shop_loop' );
-
-
-			woocommerce_product_loop_start();
-
-			woocommerce_product_subcategories();
-
-			while ( have_posts() ) :  the_post();
-
-				wc_get_template_part( 'content', 'product' );
-
-			endwhile; // end of the loop.
-
-			woocommerce_product_loop_end();
-
-			/**
-			 * woocommerce_after_shop_loop hook
-			 *
-			 * @hooked woocommerce_pagination - 10
-			 */
-			do_action( 'woocommerce_after_shop_loop' );
-
-		 elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
-
-        <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
-
-         <?php do_shortcode('[gdym_didyoumean]');
+				/**
+				 * woocommerce_before_shop_loop hook
+				 *
+				 * @hooked woocommerce_result_count - 20
+				 * @hooked woocommerce_catalog_ordering - 30
+				 */
+				do_action( 'woocommerce_before_shop_loop' );
 
 
+				woocommerce_product_loop_start();
+
+				woocommerce_product_subcategories();
+
+				while ( have_posts() ) :  the_post();
+
+					wc_get_template_part( 'content', 'product' );
+
+				endwhile; // end of the loop.
+
+				woocommerce_product_loop_end();
+
+				/**
+				 * woocommerce_after_shop_loop hook
+				 *
+				 * @hooked woocommerce_pagination - 10
+				 */
+				do_action( 'woocommerce_after_shop_loop' );
+
+			 elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+
+	        <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
+
+	         <?php do_shortcode('[gdym_didyoumean]');
+
+		endif;
+	else :?>
+		<p><?php _e( 'You must be logged in to view this section.', 'yit' ); ?></p>
+	<?php
 	endif;?>
 
 <?php
@@ -431,3 +433,4 @@ h5#distributor_header_verify {
 	jQuery(".distComposition, .distManufacturer").chosen({no_results_text: "Oops, nothing found!"});
 
 </script>
+

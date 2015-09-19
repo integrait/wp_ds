@@ -20,8 +20,8 @@ $manu_slug = trim($manu_slug);
 // Filters
 $dist_category   = isset($_GET['category'])? esc_attr(sanitize_text_field($_GET['category'])):"";
 $pa_composition  = isset($_GET['composition'])? esc_attr(sanitize_text_field($_GET['composition'])):"";
-$keyword 		 = isset($_GET['ds'])? esc_attr(sanitize_text_field($_GET['ds'])):""; // << Search Keyword
-$orderby 		 = isset($_GET['orderby'])? esc_attr(sanitize_text_field($_GET['orderby'])):"";
+$keyword 	 = isset($_GET['ds'])? esc_attr(sanitize_text_field($_GET['ds'])):""; // << Search Keyword
+$orderby 	 = isset($_GET['orderby'])? esc_attr(sanitize_text_field($_GET['orderby'])):"";
 
 $paged = explode("/", $_SERVER['REQUEST_URI']);
 $page_num = is_numeric($paged[ array_search('page', $paged) + 1 ])? $paged[ array_search('page', $paged) + 1 ]: 1;
@@ -74,9 +74,7 @@ $args = array(
 
 if(DS_Util::get_manufacturer_pdts($manu_slug) != null){
 	$ids = DS_Util::get_manufacturer_pdts($manu_slug);
-	if($ids != null){
-		$args['post__in'] = DS_Util::get_manufacturer_pdts($manu_slug);  
-	}
+	if($ids != null) $args['post__in'] = DS_Util::get_manufacturer_pdts($manu_slug);  
 }
 
 $subtitle = "All products by $institution";
@@ -240,17 +238,17 @@ $pdt_comp = $wpdb->get_results("SELECT t.name, t.slug, count(t.term_id) as no_of
 	<h3 style="margin-bottom:0">Distributors</h3>
 		<br/>
 		<ul class="distCategory">  
-	    	<?php
-		$distributors = explode(",", get_user_meta($user->ID,'distributor_list', true) );
-	   	foreach ($distributors as $key => $dist) { ?> 
+	    <?php
+		    $distributors = explode(",", get_user_meta($user->ID,'distributor_list', true) );
+	   		foreach ($distributors as $key => $dist) { ?> 
       		<li>
       			<a href="<?php echo home_url('/vendor/'.substr($dist, count($dist)-1, -6)."/?manufacturer={$manu_slug}");?>" style="color:black">
 	      			<?php echo DS_Util::getDistributorNamebyKey($dist);?>
 	      		</a>
       		</li> 
-		<?php
- 		}?>
-		</ul>  
+		    <?php
+ 			}?>
+		</ul> 
 	<?php
 	}?>
 </div>
@@ -307,41 +305,47 @@ get_header('shop');
 <?php do_action('woocommerce_before_main_content'); ?>
 	<?php do_action( 'woocommerce_archive_description' );
 
-    if ( have_posts() ) :
+    if ( is_user_logged_in() ):
+	    if ( have_posts() ) :
 
-			/**
-			 * woocommerce_before_shop_loop hook
-			 *
-			 * @hooked woocommerce_result_count - 20
-			 * @hooked woocommerce_catalog_ordering - 30
-			 */
-			do_action( 'woocommerce_before_shop_loop' );
+				/**
+				 * woocommerce_before_shop_loop hook
+				 *
+				 * @hooked woocommerce_result_count - 20
+				 * @hooked woocommerce_catalog_ordering - 30
+				 */
+				do_action( 'woocommerce_before_shop_loop' );
 
-			woocommerce_product_loop_start();
 
-			woocommerce_product_subcategories();
+				woocommerce_product_loop_start();
 
-			while ( have_posts() ) : the_post();
+				woocommerce_product_subcategories();
 
-				wc_get_template_part( 'content', 'product' );
+				while ( have_posts() ) :  the_post();
 
-			endwhile; // end of the loop.
+					wc_get_template_part( 'content', 'product' );
 
-			woocommerce_product_loop_end();
+				endwhile; // end of the loop.
 
-			/**
-			 * woocommerce_after_shop_loop hook
-			 *
-			 * @hooked woocommerce_pagination - 10
-			 */
-			do_action( 'woocommerce_after_shop_loop' );
+				woocommerce_product_loop_end();
 
-		 elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+				/**
+				 * woocommerce_after_shop_loop hook
+				 *
+				 * @hooked woocommerce_pagination - 10
+				 */
+				do_action( 'woocommerce_after_shop_loop' );
 
-        <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
+			 elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
-         <?php do_shortcode('[gdym_didyoumean]');
+	        <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
 
+	         <?php do_shortcode('[gdym_didyoumean]');
+
+		endif;
+	else :?>
+		<p><?php _e( 'You must be logged in to view this section.', 'yit' ); ?></p>
+	<?php
 	endif;?>
 
 <?php
@@ -409,3 +413,5 @@ h5#distributor_header_verify {
 	jQuery(".distComposition, .distManufacturer").chosen({no_results_text: "Oops, nothing found!"});
 
 </script>
+
+

@@ -14,3 +14,4 @@
 [27-Aug-2015 10:35:50 CST6CDT] PHP Fatal error:  Call to undefined function is_product_attribute() in /home/drugstoc/public_html/wp-content/themes/sistina/index.php on line 15
 [27-Aug-2015 10:41:17 CST6CDT] PHP Fatal error:  Call to undefined function is_product_attribute() in /home/drugstoc/public_html/wp-content/themes/sistina/index.php on line 15
 [27-Aug-2015 11:54:57 CST6CDT] PHP Fatal error:  Call to undefined function is_product_attribute() in /home/drugstoc/public_html/wp-content/themes/sistina/index.php on line 15
+[18-Sep-2015 03:26:17 CST6CDT] PHP Fatal error:  Call to undefined function wp_reset_query() in /home/drugstoc/public_html/wp-content/themes/sistina/comments.php on line 2

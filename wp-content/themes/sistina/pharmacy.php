@@ -326,7 +326,8 @@ do_action('woocommerce_before_main_content');  ?>
 
 	<?php do_action( 'woocommerce_archive_description' ); 
   
-    if ( have_posts() ) :
+    	if ( is_user_logged_in() ):
+    		if ( have_posts() ) :
 
 			/**
 			 * woocommerce_before_shop_loop hook
@@ -358,13 +359,16 @@ do_action('woocommerce_before_main_content');  ?>
 		 
 		 elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
-        <p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
+        		<p><?php _e( 'No products found which match your selection.', 'yit' ); ?></p>
         
-         <?php do_shortcode('[gdym_didyoumean]');
+         		<?php do_shortcode('[gdym_didyoumean]');
          
 
-	endif;
- 
+		endif;
+ 	else :?>
+        	<p><?php _e( 'You must be logged in to view this section.', 'yit' ); ?></p>
+    		<?php
+    	endif;
 	/**
 	 * woocommerce_after_main_content hook
 	 *
